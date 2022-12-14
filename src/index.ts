@@ -1,4 +1,4 @@
-import "./index.scss"
+import App from "./components/app/app";
 
-let a: number = 5
-console.log(a)
+const app = new App();
+app.init();

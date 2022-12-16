@@ -5,15 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added tailwind">
-      <change afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/controller/controller.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/view/appView.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/products.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/products.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/view/header/header.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/view/header/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Error404/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Error404/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/cart/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/cart/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/product/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/product/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/products/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Router/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/controller.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/view/appView.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/cart.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/product.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/products.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +67,8 @@
       <recent name="$PROJECT_DIR$/src/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/view/header" />
+      <recent name="$PROJECT_DIR$/src/pages/cart" />
       <recent name="$PROJECT_DIR$/src/components" />
     </key>
   </component>

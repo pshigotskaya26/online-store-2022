@@ -1,13 +1,12 @@
 import Controller from "../controller/controller";
 import Router from "../Router";
-import {products} from "../../data/products";
 
 class App {
     controller: Controller;
 
     constructor() {
         this.controller = new Controller();
-        // this.view = new AppView();
+        // this.store = new AppView();
     }
 
     init() {

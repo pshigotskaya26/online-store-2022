@@ -1,4 +1,9 @@
 import Controller from "../controller/controller";
+import CartPage from "../../pages/cart.html"
+import ProductsPage from "../../pages/products.html"
+import ProductPage from "../../pages/product.html"
+import ErrorPage from "../../pages/404.html"
+import MainPage from "../../pages/index.html"
 
 class Router {
     init(controller: Controller) {
@@ -15,23 +20,23 @@ class Router {
             const routeName = name.toString()
             let id = params.id
             if (routeName === "cart") {
-                rootEl.innerHTML = "<h2>cart</h2>"
+                rootEl.innerHTML = CartPage
             } else if (routeName.includes("products")) {
                 if (routeName === "products" && !id) {
-                    rootEl.innerHTML = "<h2>all products</h2>"
+                    rootEl.innerHTML = ProductsPage
                 } else if (routeName.includes("products?")) {
-                    rootEl.innerHTML = "<h2>products with filter</h2>"
+                    rootEl.innerHTML = ProductsPage
                 } else if ((routeName === "products") && !!id) {
-                    rootEl.innerHTML = `<h2>product id ${id}</h2>`
+                    rootEl.innerHTML = ProductPage
                 } else {
-                    rootEl.innerHTML = `<h2>404</h2>`
+                    rootEl.innerHTML = ErrorPage
                 }
 
             } else {
-                rootEl.innerHTML = `<h2>404</h2>`
+                rootEl.innerHTML = ErrorPage
             }
         } else {
-            rootEl.innerHTML = `<h2>main page</h2>`
+            rootEl.innerHTML = MainPage
         }
     }
 }

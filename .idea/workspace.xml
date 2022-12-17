@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="fix: added basic filter layout, fixed errors">
-      <change afterPath="$PROJECT_DIR$/src/components/state/state.ts" afterDir="false" />
+    <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added dafault state">
+      <change afterPath="$PROJECT_DIR$/src/types/FilterParams.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/generateURL.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/isEmpty.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/state/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/state/state.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/products/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +38,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/alexander/projects/rss/online-store/src/components",
+    "last_opened_file_path": "/home/alexander/projects/rss/online-store/src/types",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -45,6 +52,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/types" />
+      <recent name="$PROJECT_DIR$/src/utils" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/pages" />
     </key>
@@ -67,7 +76,7 @@
       <workItem from="1671034142102" duration="7984000" />
       <workItem from="1671132449458" duration="7386000" />
       <workItem from="1671268046032" duration="5508000" />
-      <workItem from="1671302712938" duration="4243000" />
+      <workItem from="1671302712938" duration="10754000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added tailwind">
       <created>1670963668333</created>
@@ -83,7 +92,14 @@
       <option name="project" value="LOCAL" />
       <updated>1671308326772</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: added dafault state">
+      <created>1671308377092</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671308377092</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,6 +108,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: added tailwind" />
     <MESSAGE value="fix: added basic filter layout, fixed errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: added basic filter layout, fixed errors" />
+    <MESSAGE value="feat: added dafault state" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added dafault state" />
   </component>
 </project>

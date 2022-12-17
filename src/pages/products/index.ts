@@ -1,5 +1,6 @@
 import PageContent from "./index.html"
 import {Product} from "../../types/Product";
+import defaultState from "../../components/state/state";
 
 class ProductsPage {
     products: Product[];
@@ -27,8 +28,15 @@ class ProductsPage {
         return template.content.firstChild as HTMLElement;
     }
     private enableFilterProducts() {
-        this.container.addEventListener("input", (e) => {
-            console.log(e.target)
+        this.container.addEventListener("input", (e: Event) => {
+            let target = e.target as HTMLInputElement
+            let category = target.getAttribute("name");
+            let value = target.getAttribute("value");
+            // @ts-ignore
+            defaultState.filterParams[category].push(value)
+            // @ts-ignore
+            console.log( defaultState.filterParams[category] )
+
         })
     }
 
@@ -39,6 +47,7 @@ class ProductsPage {
         this.container.append(title)
         this.container.append(content)
         this.enableFilterProducts()
+
         return this.container
     }
 }

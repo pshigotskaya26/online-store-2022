@@ -1,4 +1,4 @@
-import HeaderTemplate from "./header.html"
+import HeaderTemplate from "./index.html"
 
 const header = document.createElement("header")
 header.innerHTML = HeaderTemplate

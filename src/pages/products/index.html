@@ -1,1 +1,27 @@
-<div>Products page</div>
+<div class="products" style="display: flex">
+    <div class="filter">
+        <h2>Filter</h2>
+        <div>
+            <form id="formid" method="post" action="/Tests/Post/">
+                <fieldset>
+                    <legend>What is Your Favorite Pet?</legend>
+                    <input type="checkbox" name="favorite_pet" value="Cats">Cats<br>
+                    <input type="checkbox" name="favorite_pet" value="Dogs">Dogs<br>
+                    <input type="checkbox" name="favorite_pet" value="Birds">Birds<br>
+                </fieldset>
+                <fieldset>
+                    <legend>What is Your Favorite Pet2?</legend>
+                    <input type="checkbox" name="favorite_pet" value="Cats">Cats1<br>
+                    <input type="checkbox" name="favorite_pet" value="Dogs">Dogs1<br>
+                    <input type="checkbox" name="favorite_pet" value="Birds">Birds1<br>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div class="filter">
+        <h2>Товары</h2>
+        <div id="products">
+
+        </div>
+    </div>
+</div>

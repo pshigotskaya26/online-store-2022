@@ -5,26 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added tailwind">
-      <change afterPath="$PROJECT_DIR$/src/components/view/header/header.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/view/header/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Error404/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Error404/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/cart/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/cart/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/product/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/product/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/products/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/controller/controller.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/state/state.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Router/index.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/controller/controller.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/appView.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/cart.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/product.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/view/header/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/header/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/view/header/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/header/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/products.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/404.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Error404/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/error404/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Error404/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/error404/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/products/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,25 +39,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/alexander/projects/rss/online-store/src/pages&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/alexander/projects/rss/online-store/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/alexander/projects/rss/online-store/src/components",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/home/alexander/projects/rss/online-store/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/pages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -84,6 +79,8 @@
       <workItem from="1671033563104" duration="577000" />
       <workItem from="1671034142102" duration="7984000" />
       <workItem from="1671132449458" duration="7386000" />
+      <workItem from="1671268046032" duration="5508000" />
+      <workItem from="1671302712938" duration="4046000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added tailwind">
       <created>1670963668333</created>

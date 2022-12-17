@@ -1,16 +1,19 @@
 import ProductsPage from "../../pages/products";
 import ProductPage from "../../pages/product";
 import CartPage from "../../pages/cart";
-import ErrorPage from "../../pages/Error404";
-import header from "../view/header";
+import ErrorPage from "../../pages/error404";
+import Header from "../view/header";
+import Controller from "../controller/controller";
 
 class App {
     private container: HTMLElement;
     private initialPage: ProductPage;
     private static defaultPageId = "current-page"
+    private controller: Controller;
 
     constructor() {
         this.container = document.body;
+        this.controller = new Controller()
         this.initialPage = new ProductPage("products-page")
     }
 
@@ -26,7 +29,7 @@ class App {
         } else if (idPage === "products") {
             page = new ProductsPage("products-page");
         } else if (idPage.includes("products?")) {
-            page = new ProductsPage("products-page", idPage);
+            page = new ProductsPage("products-page");
         } else if (idPage.includes("product/")) {
             page = new ProductPage("product-page");
         } else {
@@ -50,18 +53,38 @@ class App {
         }
     }
 
+
     run() {
         addEventListener("DOMContentLoaded", () => {
+            // check URL (params) => parse params => set params
+
+            // render UI
+
+            // PRODUCTS
+                // render filter
+                    //  add eventListener form => change URL => rerender products list
+
+                // render products
+                    //  addEventListener add/remove to cart
+                    //  addEventListener open product
+
+
+
             let hash = window.location.hash.slice(1)
-            this.container.append(header)
+            this.container.append(Header)
             const pageHTML = this.initialPage.render()
             pageHTML.id = App.defaultPageId
             this.container.append(pageHTML)
             if (hash) {
                 App.renderNewPage(hash)
             }
+
+            // Обработчик роутров
             this.enableRouteChange()
+
         })
+
+
     }
 }
 

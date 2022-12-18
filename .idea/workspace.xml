@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added dafault state">
+      <change afterPath="$PROJECT_DIR$/src/components/view/appView.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/view/product/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/main/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/main/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/URLParams.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/getURLParams.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/controller/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/state/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/state/state.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/products.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/product/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/Product.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IsHxonZTOWil0KATZuqpsnpC5J" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/alexander/projects/rss/online-store/src/types&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/alexander/projects/rss/online-store/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/types" />
+      <recent name="$PROJECT_DIR$/src/utils" />
+      <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$/src/pages" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/components/view/header" />
+      <recent name="$PROJECT_DIR$/src/pages/cart" />
+      <recent name="$PROJECT_DIR$/src/components" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="" />
+      <created>1670963619672</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670963619672</updated>
+      <workItem from="1670963620897" duration="1740000" />
+      <workItem from="1671033563104" duration="577000" />
+      <workItem from="1671034142102" duration="7984000" />
+      <workItem from="1671132449458" duration="7386000" />
+      <workItem from="1671268046032" duration="5508000" />
+      <workItem from="1671302712938" duration="13999000" />
+      <workItem from="1671352133425" duration="339000" />
+      <workItem from="1671353129984" duration="11118000" />
+      <workItem from="1671374688128" duration="464000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: added tailwind">
+      <created>1670963668333</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670963668333</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix: added basic filter layout, fixed errors">
+      <created>1671308326772</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1671308326772</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: added dafault state">
+      <created>1671308377092</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1671308377092</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: added tailwind" />
+    <MESSAGE value="fix: added basic filter layout, fixed errors" />
+    <MESSAGE value="feat: added dafault state" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added dafault state" />
+  </component>
+</project>

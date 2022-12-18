@@ -11,7 +11,7 @@ import {getURLParams} from "../../utils/getURLParams";
 
 class App {
     private container: HTMLElement;
-    private initialPage: MainPage;
+    private initialPage: ProductsPage;
     private static defaultPageId = "current-page"
     private controller: Controller;
     private view: AppView;
@@ -20,7 +20,7 @@ class App {
         this.container = document.body;
         this.controller = new Controller()
         this.view = new AppView();
-        this.initialPage = new MainPage("main-page")
+        this.initialPage = new ProductsPage("products-page")
     }
 
     static renderNewPage({hashPage, idProduct, queryParams}: URLParams) {

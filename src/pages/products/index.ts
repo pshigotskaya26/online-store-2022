@@ -24,9 +24,6 @@ class ProductsPage {
     }
 
     private createContentPage() {
-        // createFilter()
-        // createProductsList()
-
         let template = document.createElement("template");
         template.innerHTML = PageContent;
         return template.content.firstChild as HTMLElement;
@@ -61,10 +58,7 @@ class ProductsPage {
         this.container.append(title)
         this.container.append(content)
         this.enableFilterProducts()
-        content.querySelector("#testtt")?.addEventListener("click", () => {
-            let products = this.controller.getProducts(defaultState.filterParams)
-            this.view.drawProducts(products)
-        })
+
         return this.container
     }
 }

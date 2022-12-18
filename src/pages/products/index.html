@@ -1,27 +1,367 @@
-<div class="products" style="display: flex">
-    <div class="filter">
-        <h2>Filter</h2>
-        <div>
-            <form id="formid" method="post" action="/Tests/Post/">
-                <fieldset>
-                    <legend>Brand</legend>
-                    <input type="checkbox" name="brand" value="Apple">Apple<br>
-                    <input type="checkbox" name="brand" value="Samsung">Samsung<br>
-                </fieldset>
-                <fieldset>
-                    <legend>Color</legend>
-                    <input type="checkbox" name="color" value="Black">Black<br>
-                    <input type="checkbox" name="color" value="White">White<br>
-                </fieldset>
-
-            </form>
-            <button id="testtt">send</button>
+<main class="main">
+    <div class="container main__container">
+        <div class="filters">
+            <h2 class="filters__title">Параметры:</h2>
+            <div class="search">
+                <h3 class="search__title">Поиск <span class="search__by-name">(по названию)</span></h3>
+                <input type="search" class="search-input">
+            </div>
+            <div class="category">
+                <h3 class="category__title">Категория:</h3>
+                <div class="category-filter-list filter-list">
+                    <div class="filter-item">
+                        <input class type="checkbox" id="smartphones">
+                        <label for="smartphones">smartphones</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="laptops">
+                        <label for="laptops">laptops</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="fragrances">
+                        <label for="fragrances">fragrances</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="skincare">
+                        <label for="skincare">skincare</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="groceries">
+                        <label for="groceries">groceries</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="home-decoration">
+                        <label for="home-decoration">home-decoration</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="furniture">
+                        <label for="furniture">furniture</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="tops">
+                        <label for="tops">tops</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="womens-dresses">
+                        <label for="womens-dresses">womens-dresses</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="womens-shoes">
+                        <label for="womens-shoes">womens-shoes</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="mens-shirts">
+                        <label for="mens-shirts">mens-shirts</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="mens-shoes">
+                        <label for="mens-shoes">mens-shoes</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="mens-watches">
+                        <label for="mens-watches">mens-watches</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="womens-watches">
+                        <label for="womens-watches">womens-watches</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="womens-bags">
+                        <label for="womens-bags">womens-bags</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="womens-jewellery">
+                        <label for="womens-jewellery">womens-jewellery</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="sunglasses">
+                        <label for="sunglasses">sunglasses</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="automotive">
+                        <label for="automotive">automotive</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="motorcycle">
+                        <label for="motorcycle">motorcycle</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="lighting">
+                        <label for="lighting">lighting</label>
+                        <span class="count-stock">(5/5)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="brand">
+                <h3 class="brand__title">Производитель:</h3>
+                <div class="brand-filter-list filter-list">
+                    <div class="filter-item">
+                        <input class type="checkbox" id="Apple">
+                        <label for="Apple">Apple</label>
+                        <span class="count-stock">(3/3)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="Samsung">
+                        <label for="Samsung">Samsung</label>
+                        <span class="count-stock">(2/2)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="OPPO">
+                        <label for="OPPO">OPPO</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="Huawei">
+                        <label for="Huawei">Huawei</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="Microsoft Surface">
+                        <label for="Microsoft Surface">Microsoft Surface</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="Infinix">
+                        <label for="Infinix">Infinix</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="HP Pavilion">
+                        <label for="HP Pavilion">HP Pavilion</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="Impression of Acqua Di Gio">
+                        <label for="Impression of Acqua Di Gio">Impression of Acqua Di Gio</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                    <div class="filter-item">
+                        <input type="checkbox" id="Royal_Mirage">
+                        <label for="Royal_Mirage">Royal_Mirage</label>
+                        <span class="count-stock">(1/1)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="price">
+                <h3 class="price__title">Стоимость:</h3>
+                <div class="price-data">
+                    <div class="price__from">0<span class="price-unit">$</span></div>
+                    <div class="price__to">1000<span class="price-unit">$</span></div>
+                </div>
+                <div class="price-ranges">
+                    <input type="range" class="range__from range price-range" min="0" max="100" value="0">
+                    <input type="range" class="range__to range price-range" min="0" max="100" value="100">
+                </div>
+            </div>
+            <div class="release-date">
+                <h3 class="release-date__title">Дата выхода:</h3>
+                <div class="release-date-data">
+                    <div class="release-date-data__from">2018 <span class="release-date-unit">г.</span></div>
+                    <div class="release-date-data__to">2022 <span class="release-date-unit">г.</span></div>
+                </div>
+                <div class="release-date-ranges">
+                    <input type="range" class="range__from range release-date-range" min="0" max="100" value="0">
+                    <input type="range" class="range__to range release-date-range" min="0" max="100" value="100">
+                </div>
+            </div>
+            <div class="color">
+                <h3 class="color__title">Цвет:</h3>
+                <div class="color__data">
+                    <div class="data-color data-color_red active"></div>
+                    <div class="data-color data-color_black"></div>
+                    <div class="data-color data-color_white"></div>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="button button-reset">Сбросить фильтры</button>
+                <button class="button button--copy-link">Копировать ссылку</button>
+            </div>
+        </div>
+        <div class="catalog">
+            <h2 class="catalog__title">Каталог:</h2>
+            <div class="catalog__content">
+                <div class="catalog__sort">
+                    <div class="sort-view">
+                        <div class="icon-view icon-view_small"></div>
+                        <div class="icon-view icon-view_big active"></div>
+                    </div>
+                    <div class="count-products">Найдено: <span class="count-found-products">144</span></div>
+                    <div class="sort-bar">
+                        <div class="sort-bar__text">Сортировать по:</div>
+                        <select name="select-parametr">
+                            <option value="price-ASC">По возрастанию цены</option>
+                            <option value="price-DESC">По убыванию цены</option>
+                            <option value="raiting-ASC">По возрастанию рейтинга</option>
+                            <option value="raiting-DESC">По убыванию рейтинга</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="catalog__products">
+                    <div class="products">
+                        <div class="product-card active">
+                            <div class="product-card__image">
+                                <img class="card-image" src="https://i.dummyjson.com/data/products/2/thumbnail.jpg" alt="photo-1">
+                            </div>
+                            <div class="product-card__content">
+                                <h4 class="product-card__title">Apple IPhone 14 128GB</h4>
+                                <div class="product-card__details">
+                                    <div class="product-info">
+                                        <div class="product-brand">Производитель: <span class="product-brand__value">Apple</span></div>
+                                        <div class="product-year">Год выхода: <span class="product-year__value">2022</span></div>
+                                        <div class="product-color">Цвет: <span class="product-color__value">красный</span></div>
+                                        <div class="product-block">
+                                            <div class="product-stock">На складе: <span class="product-stock__value">14 <span class="product-stock-unit">шт.</span></span></div>
+                                            <button class="button active">В корзине</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img class="card-image" src="https://i.dummyjson.com/data/products/5/thumbnail.jpg" alt="photo-1">
+                            </div>
+                            <div class="product-card__content">
+                                <h4 class="product-card__title">Apple IPhone 14 128GB</h4>
+                                <div class="product-card__details">
+                                    <div class="product-info">
+                                        <div class="product-brand">Производитель: <span class="product-brand__value">Apple</span></div>
+                                        <div class="product-year">Год выхода: <span class="product-year__value">2022</span></div>
+                                        <div class="product-color">Цвет: <span class="product-color__value">красный</span></div>
+                                        <div class="product-block">
+                                            <div class="product-stock">На складе: <span class="product-stock__value">14 <span class="product-stock-unit">шт.</span></span></div>
+                                            <button class="button">Добавить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img class="card-image" src="https://i.dummyjson.com/data/products/6/2.jpg" alt="photo-1">
+                            </div>
+                            <div class="product-card__content">
+                                <h4 class="product-card__title">Apple IPhone 14 128GB</h4>
+                                <div class="product-card__details">
+                                    <div class="product-info">
+                                        <div class="product-brand">Производитель: <span class="product-brand__value">Apple</span></div>
+                                        <div class="product-year">Год выхода: <span class="product-year__value">2022</span></div>
+                                        <div class="product-color">Цвет: <span class="product-color__value">красный</span></div>
+                                        <div class="product-block">
+                                            <div class="product-stock">На складе: <span class="product-stock__value">14 <span class="product-stock-unit">шт.</span></span></div>
+                                            <button class="button">Добавить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card active">
+                            <div class="product-card__image">
+                                <img class="card-image" src="https://i.dummyjson.com/data/products/2/thumbnail.jpg" alt="photo-1">
+                            </div>
+                            <div class="product-card__content">
+                                <h4 class="product-card__title">Apple IPhone 14 128GB</h4>
+                                <div class="product-card__details">
+                                    <div class="product-info">
+                                        <div class="product-brand">Производитель: <span class="product-brand__value">Apple</span></div>
+                                        <div class="product-year">Год выхода: <span class="product-year__value">2022</span></div>
+                                        <div class="product-color">Цвет: <span class="product-color__value">красный</span></div>
+                                        <div class="product-block">
+                                            <div class="product-stock">На складе: <span class="product-stock__value">14 <span class="product-stock-unit">шт.</span></span></div>
+                                            <button class="button active">В корзине</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img class="card-image" src="https://i.dummyjson.com/data/products/5/thumbnail.jpg" alt="photo-1">
+                            </div>
+                            <div class="product-card__content">
+                                <h4 class="product-card__title">Apple IPhone 14 128GB</h4>
+                                <div class="product-card__details">
+                                    <div class="product-info">
+                                        <div class="product-brand">Производитель: <span class="product-brand__value">Apple</span></div>
+                                        <div class="product-year">Год выхода: <span class="product-year__value">2022</span></div>
+                                        <div class="product-color">Цвет: <span class="product-color__value">красный</span></div>
+                                        <div class="product-block">
+                                            <div class="product-stock">На складе: <span class="product-stock__value">14 <span class="product-stock-unit">шт.</span></span></div>
+                                            <button class="button">Добавить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-card">
+                            <div class="product-card__image">
+                                <img class="card-image" src="https://i.dummyjson.com/data/products/6/2.jpg" alt="photo-1">
+                            </div>
+                            <div class="product-card__content">
+                                <h4 class="product-card__title">Apple IPhone 14 128GB</h4>
+                                <div class="product-card__details">
+                                    <div class="product-info">
+                                        <div class="product-brand">Производитель: <span class="product-brand__value">Apple</span></div>
+                                        <div class="product-year">Год выхода: <span class="product-year__value">2022</span></div>
+                                        <div class="product-color">Цвет: <span class="product-color__value">красный</span></div>
+                                        <div class="product-block">
+                                            <div class="product-stock">На складе: <span class="product-stock__value">14 <span class="product-stock-unit">шт.</span></span></div>
+                                            <button class="button">Добавить</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="filter">
-        <h2>Товары</h2>
-        <div id="products">
+</main>
 
-        </div>
-    </div>
-</div>
+<!--<div class="products" style="display: flex">-->
+<!--    <div class="filter">-->
+<!--        <h2>Filter</h2>-->
+<!--        <div>-->
+<!--            <form id="formid" method="post" action="/Tests/Post/">-->
+<!--                <fieldset>-->
+<!--                    <legend>Brand</legend>-->
+<!--                    <input type="checkbox" name="brand" value="Apple">Apple<br>-->
+<!--                    <input type="checkbox" name="brand" value="Samsung">Samsung<br>-->
+<!--                </fieldset>-->
+<!--                <fieldset>-->
+<!--                    <legend>Color</legend>-->
+<!--                    <input type="checkbox" name="color" value="Black">Black<br>-->
+<!--                    <input type="checkbox" name="color" value="White">White<br>-->
+<!--                </fieldset>-->
+
+<!--            </form>-->
+<!--            <button id="testtt">send</button>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="filter">-->
+<!--        <h2>Товары</h2>-->
+<!--        <div id="products">-->
+
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->

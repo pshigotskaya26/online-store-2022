@@ -2,6 +2,7 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const baseConfig = {
 	entry: path.resolve(__dirname, './src/index.ts'),
@@ -10,18 +11,36 @@ const baseConfig = {
 	module: {
 		rules: [
 			{
+				test: /\.html$/i,
+				loader: "html-loader",
+				options: {
+				  minimize: false,
+				},
+			},
+			{
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/,
+			},
+			{
+				test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
+				type: 'asset/resource',
 			},
 			{
 				test: /\.s[ac]ss$/i,
 				use: [
 					"style-loader",
 					"css-loader",
-					"sass-loader",
+					"sass-loader"
 				],
 			},
+			{
+				test: /\.(woff|woff2|ttf)$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name].[ext]'
+				}
+			}
 		],
 	},
 	resolve: {
@@ -30,6 +49,7 @@ const baseConfig = {
 	output: {
 		filename: 'index.js',
 		path: path.resolve(__dirname, 'dist'),
+		assetModuleFilename: 'assets/[name][ext]',
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
@@ -37,6 +57,9 @@ const baseConfig = {
 			filename: 'index.html',
 		}),
 		new CleanWebpackPlugin(),
+		new MiniCssExtractPlugin({
+			filename: '[name].css',
+		})
 	],
 };
 

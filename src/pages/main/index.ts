@@ -1,11 +1,9 @@
-class ProductPage {
+class MainPage {
     private container: HTMLElement;
-    idElem?: string
 
-    constructor(idTag: string, idElem: string) {
+    constructor(id: string) {
         this.container = document.createElement("div");
-        this.container.id = idTag
-        this.idElem = idElem
+        this.container.id = id
     }
 
     private createHeaderTitle(text: string) {
@@ -15,11 +13,14 @@ class ProductPage {
     }
 
     private createContentPage() {
-        return `${this.idElem ?? this.idElem}`
+        return "1"
+        // let headerTitle = document.createElement("h1");
+        // headerTitle.innerHTML = text;
+        // return headerTitle;
     }
 
     render() {
-        const title = this.createHeaderTitle("Product Page")
+        const title = this.createHeaderTitle("Main Page")
         this.container.append(title)
         const content = this.createContentPage()
         this.container.append(content)
@@ -27,4 +28,4 @@ class ProductPage {
     }
 }
 
-export default ProductPage;
+export default MainPage;

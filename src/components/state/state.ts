@@ -1,8 +1,9 @@
 import Products from "../../pages/products";
 import {FilterParams} from "../../types/FilterParams";
+import {Product} from "../../types/Product";
 
 interface StateInterface {
-    products: Products[],
+    products: Product[],
     filterParams: FilterParams,
     filteredProducts: Products[],
     cart: Products[],

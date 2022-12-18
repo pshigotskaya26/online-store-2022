@@ -1,16 +1,20 @@
 import PageContent from "./index.html"
 import {Product} from "../../types/Product";
 import defaultState from "../../components/state/state";
+import {generateURL} from "../../utils/generateURL";
+import Controller from "../../components/controller/controller";
+import AppView from "../../components/view/appView";
 
 class ProductsPage {
-    products: Product[];
-    filteredProducts: Product[] | [];
+    controller: Controller;
+    view: AppView;
     private container: HTMLElement;
+
     constructor(id: string) {
         this.container = document.createElement("div");
-        this.container.id = id
-        this.products = []
-        this.filteredProducts = []
+        this.container.id = id;
+        this.controller = new Controller()
+        this.view = new AppView()
     }
 
     private createHeaderTitle(text: string) {
@@ -27,17 +31,27 @@ class ProductsPage {
         template.innerHTML = PageContent;
         return template.content.firstChild as HTMLElement;
     }
+
     private enableFilterProducts() {
         this.container.addEventListener("input", (e: Event) => {
             let target = e.target as HTMLInputElement
             let category = target.getAttribute("name");
             let value = target.getAttribute("value");
-            // @ts-ignore
-            defaultState.filterParams[category].push(value)
-            // @ts-ignore
-            console.log( defaultState.filterParams[category] )
-
+            if (target.checked) {
+                // @ts-ignore
+                defaultState.filterParams[category].push(value)
+            } else {
+                // @ts-ignore
+                defaultState.filterParams[category] = defaultState.filterParams[category].filter(n => n !== value)
+            }
+            //
+            let newURL = generateURL(defaultState.filterParams)
+            // window.location.hash = "products/" + newURL
+            window.history.pushState({}, "", "/#products" + newURL);
         })
+
+
+
     }
 
     render() {
@@ -47,7 +61,10 @@ class ProductsPage {
         this.container.append(title)
         this.container.append(content)
         this.enableFilterProducts()
-
+        content.querySelector("#testtt")?.addEventListener("click", () => {
+            let products = this.controller.getProducts(defaultState.filterParams)
+            this.view.drawProducts(products)
+        })
         return this.container
     }
 }

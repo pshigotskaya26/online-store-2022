@@ -11,6 +11,13 @@ const baseConfig = {
 	module: {
 		rules: [
 			{
+				test: /\.html$/i,
+				loader: "html-loader",
+				options: {
+				  minimize: false,
+				},
+			},
+			{
 				test: /\.tsx?$/,
 				use: 'ts-loader',
 				exclude: /node_modules/,

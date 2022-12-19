@@ -8,6 +8,9 @@ import Controller from "../controller/controller";
 import AppView from "../view/appView";
 import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
+import {types} from "sass";
+import Number = types.Number;
+import {ProductInterface} from "../../types/Product";
 
 class App {
     private container: HTMLElement;
@@ -22,7 +25,8 @@ class App {
         this.container = document.body;
         this.initialPage = new ProductsPage("products-page")
     }
-    static renderNewPage({hashPage, idProduct, queryParams}: URLParams) {
+
+    private renderNewPage({hashPage, idProduct, queryParams}: URLParams) {
         const currentPage = <HTMLDivElement>document.getElementById(App.defaultPageId)
         currentPage.innerHTML = ""
         let page: CartPage | ProductPage | ProductsPage | ErrorPage | null = null;
@@ -33,21 +37,27 @@ class App {
         } else if (hashPage.includes("products")) {
             page = new ProductsPage("products-page");
         } else if (hashPage.includes("product/")) {
-            page = new ProductPage("product-page", idProduct ? idProduct : "");
+            if (idProduct) {
+                let product = this.controller.getProduct(idProduct)
+                page = new ProductPage("product-page", product);
+            } else {
+                page = new ErrorPage("error-page");
+            }
+
         } else {
             page = new ErrorPage("error-page");
         }
-
         if (page) {
             const pageHTML = page.render()
             currentPage.append(pageHTML)
         }
     }
+
     private enableRouteChange() {
         addEventListener("hashchange", () => {
             let URLParams: URLParams = getURLParams(window.location.hash)
             console.log(URLParams)
-            App.renderNewPage(URLParams)
+            this.renderNewPage(URLParams)
         })
 
         window.onpopstate = () => {
@@ -56,18 +66,17 @@ class App {
             // App.renderNewPage(URLParams)
         }
     }
+
     private checkLocation() {
-
-
         const pageHTML = this.initialPage.render()
         pageHTML.id = App.defaultPageId
 
         this.container.append(pageHTML)
 
         let URLParams: URLParams = getURLParams(window.location.hash)
-
+        this
         if (URLParams.hashPage) {
-            App.renderNewPage(URLParams)
+            this.renderNewPage(URLParams)
         }
     }
 

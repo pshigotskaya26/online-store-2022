@@ -28,8 +28,8 @@ class ProductsPage {
     private createContentPage() {
         let template = document.createElement("template");
         // Временно создан массив
-        let data: any[] = productsData
-        console.log(data)
+        // let data: PRo[] = productsData
+        // console.log(data)
 
         // Следать 2 компонента
         // Filter
@@ -41,7 +41,7 @@ class ProductsPage {
 
     private enableFilterProducts() {
         this.container.addEventListener("input", (e: Event) => {
-            let target = e.target as HTMLInputElement
+            let target = e.target as HTMLInputElement;
             let category = target.getAttribute("name");
             let value = target.getAttribute("value");
             if (target.checked) {

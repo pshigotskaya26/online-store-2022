@@ -6,20 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added dafault state">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/controller/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/controller.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/state/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/state/state.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/view/appView.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/appView.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/header/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/header/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/view/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/product/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/products.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/cart/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/cart/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/product/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/product/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/product/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/products/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/Product.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/Product.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +82,7 @@
       <workItem from="1671352133425" duration="339000" />
       <workItem from="1671353129984" duration="11118000" />
       <workItem from="1671374688128" duration="464000" />
-      <workItem from="1671472403860" duration="3397000" />
+      <workItem from="1671472403860" duration="8774000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added tailwind">
       <created>1670963668333</created>

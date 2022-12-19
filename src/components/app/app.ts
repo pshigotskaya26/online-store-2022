@@ -3,9 +3,9 @@ import ProductPage from "../../pages/product";
 import CartPage from "../../pages/cart";
 import ErrorPage from "../../pages/error404";
 import Header from "../view/header";
+import Footer from "../view/footer";
 import Controller from "../controller/controller";
 import AppView from "../view/appView";
-import MainPage from "../../pages/main";
 import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
 
@@ -48,11 +48,14 @@ class App {
     private enableRouteChange() {
         addEventListener("hashchange", () => {
             let URLParams: URLParams = getURLParams(window.location.hash)
+            console.log(URLParams)
             App.renderNewPage(URLParams)
         })
 
         window.onpopstate = () => {
-            console.log(window.location.hash.slice(1))
+            console.log("aa")
+            // let URLParams: URLParams = getURLParams(window.location.hash)
+            // App.renderNewPage(URLParams)
         }
     }
 
@@ -80,7 +83,7 @@ class App {
             // check URL (params) => parse params => set params
             this.checkLocation()
 
-
+            this.container.append(Footer)
             // render UI
 
 

@@ -27,13 +27,27 @@ const baseConfig = {
 				type: 'asset/resource',
 			},
 			{
+				test: /\.(png|jpg|svg)$/,
+				loader: 'url-loader'
+			},
+			{
 				test: /\.s[ac]ss$/i,
 				use: [
 					"style-loader",
 					"css-loader",
-					"sass-loader"
+					"sass-loader",
+					{
+						loader: 'sass-resources-loader',
+						options: {
+							resources: [
+								'src/assets/styles/_vars.scss',
+							]
+						}
+					},
 				],
+
 			},
+
 			{
 				test: /\.(woff|woff2|ttf)$/i,
 				type: 'asset/resource',

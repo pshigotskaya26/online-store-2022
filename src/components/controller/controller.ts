@@ -1,12 +1,12 @@
-import {Product} from "../../types/Product";
+import {ProductInterface} from "../../types/Product";
 import {productsData} from "../../data/products";
 import {FilterParams} from "../../types/FilterParams";
 import {generateURL} from "../../utils/generateURL";
 import defaultState from "../state/state";
 
 class Controller {
-    products: Product[];
-    filteredProducts: Product[];
+    products: ProductInterface[];
+    filteredProducts: ProductInterface[];
 
     constructor() {
         this.products = defaultState.products

@@ -8,7 +8,7 @@ export class AppView {
 
     drawProducts(data: any[]) {
         const values = data ?? [];
-        this.product.draw(values)
+        this.product.drawCard(values)
     }
 }
 

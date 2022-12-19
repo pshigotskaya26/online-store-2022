@@ -17,12 +17,11 @@ class App {
     private view: AppView;
 
     constructor() {
-        this.container = document.body;
         this.controller = new Controller()
         this.view = new AppView();
+        this.container = document.body;
         this.initialPage = new ProductsPage("products-page")
     }
-
     static renderNewPage({hashPage, idProduct, queryParams}: URLParams) {
         const currentPage = <HTMLDivElement>document.getElementById(App.defaultPageId)
         currentPage.innerHTML = ""
@@ -44,7 +43,6 @@ class App {
             currentPage.append(pageHTML)
         }
     }
-
     private enableRouteChange() {
         addEventListener("hashchange", () => {
             let URLParams: URLParams = getURLParams(window.location.hash)
@@ -58,7 +56,6 @@ class App {
             // App.renderNewPage(URLParams)
         }
     }
-
     private checkLocation() {
 
 

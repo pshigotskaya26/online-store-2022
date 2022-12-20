@@ -3,27 +3,31 @@ import ProductPage from "../../pages/product";
 import CartPage from "../../pages/cart";
 import ErrorPage from "../../pages/error404";
 import Header from "../view/header";
+import Footer from "../view/footer";
 import Controller from "../controller/controller";
 import AppView from "../view/appView";
-import MainPage from "../../pages/main";
 import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
+import {types} from "sass";
+import Number = types.Number;
+import {ProductInterface} from "../../types/Product";
+import {productsData} from "../../data/products";
 
 class App {
     private container: HTMLElement;
-    private initialPage: MainPage;
+    private initialPage: ProductsPage;
     private static defaultPageId = "current-page"
     private controller: Controller;
     private view: AppView;
 
     constructor() {
-        this.container = document.body;
         this.controller = new Controller()
         this.view = new AppView();
-        this.initialPage = new MainPage("main-page")
+        this.container = document.body;
+        this.initialPage = new ProductsPage("products-page", productsData)
     }
 
-    static renderNewPage({hashPage, idProduct, queryParams}: URLParams) {
+    private renderNewPage({hashPage, idProduct, queryParams}: URLParams) {
         const currentPage = <HTMLDivElement>document.getElementById(App.defaultPageId)
         currentPage.innerHTML = ""
         let page: CartPage | ProductPage | ProductsPage | ErrorPage | null = null;
@@ -32,13 +36,18 @@ class App {
         } else if (hashPage === "cart") {
             page = new CartPage("cart-page");
         } else if (hashPage.includes("products")) {
-            page = new ProductsPage("products-page");
+            page = new ProductsPage("products-page", productsData);
         } else if (hashPage.includes("product/")) {
-            page = new ProductPage("product-page", idProduct ? idProduct : "");
+            if (idProduct) {
+                let product = this.controller.getProduct(idProduct)
+                page = new ProductPage("product-page", product);
+            } else {
+                page = new ErrorPage("error-page");
+            }
+
         } else {
             page = new ErrorPage("error-page");
         }
-
         if (page) {
             const pageHTML = page.render()
             currentPage.append(pageHTML)
@@ -48,26 +57,27 @@ class App {
     private enableRouteChange() {
         addEventListener("hashchange", () => {
             let URLParams: URLParams = getURLParams(window.location.hash)
-            App.renderNewPage(URLParams)
+            console.log(URLParams)
+            this.renderNewPage(URLParams)
         })
 
         window.onpopstate = () => {
-            console.log(window.location.hash.slice(1))
+            console.log("aa")
+            // let URLParams: URLParams = getURLParams(window.location.hash)
+            // App.renderNewPage(URLParams)
         }
     }
 
     private checkLocation() {
-
-
         const pageHTML = this.initialPage.render()
         pageHTML.id = App.defaultPageId
 
         this.container.append(pageHTML)
 
         let URLParams: URLParams = getURLParams(window.location.hash)
-
+        this
         if (URLParams.hashPage) {
-            App.renderNewPage(URLParams)
+            this.renderNewPage(URLParams)
         }
     }
 
@@ -80,7 +90,7 @@ class App {
             // check URL (params) => parse params => set params
             this.checkLocation()
 
-
+            this.container.append(Footer)
             // render UI
 
 

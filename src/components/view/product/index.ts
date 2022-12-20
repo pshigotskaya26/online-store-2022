@@ -1,5 +1,7 @@
+import {ProductInterface} from "../../../types/Product";
+
 class Product {
-    draw(data: any[]) {
+    drawCard(data: ProductInterface[]) {
         (document.querySelector('#products') as HTMLElement).innerHTML = ""
         const fragment = document.createElement("div");
         if (data.length) {
@@ -15,6 +17,13 @@ class Product {
             fragment.append(itemNode);
             document.querySelector('#products')?.append(fragment);
         }
+    }
+
+    drawProductPage(product: ProductInterface) {
+        const fragment = document.createElement("div");
+        fragment.innerHTML = `<h2>${product.title}</h2>`
+
+        return fragment
     }
 
 }

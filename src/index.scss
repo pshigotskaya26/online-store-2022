@@ -1,62 +1,9 @@
 @import 'assets/styles/fonts';
 @import 'assets/styles/vars';
-
 @import 'assets/styles/base';
 
 
-//----------styles for HEADER-------------------
 
-.header {
-	background-color: $color-white;
-}
-.header__container {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	min-height: 8.5rem;
-}
-
-.header__navigation {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	row-gap: 0.8rem;
-}
-
-.navigation {
-	display: flex;
-	column-gap: 2rem;
-}
-
-.navigation-link {
-	font-size: 2.1rem;
-	font-weight: bold;
-	color: $color-text;
-
-	&_activ {
-		color: $color-primery;
-		border-bottom: 0.1rem solid $color-primery;
-	}
-
-	&:hover {
-		color: $color-primery;
-		border-bottom: 0.1rem solid $color-primery;
-		transition: all 0.5s ease-out;
-	}
-}
-
-.basket-info {
-	display: flex;
-	column-gap: 1rem;
-	font-size: 1.7rem;
-	color: $color-text;
-}
-
-.basket-unit {
-	font-size: 1.5rem;
-}
-
-//----------end styles for HEADER-------------------
 
 //----------styles for MAIN-------------------
 
@@ -395,63 +342,3 @@ input[type='range'].range::-webkit-slider-thumb {
 
 //----------end styles for CATALOG-------------------
 
-//----------styles for FOOTER-------------------
-.footer {
-	background-color: $color-black;
-}
-
-.footer__container {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 3rem 1.5rem;
-	color: $color-white;
-}
-
-.github-links {
-	display: flex;
-	flex-direction: column;
-	row-gap: 3rem;
-}
-
-.github-link_github {
-	position: relative;
-	padding-left: 4rem;
-	color: $color-white;
-
-	&::before {
-		position: absolute;
-		content: "";
-		top: -1rem;
-		left: 0;
-		width: 4rem;
-		height: 4rem;
-		background-repeat: no-repeat;
-		background-image: url('assets/icons/icon-github.svg');
-		background-size: contain;
-	}
-}
-
-.github-link_rsschool {
-	position: relative;
-	padding-right: 4rem;
-
-	&::after {
-		position: absolute;
-		content: "";
-		top: -0.6rem;
-		right: 0;
-		width: 9rem;
-		height: 3rem;
-		background-repeat: no-repeat;
-		background-image: url('assets/icons/icon-rsschool.svg');
-		background-size: contain;
-	}
-}
-
-
-.github-link__position {
-	color: $color-text;
-}
-
-//----------end styles for FOOTER-------------------

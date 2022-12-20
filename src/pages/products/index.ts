@@ -1,20 +1,28 @@
 import PageContent from "./index.html"
-import {Product} from "../../types/Product";
 import defaultState from "../../components/state/state";
 import {generateURL} from "../../utils/generateURL";
-import Controller from "../../components/controller/controller";
-import AppView from "../../components/view/appView";
+import {ProductInterface} from "../../types/Product";
+import {FilterParams} from "../../types/FilterParams";
 
 class ProductsPage {
-    controller: Controller;
-    view: AppView;
     private container: HTMLElement;
+    private products: ProductInterface[];
+    private filteredProducts: ProductInterface[];
+    private FilterParams:  FilterParams;
 
-    constructor(id: string) {
-        this.container = document.createElement("div");
+    constructor(id: string, products: ProductInterface[]) {
+        this.container = document.createElement("main");
+        this.container.classList.add("main")
         this.container.id = id;
-        this.controller = new Controller()
-        this.view = new AppView()
+        //Наверное вынести в контроллер
+        this.products = products
+        this.filteredProducts = []
+        this.FilterParams = {
+            brand: [],
+            color: [],
+            year: [],
+            searchQuery: ""
+        }
     }
 
     private createHeaderTitle(text: string) {
@@ -24,17 +32,34 @@ class ProductsPage {
     }
 
     private createContentPage() {
-        // createFilter()
-        // createProductsList()
-
         let template = document.createElement("template");
+        let mainContainer = document.createElement("div")
+        mainContainer.classList.add("main__container")
+
+        let filterd = "filterComponent node el"
+        let list = document.createElement("div")
+
+        this.products.forEach(el => {
+            console.log(el)
+        })
         template.innerHTML = PageContent;
+
+
+        // Временно создан массив
+        // let data: PRo[] = productsData
+        // console.log(data)
+
+        // Следать 2 компонента
+        // Filter
+        // Products List
+
         return template.content.firstChild as HTMLElement;
     }
 
+
     private enableFilterProducts() {
         this.container.addEventListener("input", (e: Event) => {
-            let target = e.target as HTMLInputElement
+            let target = e.target as HTMLInputElement;
             let category = target.getAttribute("name");
             let value = target.getAttribute("value");
             if (target.checked) {
@@ -49,22 +74,17 @@ class ProductsPage {
             // window.location.hash = "products/" + newURL
             window.history.pushState({}, "", "/#products" + newURL);
         })
-
-
-
     }
 
     render() {
         const title = this.createHeaderTitle("Products Page")
         const content = this.createContentPage()
-
-        this.container.append(title)
-        this.container.append(content)
+        const container = document.createElement("div")
+        container.classList.add("container")
+        container.append(title)
+        container.append(content)
+        this.container.append(container)
         this.enableFilterProducts()
-        content.querySelector("#testtt")?.addEventListener("click", () => {
-            let products = this.controller.getProducts(defaultState.filterParams)
-            this.view.drawProducts(products)
-        })
         return this.container
     }
 }

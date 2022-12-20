@@ -1,6 +1,6 @@
-import {Product} from "../types/Product";
+import {ProductInterface} from "../types/Product";
 
-export const productsData: Product[] = [
+export const productsData: ProductInterface[] = [
     {
     "id": 1,
     "title": "iPhone 9",

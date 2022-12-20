@@ -1,16 +1,17 @@
 import Products from "../../pages/products";
 import {FilterParams} from "../../types/FilterParams";
-import {Product} from "../../types/Product";
+import {ProductInterface} from "../../types/Product";
+import {productsData} from "../../data/products";
 
 interface StateInterface {
-    products: Product[],
+    products: ProductInterface[],
     filterParams: FilterParams,
     filteredProducts: Products[],
     cart: Products[],
 }
 
 const defaultState: StateInterface = {
-    products: [],
+    products: productsData,
     filterParams: {
         brand: [],
         color: [],

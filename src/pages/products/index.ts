@@ -1,22 +1,28 @@
 import PageContent from "./index.html"
 import defaultState from "../../components/state/state";
 import {generateURL} from "../../utils/generateURL";
-import Controller from "../../components/controller/controller";
-import AppView from "../../components/view/appView";
-import {productsData} from "../../data/products";
+import {ProductInterface} from "../../types/Product";
+import {FilterParams} from "../../types/FilterParams";
 
 class ProductsPage {
-    controller: Controller;
-    view: AppView;
     private container: HTMLElement;
+    private products: ProductInterface[];
+    private filteredProducts: ProductInterface[];
+    private FilterParams:  FilterParams;
 
-    constructor(id: string) {
+    constructor(id: string, products: ProductInterface[]) {
         this.container = document.createElement("main");
         this.container.classList.add("main")
-
         this.container.id = id;
-        this.controller = new Controller()
-        this.view = new AppView()
+        //Наверное вынести в контроллер
+        this.products = products
+        this.filteredProducts = []
+        this.FilterParams = {
+            brand: [],
+            color: [],
+            year: [],
+            searchQuery: ""
+        }
     }
 
     private createHeaderTitle(text: string) {
@@ -27,6 +33,18 @@ class ProductsPage {
 
     private createContentPage() {
         let template = document.createElement("template");
+        let mainContainer = document.createElement("div")
+        mainContainer.classList.add("main__container")
+
+        let filterd = "filterComponent node el"
+        let list = document.createElement("div")
+
+        this.products.forEach(el => {
+            console.log(el)
+        })
+        template.innerHTML = PageContent;
+
+
         // Временно создан массив
         // let data: PRo[] = productsData
         // console.log(data)
@@ -35,9 +53,9 @@ class ProductsPage {
         // Filter
         // Products List
 
-        template.innerHTML = PageContent;
         return template.content.firstChild as HTMLElement;
     }
+
 
     private enableFilterProducts() {
         this.container.addEventListener("input", (e: Event) => {

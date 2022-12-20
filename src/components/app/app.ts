@@ -11,6 +11,7 @@ import {getURLParams} from "../../utils/getURLParams";
 import {types} from "sass";
 import Number = types.Number;
 import {ProductInterface} from "../../types/Product";
+import {productsData} from "../../data/products";
 
 class App {
     private container: HTMLElement;
@@ -23,7 +24,7 @@ class App {
         this.controller = new Controller()
         this.view = new AppView();
         this.container = document.body;
-        this.initialPage = new ProductsPage("products-page")
+        this.initialPage = new ProductsPage("products-page", productsData)
     }
 
     private renderNewPage({hashPage, idProduct, queryParams}: URLParams) {
@@ -35,7 +36,7 @@ class App {
         } else if (hashPage === "cart") {
             page = new CartPage("cart-page");
         } else if (hashPage.includes("products")) {
-            page = new ProductsPage("products-page");
+            page = new ProductsPage("products-page", productsData);
         } else if (hashPage.includes("product/")) {
             if (idProduct) {
                 let product = this.controller.getProduct(idProduct)

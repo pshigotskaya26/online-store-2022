@@ -3,9 +3,9 @@ import PageTemplate from "./index.html"
 
 class ProductPage {
     private container: HTMLElement;
-    product: ProductInterface | {};
+    product: ProductInterface;
 
-    constructor(idTag: string, product: ProductInterface | {}) {
+    constructor(idTag: string, product: ProductInterface) {
         this.container = document.createElement("main");
         this.container.classList.add("main")
         this.product = product
@@ -13,7 +13,7 @@ class ProductPage {
 
     private createHeaderTitle(text: string) {
         let headerTitle = document.createElement("h1");
-        headerTitle.innerHTML = text;
+        headerTitle.innerHTML = this.product.title;
         return headerTitle;
     }
 
@@ -22,9 +22,13 @@ class ProductPage {
         // Вынести во view
 
         template.innerHTML = PageTemplate;
-        let image: HTMLImageElement | null = template.content.querySelector("#image")
+        let image: HTMLImageElement | null = template.content.querySelector("#image");
+        let title: HTMLImageElement | null = template.content.querySelector(".title");
         if (image) {
-            image.src = this.product.images[0]
+            image.src = this.product.thumbnail
+        }
+        if (title) {
+            title.innerText = this.product.thumbnail
         }
         return <HTMLDivElement>template.content.firstChild
     }

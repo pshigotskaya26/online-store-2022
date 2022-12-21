@@ -25,7 +25,6 @@ class Product {
 
         return fragment
     }
-
 }
 
 export default Product;

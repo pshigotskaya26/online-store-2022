@@ -3,12 +3,13 @@ import defaultState from "../../components/state/state";
 import {generateURL} from "../../utils/generateURL";
 import {ProductInterface} from "../../types/Product";
 import {FilterParams} from "../../types/FilterParams";
+import Filter from "../../components/view/filter";
 
 class ProductsPage {
     private container: HTMLElement;
     private products: ProductInterface[];
     private filteredProducts: ProductInterface[];
-    private FilterParams:  FilterParams;
+    private filterParams: FilterParams;
 
     constructor(id: string, products: ProductInterface[]) {
         this.container = document.createElement("main");
@@ -17,11 +18,12 @@ class ProductsPage {
         //Наверное вынести в контроллер
         this.products = products
         this.filteredProducts = []
-        this.FilterParams = {
-            brand: [],
-            color: [],
-            year: [],
-            searchQuery: ""
+        this.filterParams = {
+            category: ["automotive", "fragrances", "furniture"],
+            brand: ["Apple"],
+            price: [0, 1000],
+            discountPercentage: [10,90],
+            search: "Search Value"
         }
     }
 
@@ -31,48 +33,58 @@ class ProductsPage {
         return headerTitle;
     }
 
+    // let paramsEl = new Filter()
+    //
+
+    // paramsEl.drawFilter(params, this.products)
     private createContentPage() {
-        let template = document.createElement("template");
+        let template = document.createElement("div");
         let mainContainer = document.createElement("div")
         mainContainer.classList.add("main__container")
+        mainContainer.append(this.createFilterBlock())
+        mainContainer.append(this.createListBlock())
+        template.append(mainContainer)
+        return template;
+    }
 
-        let filterd = "filterComponent node el"
-        let list = document.createElement("div")
+    private createFilterBlock() {
+        let template = document.createElement("div")
+        template.classList.add("filters")
+        let title = document.createElement("h2")
+        title.classList.add("filters__title")
+        title.textContent = "Параметры"
+        template.append(title)
 
-        this.products.forEach(el => {
-            console.log(el)
-        })
-        template.innerHTML = PageContent;
 
+        let filter = new Filter(this.filterParams, this.products)
+        template.append(filter.drawFilter())
 
-        // Временно создан массив
-        // let data: PRo[] = productsData
-        // console.log(data)
+        return template
+    }
 
-        // Следать 2 компонента
-        // Filter
-        // Products List
-
-        return template.content.firstChild as HTMLElement;
+    private createListBlock() {
+        let template = document.createElement("div")
+        template.textContent = "createListBlock"
+        return template
     }
 
 
     private enableFilterProducts() {
         this.container.addEventListener("input", (e: Event) => {
             let target = e.target as HTMLInputElement;
-            let category = target.getAttribute("name");
-            let value = target.getAttribute("value");
-            if (target.checked) {
-                // @ts-ignore
-                defaultState.filterParams[category].push(value)
-            } else {
-                // @ts-ignore
-                defaultState.filterParams[category] = defaultState.filterParams[category].filter(n => n !== value)
-            }
+            // let category = target.getAttribute("name");
+            // let value = target.getAttribute("value");
+            // if (target.checked) {
+            //     // @ts-ignore
+            //     defaultState.filterParams[category].push(value)
+            // } else {
+            //     // @ts-ignore
+            //     defaultState.filterParams[category] = defaultState.filterParams[category].filter(n => n !== value)
+            // }
             //
-            let newURL = generateURL(defaultState.filterParams)
+            // let newURL = generateURL(defaultState.filterParams)
             // window.location.hash = "products/" + newURL
-            window.history.pushState({}, "", "/#products" + newURL);
+            // window.history.pushState({}, "", "/#products" + newURL);
         })
     }
 

@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added dafault state">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/app/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/app/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/controller/controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/controller/controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/state/state.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/state/state.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/appView.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/appView.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/product/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/product/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/product/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/product/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/product/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/view/filter/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/filter/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/products.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/FilterParams.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/FilterParams.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/groupByCategories.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,6 +107,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: added tailwind" />

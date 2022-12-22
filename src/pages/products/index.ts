@@ -3,6 +3,7 @@ import defaultState from "../../components/state/state";
 import {generateURL} from "../../utils/generateURL";
 import {ProductInterface} from "../../types/Product";
 import {FilterParams} from "../../types/FilterParams";
+import { ProductItem } from "../../components/view/productItem";
 
 class ProductsPage {
     private container: HTMLElement;
@@ -39,11 +40,18 @@ class ProductsPage {
         let filterd = "filterComponent node el"
         let list = document.createElement("div")
 
-        this.products.forEach(el => {
-            console.log(el)
-        })
+        let generatedProducts = this.products
+            .map((product: ProductInterface) => new ProductItem(product))
+            .map((product: ProductItem) => product.render())
+            .join('');
+
         template.innerHTML = PageContent;
 
+        let productsNode: HTMLElement | null = template.content.querySelector('.products');
+
+        if (productsNode) {
+            productsNode.innerHTML = generatedProducts;
+        }
 
         // Временно создан массив
         // let data: PRo[] = productsData
@@ -77,7 +85,7 @@ class ProductsPage {
     }
 
     render() {
-        const title = this.createHeaderTitle("Products Page")
+        const title = this.createHeaderTitle("Products1 Page")
         const content = this.createContentPage()
         const container = document.createElement("div")
         container.classList.add("container")

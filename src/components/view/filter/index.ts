@@ -16,7 +16,7 @@ const schemaParamsFilter = [
     {title: "Категория", key: keysParamsFilter.category, type: typesParamsFilter.checkbox},
     {title: "Производитель", key: keysParamsFilter.brand, type: typesParamsFilter.checkbox},
     {title: "Стоимость", key: keysParamsFilter.price, type: typesParamsFilter.rangeMultiply},
-    {title: "Скидка", key: keysParamsFilter.discountPercentage, type: typesParamsFilter.rangeMultiply}
+    {title: "Наличие на складе", key: keysParamsFilter.stock, type: typesParamsFilter.rangeMultiply}
 ]
 
 class Filter {
@@ -31,14 +31,17 @@ class Filter {
     public drawFilter() {
         let template = document.createElement("div")
         let form = document.createElement("form")
+        let valueInput = this.getValueInSearchField(keysParamsFilter.search)
         let brands = this.countElements(keysParamsFilter.brand)
         let categories = this.countElements(keysParamsFilter.category)
+        let prices = this.getMinMaxValue(keysParamsFilter.price)
+        let stocks = this.getMinMaxValue(keysParamsFilter.stock)
 
         if (schemaParamsFilter) {
             schemaParamsFilter.forEach((params) => {
                 let currentType = params.type
                 if (currentType === typesParamsFilter.search) {
-                    let searchField = this.drawSearchField(params.title, "")
+                    let searchField = this.drawSearchField(params.title, valueInput)
                     form.append(searchField)
                 }
                 if (currentType === typesParamsFilter.checkbox) {
@@ -53,14 +56,21 @@ class Filter {
                         form.append(field)
                     }
                 }
-
                 if (currentType === typesParamsFilter.rangeMultiply) {
-                    let field = this.drawRangeMultiplyField(params.title)
-                    form.append(field)
+                    let field: HTMLElement | null = null
+                    if (params.key === keysParamsFilter.price) {
+                        field = this.drawRangeMultiplyField(params.title, prices)
+                    }
+                    if (params.key === keysParamsFilter.stock) {
+                        field = this.drawRangeMultiplyField(params.title, stocks)
+                    }
+                    if (field) {
+                        form.append(field)
+                    }
+
                 }
             })
         }
-
         let buttons = document.createElement("div")
         buttons.classList.add("filter-buttons")
 
@@ -78,8 +88,14 @@ class Filter {
         buttons.append(buttonCopy)
         form.append(buttons)
 
-
         template.append(form)
+
+        form.addEventListener("input", (event) => {
+            if ((event.target as HTMLInputElement).tagName === 'INPUT') {
+                console.log(event.type, event.target);
+            }
+
+        })
 
         return template
     }
@@ -93,46 +109,11 @@ class Filter {
         wrapper.append(titleEl)
         let input = document.createElement("input")
         input.classList.add("search-input")
-        input.type = "search"
+        input.type = keysParamsFilter.search
+        input.name = keysParamsFilter.search
         input.value = value
         wrapper.append(input)
         return wrapper
-    }
-
-    private countElements(param: keyof FilterParams): CountedElement[] {
-        let res: CountedElement[] = []
-        let values = null
-        if (param !== keysParamsFilter.search) {
-            values = this.products.map(el => el[param]).sort()
-        }
-
-        if (values) {
-            let tempValue = values[0]
-            let count = 1
-            let isHighlightValue = this.filterParams[param].includes("Apple")
-            console.log(isHighlightValue)
-            for (let i = 1; i <= values.length; i++) {
-                if (values[i] === tempValue) {
-                    count += 1
-                } else {
-                    console.log()
-                    let obj = {
-                        title: typeof tempValue === "string" ? tempValue : "",
-                        count: count,
-                        selected: false
-                    }
-
-                    res.push(obj)
-                    tempValue = values[i]
-                    count = 1
-                }
-            }
-        }
-        return res
-    }
-
-    private isHighlightElement(): boolean {
-        return true
     }
 
     private drawCheckboxField(title: string, arr: CountedElement[]) {
@@ -149,11 +130,11 @@ class Filter {
         arr.forEach(el => {
             let filterItem = document.createElement("div")
             filterItem.classList.add("filter-item")
-
             let inputItem = document.createElement("input")
             inputItem.type = "checkbox"
             inputItem.checked = !!el.selected
             inputItem.id = el.title
+            inputItem.name = keysParamsFilter.search
 
             let labelItem = document.createElement("label")
             labelItem.htmlFor = el.title
@@ -175,7 +156,7 @@ class Filter {
         return wrapper
     }
 
-    private drawRangeMultiplyField(title: string) {
+    private drawRangeMultiplyField(title: string, [min, max]: [number, number]) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
         let titleEl = document.createElement("h3")
@@ -189,35 +170,47 @@ class Filter {
         headers.classList.add("release-date-data")
         let headerFrom = document.createElement("div")
         headerFrom.classList.add("release-date-data__from")
-        headerFrom.textContent = '2018'
+        headerFrom.textContent = String(min)
         let headerTo = document.createElement("div")
         headerTo.classList.add("release-date-data__to")
-        headerTo.textContent = "2022"
+        headerTo.textContent = String(max)
 
         headers.append(headerFrom)
         headers.append(headerTo)
 
         let ranges = document.createElement("div")
         ranges.classList.add("release-date-ranges")
+        let fromValue = min
+        let toValue = max
+
 
         let inputFrom = document.createElement("input")
         inputFrom.type = "range"
         inputFrom.classList.add("range__from")
         inputFrom.classList.add("range")
         inputFrom.classList.add("price-range")
-        inputFrom.min = "0"
-        inputFrom.max = "100"
-        inputFrom.value = "0"
+        inputFrom.min = String(min)
+        inputFrom.max = String(max)
+        inputFrom.value = String(min)
+        inputFrom.addEventListener("input", (e) => {
+            let target = e.target as HTMLInputElement // Вот та ситуация, где ней могу обойтись без as
+            fromValue = +target.value
+            writeRangeValues(fromValue, toValue)
+        })
 
         let inputTo = document.createElement("input")
         inputTo.type = "range"
         inputTo.classList.add("range__to")
         inputTo.classList.add("range")
         inputTo.classList.add("price-range")
-        inputTo.min = "0"
-        inputTo.max = "100"
-        inputTo.value = "100"
-
+        inputTo.min = String(min)
+        inputTo.max = String(max)
+        inputTo.value = String(max)
+        inputTo.addEventListener("input", (e) => {
+            let target = e.target as HTMLInputElement // Вот та ситуация, где ней могу обойтись без as
+            toValue = +target.value
+            writeRangeValues(fromValue, toValue)
+        })
         ranges.append(inputFrom)
         ranges.append(inputTo)
 
@@ -227,7 +220,78 @@ class Filter {
         wrapper.append(titleEl)
         wrapper.append(template)
 
+
+        function writeRangeValues(n1: number, n2: number) {
+            if (n1 > n2) {
+                headerFrom.textContent = String([n1, n2].sort((a, b) => a - b)[0])
+                headerTo.textContent = String([n1, n2].sort((a, b) => a - b)[1])
+            }
+            headerFrom.textContent = String([n1, n2].sort((a, b) => a - b)[0])
+            headerTo.textContent = String([n1, n2].sort((a, b) => a - b)[1])
+        }
+
         return wrapper
+    }
+
+
+    private countElements(param: keyof FilterParams): CountedElement[] {
+        let res: CountedElement[] = []
+        let values = null
+        if (param !== keysParamsFilter.search) {
+            values = this.products.map(el => el[param]).sort()
+        }
+
+        if (values) {
+            let tempValue = values[0];
+            let count = 1;
+            for (let i = 1; i <= values.length; i++) {
+                if (values[i] === tempValue) {
+                    count += 1;
+                } else {
+                    let obj = {
+                        title: typeof tempValue === "string" ? tempValue : "",
+                        count: count,
+                        selected: this.isHighlightElement(String(tempValue), this.filterParams[param])
+                    }
+                    res.push(obj);
+                    tempValue = values[i];
+                    count = 1;
+                }
+            }
+        }
+        return res
+    }
+
+    private isHighlightElement(str: string, arr: string | string[] | [number, number] | []): boolean {
+        if (Array.isArray(arr)) {
+            return arr.some(el => el === str);
+        }
+        return false;
+    }
+
+    private getMinMaxValue(param: keyof FilterParams): [number, number] {
+        let values = null
+        if (param !== keysParamsFilter.search) {
+            values = this.products.map(el => el[param]).sort()
+        }
+        let min = 0
+        let max = 0
+        if (values) {
+            let arr = values.sort((a, b) => +a - +b)
+            min = +arr[0];
+            max = +arr[arr.length - 1];
+        }
+
+        return [min, max]
+
+    }
+
+    private getValueInSearchField(param: keyof FilterParams): string {
+        let value = ""
+        if (param === keysParamsFilter.search) {
+            value = this.filterParams[param]
+        }
+        return value
     }
 }
 

@@ -3,14 +3,14 @@ export enum keysParamsFilter {
     category = "category",
     brand = "brand",
     price = "price",
-    discountPercentage = "discountPercentage"
+    stock = "stock"
 }
 
 export interface FilterParams {
     category: string[],
     brand: string[],
     price: [number, number] | [],
-    discountPercentage: [number, number] | [],
+    stock: [number, number] | [],
     search: string
 }
 

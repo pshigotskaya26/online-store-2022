@@ -20,9 +20,9 @@ class ProductsPage {
         this.filteredProducts = []
         this.filterParams = {
             category: ["automotive", "fragrances", "furniture"],
-            brand: ["Apple"],
-            price: [0, 1000],
-            discountPercentage: [10,90],
+            brand: ["Apple", "Ghazi Fabric"],
+            price: [],
+            stock: [],
             search: "Search Value"
         }
     }
@@ -33,10 +33,6 @@ class ProductsPage {
         return headerTitle;
     }
 
-    // let paramsEl = new Filter()
-    //
-
-    // paramsEl.drawFilter(params, this.products)
     private createContentPage() {
         let template = document.createElement("div");
         let mainContainer = document.createElement("div")
@@ -54,7 +50,6 @@ class ProductsPage {
         title.classList.add("filters__title")
         title.textContent = "Параметры"
         template.append(title)
-
 
         let filter = new Filter(this.filterParams, this.products)
         template.append(filter.drawFilter())

@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added dafault state">
+    <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added filtration to the products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/view/filter/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/filter/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/products.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/products.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types/FilterParams.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/FilterParams.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/groupByCategories.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +78,8 @@
       <workItem from="1671353129984" duration="11118000" />
       <workItem from="1671374688128" duration="464000" />
       <workItem from="1671472403860" duration="8774000" />
+      <workItem from="1671815352149" duration="578000" />
+      <workItem from="1671819496016" duration="6363000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added tailwind">
       <created>1670963668333</created>
@@ -102,7 +102,21 @@
       <option name="project" value="LOCAL" />
       <updated>1671308377092</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: added filtration to the products page">
+      <created>1671737644658</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1671737644659</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: added filtration to the products page">
+      <created>1671737662597</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1671737662597</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +137,7 @@
     <MESSAGE value="feat: added tailwind" />
     <MESSAGE value="fix: added basic filter layout, fixed errors" />
     <MESSAGE value="feat: added dafault state" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: added dafault state" />
+    <MESSAGE value="feat: added filtration to the products page" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: added filtration to the products page" />
   </component>
 </project>

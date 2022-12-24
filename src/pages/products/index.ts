@@ -1,5 +1,6 @@
 import {ProductInterface} from "../../types/Product";
 import {FilterParams, FilterParamSetter, keysParamsFilter} from "../../types/FilterParams";
+import { ProductItem } from "../../components/view/productItem";
 import Filter from "../../components/view/filter";
 import {getMinMaxValueInObject} from "../../types/getMinMaxValueInObject";
 
@@ -53,11 +54,26 @@ class ProductsPage {
         template.append(filter.drawFilter())
 
         return template
-    }
 
+    }
+    
     private createListBlock() {
         let template = document.createElement("div")
         template.textContent = "createListBlock"
+        
+                let generatedProducts = this.products
+            .map((product: ProductInterface) => new ProductItem(product))
+            .map((product: ProductItem) => product.render())
+            .join('');
+
+        template.innerHTML = PageContent;
+
+        let productsNode: HTMLElement | null = template.content.querySelector('.products');
+
+        if (productsNode) {
+            productsNode.innerHTML = generatedProducts;
+        }
+        
         return template
     }
 
@@ -100,7 +116,7 @@ class ProductsPage {
     }
 
     render() {
-        const title = this.createHeaderTitle("Products Page")
+        const title = this.createHeaderTitle("Products1 Page")
         const content = this.createContentPage()
         const container = document.createElement("div")
         container.classList.add("container")

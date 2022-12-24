@@ -83,6 +83,7 @@ class App {
 
     run() {
         addEventListener("DOMContentLoaded", () => {
+			//console.log('Header: ', Header);
 
             // checkLocalStorage
             this.container.append(Header)

@@ -8,6 +8,7 @@ export class ProductItem {
     render(): HTMLDivElement {
         let card = document.createElement("div")
         card.classList.add("product-card")
+        card.setAttribute("data-id", String(this.product.id))
 
         card.innerHTML = `
         				<div class="product-card__image">
@@ -30,7 +31,7 @@ export class ProductItem {
 				</div>
         `
         
-        
+        return card
         
     }
     

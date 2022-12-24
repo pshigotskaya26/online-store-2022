@@ -5,19 +5,19 @@ import {productsData} from "../../data/products";
 
 interface StateInterface {
     products: ProductInterface[],
-    filterParams: FilterParams,
+    // filterParams: FilterParams,
     filteredProducts: Products[],
     cart: Products[],
 }
 
 const defaultState: StateInterface = {
     products: productsData,
-    filterParams: {
-        brand: [],
-        color: [],
-        year: [],
-        searchQuery: ""
-    },
+    // filterParams: {
+    //     brand: [],
+    //     color: [],
+    //     year: [],
+    //     searchQuery: ""
+    // },
     filteredProducts: [],
     cart: []
 }

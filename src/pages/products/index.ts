@@ -98,7 +98,6 @@ class ProductsPage {
         return catalog
     }
 
-
     private getFilteredProducts(filterParams: FilterParams, products: ProductInterface[]): ProductInterface[] | [] {
 
         const isEmptyFilter = isEmpty<FilterParams>(this.filterParams)
@@ -113,9 +112,29 @@ class ProductsPage {
                     console.log("--------")
                 }
 
+            return res
 
             })
-            return res
+        let productsNode: HTMLElement | null = template.content.querySelector('.products');
+        if (productsNode) {
+            productsNode.innerHTML = generatedProducts;
+
+            let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
+
+            arrayProductsNodes.forEach(productItem => {
+                productItem.addEventListener('click', (event: Event) => {
+                    if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
+                        if (event.target.classList.contains('button')) {
+                            event.target.classList.toggle('active');
+                            event.target.innerText = 'В корзине';
+                        }
+                        else {
+                            let valueFromDataId = event.currentTarget.getAttribute('data-id');
+                            window.location.href=`/#product/${valueFromDataId}`;
+                        }
+                    }
+                });
+            });
         }
 
     }

@@ -57,7 +57,7 @@ class App {
     private enableRouteChange() {
         addEventListener("hashchange", () => {
             let URLParams: URLParams = getURLParams(window.location.hash)
-            console.log(URLParams)
+            console.log('URLParams: ', URLParams);
             this.renderNewPage(URLParams)
         })
 
@@ -75,6 +75,7 @@ class App {
         this.container.append(pageHTML)
 
         let URLParams: URLParams = getURLParams(window.location.hash)
+		console.log('URLParams in checkLocation: ', URLParams);
         this
         if (URLParams.hashPage) {
             this.renderNewPage(URLParams)

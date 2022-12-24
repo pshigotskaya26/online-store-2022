@@ -1,13 +1,19 @@
 import {ProductInterface} from "../../../types/Product";
+import ProductItemTemplate from "./index.html"
 
 export class ProductItem {
 
 	constructor(private product: ProductInterface) {
 	}
 
+	private handleEventClickOnProductItem() {
+		//this.product.
+	}
+
 	render() {
-		return `
-			<div class="product-card">
+
+		let productItemNode = `
+			<div class="product-card" data-id = "${this.product.id}">
 				<div class="product-card__image">
 					<img class="card-image" src="${this.product.thumbnail}" alt="${this.product.title}">
 				</div>
@@ -21,12 +27,15 @@ export class ProductItem {
 							<div class="product-discount">Скидка: <span class="product-discount__value">${this.product.discountPercentage}%</span></div>
 							<div class="product-block">
 								<div class="product-stock">На складе: <span class="product-stock__value">${this.product.stock} <span class="product-stock-unit">шт.</span></span></div>
-								<button class="button">В корзине</button>
+								<button class="button">В корзину</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		`;
+
+		return productItemNode;
+
 	}
 }

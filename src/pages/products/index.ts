@@ -21,7 +21,7 @@ class ProductsPage {
         this.products = products
         this.filterParams = {
             category: [],
-            brand: ["Apple"],
+            brand: [],
             price: [],
             stock: [],
             search: ""
@@ -37,8 +37,34 @@ class ProductsPage {
         mainContainer.classList.add("main__container")
         mainContainer.append(this.createFilterBlock())
         mainContainer.append(this.createListBlock())
+
+        this._enableHandlerPageCard()
+
         template.append(mainContainer)
         return template;
+    }
+
+    private _enableHandlerPageCard() {
+        let productsNode: HTMLElement | null = this.catalogProducts.querySelector('.products');
+        if (productsNode) {
+
+            let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
+
+            arrayProductsNodes.forEach(productItem => {
+                productItem.addEventListener('click', (event: Event) => {
+                    if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
+                        if (event.target.classList.contains('button')) {
+                            event.target.classList.toggle('active');
+                            event.target.innerText = 'В корзине';
+                        }
+                        else {
+                            let valueFromDataId = event.currentTarget.getAttribute('data-id');
+                            window.location.href=`/#product/${valueFromDataId}`;
+                        }
+                    }
+                });
+            });
+        }
     }
 
     private createFilterBlock() {
@@ -72,7 +98,7 @@ class ProductsPage {
                     <div class="icon-view icon-view_small"></div>
                     <div class="icon-view icon-view_big active"></div>
                 </div>
-                <div class="count-products">Найдено: <span class="count-found-products">${this.filteredProducts.length}</span></div>
+                <div class="count-products">Найдено: <span class="count-found-products">cdf</span></div>
                 <div class="sort-bar">
                     <div class="sort-bar__text">Сортировать по:</div>
                     <select name="select-parametr">
@@ -105,49 +131,33 @@ class ProductsPage {
             return products
         } else {
             let res: ProductInterface[] = []
-            // let [o, b,c] = products
             products.forEach((el,i) => {
                 if (i <= 10) {
                     let temp = isFitObject(el, filterParams)
                     console.log("--------")
                 }
 
-            return res
 
             })
-        let productsNode: HTMLElement | null = template.content.querySelector('.products');
-        if (productsNode) {
-            productsNode.innerHTML = generatedProducts;
-
-            let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
-
-            arrayProductsNodes.forEach(productItem => {
-                productItem.addEventListener('click', (event: Event) => {
-                    if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
-                        if (event.target.classList.contains('button')) {
-                            event.target.classList.toggle('active');
-                            event.target.innerText = 'В корзине';
-                        }
-                        else {
-                            let valueFromDataId = event.currentTarget.getAttribute('data-id');
-                            window.location.href=`/#product/${valueFromDataId}`;
-                        }
-                    }
-                });
-            });
+            return res
         }
 
     }
+
+
+
+
     private createHeaderTitle(text: string) {
         let headerTitle = document.createElement("h1");
         headerTitle.innerHTML = text;
         return headerTitle;
     }
+
     private renderProductList(params: FilterParams, productsArr: ProductInterface[]): HTMLDivElement {
 
         let products = document.createElement("div")
         products.classList.add("products")
-
+        console.log(productsArr)
         productsArr.forEach((product: ProductInterface) => {
             let productItem = new ProductItem(product).render()
             products.append(productItem)

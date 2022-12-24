@@ -3,18 +3,14 @@ import ProductItemTemplate from "./index.html"
 
 export class ProductItem {
 
-	constructor(private product: ProductInterface) {
-	}
+    constructor(private product: ProductInterface) {
+    }
+    render(): HTMLDivElement {
+        let card = document.createElement("div")
+        card.classList.add("product-card")
 
-	private handleEventClickOnProductItem() {
-		//this.product.
-	}
-
-	render() {
-
-		let productItemNode = `
-			<div class="product-card" data-id = "${this.product.id}">
-				<div class="product-card__image">
+        card.innerHTML = `
+        				<div class="product-card__image">
 					<img class="card-image" src="${this.product.thumbnail}" alt="${this.product.title}">
 				</div>
 				<div class="product-card__content">
@@ -32,10 +28,15 @@ export class ProductItem {
 						</div>
 					</div>
 				</div>
-			</div>
-		`;
-
-		return productItemNode;
-
-	}
+        `
+        
+        
+        
+    }
+    
+    	private handleEventClickOnProductItem() {
+        //this.product.
+      }
+    
+   
 }

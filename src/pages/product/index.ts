@@ -12,25 +12,29 @@ class ProductPage {
     }
 
     private createHeaderTitle(text: string) {
-        let headerTitle = document.createElement("h1");
+        let headerTitle = document.createElement("h2");
         headerTitle.innerHTML = this.product.title;
         return headerTitle;
     }
 
     private createContentPage() {
+
         let template: HTMLTemplateElement = document.createElement("template");
         // Вынести во view
 
         template.innerHTML = PageTemplate;
+
         let image: HTMLImageElement | null = template.content.querySelector("#image");
         let title: HTMLImageElement | null = template.content.querySelector(".title");
         if (image) {
             image.src = this.product.thumbnail
         }
+
         if (title) {
             title.innerText = this.product.thumbnail
         }
-        return <HTMLDivElement>template.content.firstChild
+       return <HTMLDivElement>template.content.firstChild
+	   
     }
 
     render() {
@@ -39,6 +43,7 @@ class ProductPage {
         const container = document.createElement("div")
         container.classList.add("container")
         container.append(title)
+        console.log('content: ', content);
         container.append(content)
         this.container.append(container)
         return this.container

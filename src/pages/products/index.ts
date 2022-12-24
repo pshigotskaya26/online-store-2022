@@ -61,17 +61,35 @@ class ProductsPage {
         let template = document.createElement("div")
         template.textContent = "createListBlock"
         
-                let generatedProducts = this.products
+            let generatedProducts = this.products
             .map((product: ProductInterface) => new ProductItem(product))
-            .map((product: ProductItem) => product.render())
+            .map((product: ProductItem) => {
+                return product.render();
+            })
             .join('');
 
         template.innerHTML = PageContent;
 
         let productsNode: HTMLElement | null = template.content.querySelector('.products');
-
         if (productsNode) {
             productsNode.innerHTML = generatedProducts;
+
+            let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
+
+            arrayProductsNodes.forEach(productItem => {
+                productItem.addEventListener('click', (event: Event) => {
+                    if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
+                        if (event.target.classList.contains('button')) {
+                            event.target.classList.toggle('active');
+                            event.target.innerText = 'В корзине';
+                        }
+                        else {
+                            let valueFromDataId = event.currentTarget.getAttribute('data-id');
+                            window.location.href=`/#product/${valueFromDataId}`;
+                        }
+                    }
+                });
+            });
         }
         
         return template

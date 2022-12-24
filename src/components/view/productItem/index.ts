@@ -2,12 +2,14 @@ import {ProductInterface} from "../../../types/Product";
 
 export class ProductItem {
 
-	constructor(private product: ProductInterface) {
-	}
+    constructor(private product: ProductInterface) {
+    }
 
-	render() {
-		return `
-			<div class="product-card">
+    render(): HTMLDivElement {
+        let card = document.createElement("div")
+        card.classList.add("product-card")
+
+        card.innerHTML = `
 				<div class="product-card__image">
 					<img class="card-image" src="${this.product.thumbnail}" alt="${this.product.title}">
 				</div>
@@ -26,7 +28,7 @@ export class ProductItem {
 						</div>
 					</div>
 				</div>
-			</div>
-		`;
-	}
+		`
+        return card
+    }
 }

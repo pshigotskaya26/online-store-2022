@@ -1,4 +1,4 @@
-import {FilterParams, keysParamsFilter} from "../../../types/FilterParams";
+import {FilterParams, FilterParamSetter, keysParamsFilter} from "../../../types/FilterParams";
 import {ProductInterface} from "../../../types/Product";
 
 enum typesParamsFilter {
@@ -22,50 +22,53 @@ const schemaParamsFilter = [
 class Filter {
     products: ProductInterface[]
     filterParams: FilterParams;
+    form: HTMLFormElement
+    cb: (data: FilterParamSetter) => void
 
-    constructor(filterParams: FilterParams, products: ProductInterface[]) {
+    constructor(filterParams: FilterParams, products: ProductInterface[], cb: (data: FilterParamSetter) => void) {
         this.filterParams = filterParams
         this.products = products
+        this.form = document.createElement("form")
+        this.cb = cb
     }
 
     public drawFilter() {
         let template = document.createElement("div")
-        let form = document.createElement("form")
         let valueInput = this.getValueInSearchField(keysParamsFilter.search)
         let brands = this.countElements(keysParamsFilter.brand)
         let categories = this.countElements(keysParamsFilter.category)
-        let prices = this.getMinMaxValue(keysParamsFilter.price)
-        let stocks = this.getMinMaxValue(keysParamsFilter.stock)
+        let pricesRange = this.getMinMaxValue(keysParamsFilter.price)
+        let stocksRange = this.getMinMaxValue(keysParamsFilter.stock)
 
         if (schemaParamsFilter) {
             schemaParamsFilter.forEach((params) => {
                 let currentType = params.type
                 if (currentType === typesParamsFilter.search) {
-                    let searchField = this.drawSearchField(params.title, valueInput)
-                    form.append(searchField)
+                    let searchField = this.drawSearchField(params.title, keysParamsFilter.search, valueInput)
+                    this.form.append(searchField)
                 }
                 if (currentType === typesParamsFilter.checkbox) {
                     let field: HTMLElement | null = null
                     if (params.key === keysParamsFilter.brand) {
-                        field = this.drawCheckboxField(params.title, brands)
+                        field = this.drawCheckboxField(params.title, keysParamsFilter.brand, brands)
                     }
                     if (params.key === keysParamsFilter.category) {
-                        field = this.drawCheckboxField(params.title, categories)
+                        field = this.drawCheckboxField(params.title, keysParamsFilter.category, categories)
                     }
                     if (field) {
-                        form.append(field)
+                        this.form.append(field)
                     }
                 }
                 if (currentType === typesParamsFilter.rangeMultiply) {
                     let field: HTMLElement | null = null
                     if (params.key === keysParamsFilter.price) {
-                        field = this.drawRangeMultiplyField(params.title, prices)
+                        field = this.drawRangeMultiplyField(params.title, keysParamsFilter.price, pricesRange)
                     }
                     if (params.key === keysParamsFilter.stock) {
-                        field = this.drawRangeMultiplyField(params.title, stocks)
+                        field = this.drawRangeMultiplyField(params.title, keysParamsFilter.stock, stocksRange)
                     }
                     if (field) {
-                        form.append(field)
+                        this.form.append(field)
                     }
 
                 }
@@ -86,21 +89,15 @@ class Filter {
 
         buttons.append(buttonReset)
         buttons.append(buttonCopy)
-        form.append(buttons)
+        this.form.append(buttons)
 
-        template.append(form)
+        template.append(this.form)
 
-        form.addEventListener("input", (event) => {
-            if ((event.target as HTMLInputElement).tagName === 'INPUT') {
-                console.log(event.type, event.target);
-            }
-
-        })
-
+        this._enableHandlerForm()
         return template
     }
 
-    private drawSearchField(title: string, value: string) {
+    private drawSearchField(title: string, key: keysParamsFilter, value: string) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
         let titleEl = document.createElement("h3")
@@ -110,13 +107,13 @@ class Filter {
         let input = document.createElement("input")
         input.classList.add("search-input")
         input.type = keysParamsFilter.search
-        input.name = keysParamsFilter.search
+        input.name = key
         input.value = value
         wrapper.append(input)
         return wrapper
     }
 
-    private drawCheckboxField(title: string, arr: CountedElement[]) {
+    private drawCheckboxField(title: string, key: keysParamsFilter, arr: CountedElement[]) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
         let titleEl = document.createElement("h3")
@@ -134,7 +131,7 @@ class Filter {
             inputItem.type = "checkbox"
             inputItem.checked = !!el.selected
             inputItem.id = el.title
-            inputItem.name = keysParamsFilter.search
+            inputItem.name = key
 
             let labelItem = document.createElement("label")
             labelItem.htmlFor = el.title
@@ -156,13 +153,12 @@ class Filter {
         return wrapper
     }
 
-    private drawRangeMultiplyField(title: string, [min, max]: [number, number]) {
+    private drawRangeMultiplyField(title: string, key: keysParamsFilter, [min, max]: [number, number]) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
         let titleEl = document.createElement("h3")
         titleEl.classList.add("search__title")
         titleEl.innerText = title
-
 
         let template = document.createElement("div")
 
@@ -191,9 +187,11 @@ class Filter {
         inputFrom.classList.add("price-range")
         inputFrom.min = String(min)
         inputFrom.max = String(max)
-        inputFrom.value = String(min)
+        inputFrom.setAttribute("data-name", "from")
+        inputFrom.name = key
+        inputFrom.value = this.filterParams[key][0] ? String(this.filterParams[key][0]) : String(min)
         inputFrom.addEventListener("input", (e) => {
-            let target = e.target as HTMLInputElement // Вот та ситуация, где ней могу обойтись без as
+            let target = e.target as HTMLInputElement // Вот та ситуация, где не могу обойтись без as
             fromValue = +target.value
             writeRangeValues(fromValue, toValue)
         })
@@ -205,9 +203,11 @@ class Filter {
         inputTo.classList.add("price-range")
         inputTo.min = String(min)
         inputTo.max = String(max)
-        inputTo.value = String(max)
+        inputTo.setAttribute("data-name", "to")
+        inputTo.name = key
+        inputTo.value = this.filterParams[key][1] ? String(this.filterParams[key][1]) : String(max)
         inputTo.addEventListener("input", (e) => {
-            let target = e.target as HTMLInputElement // Вот та ситуация, где ней могу обойтись без as
+            let target = e.target as HTMLInputElement // Вот та ситуация, где не могу обойтись без as
             toValue = +target.value
             writeRangeValues(fromValue, toValue)
         })
@@ -232,7 +232,6 @@ class Filter {
 
         return wrapper
     }
-
 
     private countElements(param: keyof FilterParams): CountedElement[] {
         let res: CountedElement[] = []
@@ -292,6 +291,28 @@ class Filter {
             value = this.filterParams[param]
         }
         return value
+    }
+
+    private _enableHandlerForm() {
+        this.form.addEventListener("input", (event) => {
+            let target = event.target as HTMLInputElement
+            if (target.tagName === 'INPUT') {
+                if (target.type === "checkbox") {
+                    let key = target.name as keysParamsFilter
+                    let value = target.id
+                    this.cb({key, value})
+                } else {
+                    let key = target.name as keysParamsFilter
+                    let keyHelper = null
+                    if (target.type === "range") {
+                        keyHelper = target.getAttribute("data-name")
+                    }
+                    let value = target.value
+                    this.cb({key, keyHelper, value})
+                }
+            }
+        })
+
     }
 }
 

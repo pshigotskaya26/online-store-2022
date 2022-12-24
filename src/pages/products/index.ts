@@ -1,15 +1,13 @@
-import PageContent from "./index.html"
-import defaultState from "../../components/state/state";
-import {generateURL} from "../../utils/generateURL";
 import {ProductInterface} from "../../types/Product";
-import {FilterParams} from "../../types/FilterParams";
+import {FilterParams, FilterParamSetter, keysParamsFilter} from "../../types/FilterParams";
 import Filter from "../../components/view/filter";
+import {getMinMaxValueInObject} from "../../types/getMinMaxValueInObject";
 
 class ProductsPage {
-    private container: HTMLElement;
-    private products: ProductInterface[];
+    private readonly container: HTMLElement;
+    private readonly products: ProductInterface[];
     private filteredProducts: ProductInterface[];
-    private filterParams: FilterParams;
+    private readonly filterParams: FilterParams;
 
     constructor(id: string, products: ProductInterface[]) {
         this.container = document.createElement("main");
@@ -19,11 +17,11 @@ class ProductsPage {
         this.products = products
         this.filteredProducts = []
         this.filterParams = {
-            category: ["automotive", "fragrances", "furniture"],
-            brand: ["Apple", "Ghazi Fabric"],
+            category: [],
+            brand: [],
             price: [],
             stock: [],
-            search: "Search Value"
+            search: ""
         }
     }
 
@@ -51,7 +49,7 @@ class ProductsPage {
         title.textContent = "Параметры"
         template.append(title)
 
-        let filter = new Filter(this.filterParams, this.products)
+        let filter = new Filter(this.filterParams, this.products, (data) => this.handleFilterParams(data))
         template.append(filter.drawFilter())
 
         return template
@@ -63,24 +61,42 @@ class ProductsPage {
         return template
     }
 
+    private handleFilterParams({key, keyHelper, value}: FilterParamSetter) {
+        if (key === keysParamsFilter.search) {
+            this.filterParams[key] = value
+        }
+        if (key === keysParamsFilter.category || key === keysParamsFilter.brand) {
+            if (this.filterParams[key].includes(value)) {
+                this.filterParams[key] = this.filterParams[key].filter(v => v != value)
+            } else {
+                this.filterParams[key].push(value)
+            }
 
-    private enableFilterProducts() {
-        this.container.addEventListener("input", (e: Event) => {
-            let target = e.target as HTMLInputElement;
-            // let category = target.getAttribute("name");
-            // let value = target.getAttribute("value");
-            // if (target.checked) {
-            //     // @ts-ignore
-            //     defaultState.filterParams[category].push(value)
-            // } else {
-            //     // @ts-ignore
-            //     defaultState.filterParams[category] = defaultState.filterParams[category].filter(n => n !== value)
-            // }
-            //
-            // let newURL = generateURL(defaultState.filterParams)
-            // window.location.hash = "products/" + newURL
-            // window.history.pushState({}, "", "/#products" + newURL);
-        })
+        }
+        if (key === keysParamsFilter.price || key === keysParamsFilter.stock) {
+            if (keyHelper === "from") {
+                if (!this.filterParams[key].length) {
+                    let [, max] = getMinMaxValueInObject<ProductInterface>(key, this.products)
+                    this.filterParams[key][0] = +value
+                    this.filterParams[key][1] = max
+                } else {
+
+                    this.filterParams[key][0] = +value
+                }
+            }
+
+            if (keyHelper === "to") {
+                if (!this.filterParams[key].length) {
+                    let [min,] = getMinMaxValueInObject<ProductInterface>(key, this.products)
+                    this.filterParams[key][0] = min
+                    this.filterParams[key][1] = +value
+                } else {
+                    this.filterParams[key][1] = +value
+                }
+            }
+        }
+
+        console.log(this.filterParams)
     }
 
     render() {
@@ -91,7 +107,6 @@ class ProductsPage {
         container.append(title)
         container.append(content)
         this.container.append(container)
-        this.enableFilterProducts()
         return this.container
     }
 }

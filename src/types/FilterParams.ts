@@ -14,3 +14,9 @@ export interface FilterParams {
     search: string
 }
 
+export interface FilterParamSetter {
+    key: keysParamsFilter,
+    keyHelper?: string | null
+    value: string
+}
+

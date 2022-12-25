@@ -59,6 +59,7 @@ class ProductsPage {
     private readonly queryParams: string
     private view: ModesViewKeys;
     private readonly filterWrapper: HTMLDivElement;
+    private countFoundProducts: HTMLSpanElement;
 
     constructor(id: string, products: ProductInterface[], queryParams: string = "") {
         this.container = document.createElement("main");
@@ -80,6 +81,7 @@ class ProductsPage {
         this.queryParams = queryParams
         this.filteredProducts = this.getFilteredProducts(this.filterParams, this.products)
         this.catalogProducts = document.createElement("div")
+        this.countFoundProducts = document.createElement("span")
     }
 
     private _setParamsFromURL(queryParams: string) {
@@ -152,20 +154,16 @@ class ProductsPage {
 
     }
 
-    // private createViewModeBlock(): HTMLDivElement {
-    //
-    // }
-
     private createCountsElementsBlock(): HTMLDivElement {
         let countElements = document.createElement("div")
         countElements.classList.add("count-products")
 
-        let countFoundProducts = document.createElement("span")
-        countFoundProducts.classList.add("count-found-products")
-        countFoundProducts.textContent = String(this.filteredProducts.length)
+
+        this.countFoundProducts.classList.add("count-found-products")
+        this.countFoundProducts.textContent = String(this.filteredProducts.length)
 
         countElements.textContent = "Найдено: "
-        countElements.append(countFoundProducts)
+        countElements.append(this.countFoundProducts)
 
         return countElements
     }
@@ -223,8 +221,8 @@ class ProductsPage {
     private isFitObject(el: ProductInterface, params: FilterParams): boolean {
         let res: boolean[] = []
         for (const key in params) {
-            let filterParamsValues = params[key as keyof typeof params]
-            let currentElValue = el[key as keyof typeof el]
+            let filterParamsValues = params[key as keyof typeof params] // :(
+            let currentElValue = el[key as keyof typeof el] // :(
 
             if (filterParamsValues.length === 0) {
                 res.push(true)
@@ -284,7 +282,11 @@ class ProductsPage {
     private updateProductList(products: ProductInterface[]) {
         this.catalogProducts.innerHTML = ""
         this.filteredProducts = products
+
+        this.countFoundProducts.textContent = String(this.filteredProducts.length)
+
         let list = this.renderProductList(this.filteredProducts)
+        console.log("rerender DefaultValues in Form")
         this.catalogProducts.append(list)
     }
 

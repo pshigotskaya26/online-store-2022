@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added filtration to the products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/modeViewProductList/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/modeViewProductsList/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/productItem/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/productItem/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
     </list>
@@ -86,7 +84,7 @@
       <workItem from="1671889532324" duration="6170000" />
       <workItem from="1671909684870" duration="13011000" />
       <workItem from="1671961245456" duration="11000" />
-      <workItem from="1671964709795" duration="11095000" />
+      <workItem from="1671964709795" duration="12130000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added tailwind">
       <created>1670963668333</created>

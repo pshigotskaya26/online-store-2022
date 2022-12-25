@@ -26,10 +26,7 @@ const baseConfig = {
 				test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
 				type: 'asset/resource',
 			},
-			{
-				test: /\.(png|jpg|svg)$/,
-				loader: 'url-loader'
-			},
+			
 			{
 				test: /\.s[ac]ss$/i,
 				use: [

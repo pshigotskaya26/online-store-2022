@@ -3,40 +3,38 @@
 @import 'assets/styles/base';
 
 
-
-
 //----------styles for MAIN-------------------
 
 .main__container {
-	display: flex;
-	column-gap: 2.5rem;
-	padding-top: 3rem;
-	padding-bottom: 3rem;
+  display: flex;
+  column-gap: 2.5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .filters,
 .catalog {
-	background-color: $color-white;
-	-moz-border-radius: 0.5rem;
-	-webkit-border-radius: 0.5rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
+  background-color: $color-white;
+  -moz-border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
 }
 
 .filters {
-	flex: 0 0 30rem;
+  flex: 0 0 30rem;
 }
 
 .search__by-name {
-	font-size: 1.3rem;
+  font-size: 1.3rem;
 }
 
 .search-input {
-	width: 100%;
-	padding: 1rem;
-	color: $color-primery;
-	background-color: $color-gray-light;
-	border: 0.1rem solid $color-primery-light;
+  width: 100%;
+  padding: 1rem;
+  color: $color-primery;
+  background-color: $color-gray-light;
+  border: 0.1rem solid $color-primery-light;
 }
 
 .filter-item-wrapper,
@@ -47,153 +45,155 @@
 .release-date,
 .filter-buttons,
 .color {
-	padding: 0rem 1.5rem 3rem 1.5rem;
+  padding: 0rem 1.5rem 3rem 1.5rem;
 }
 
 .search {
-	padding-top: 3rem;
+  padding-top: 3rem;
 }
 
 .filter-list {
-	display: flex;
-	flex-direction: column;
-	row-gap: 0.5rem;
-	height: 20rem;
-	overflow: hidden;
-	overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  height: 20rem;
+  overflow: hidden;
+  overflow-y: auto;
 
-	scrollbar-color: $color-primery-light $color-white;
-	scrollbar-width: 0.5rem;
+  scrollbar-color: $color-primery-light $color-white;
+  scrollbar-width: 0.5rem;
 
-	padding-left: 1.5rem;
-	padding-right: 1.1rem;
-	font-size: 1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.1rem;
+  font-size: 1.5rem;
 
-	&::-webkit-scrollbar {
-		width: 0.5rem;
-		background-color: $color-gray-light;
-		-moz-border-radius: 0.5rem;
-		-webkit-border-radius: 0.5rem;
-		border-radius: 0.5rem;
-	}
-	  
-	&::-webkit-scrollbar-thumb {
-		background-color: $color-primery-light;
-		-moz-border-radius: 0.5rem;
-		-webkit-border-radius: 0.5rem;
-		border-radius: 0.5remx;
-	}
+  &::-webkit-scrollbar {
+    width: 0.5rem;
+    background-color: $color-gray-light;
+    -moz-border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color-primery-light;
+    -moz-border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    border-radius: 0.5 remx;
+  }
 }
 
 .filter-item {
-	display: flex;
-	column-gap: 1rem;
+  display: flex;
+  column-gap: 1rem;
 }
 
 .filter-item input:checked {
-	accent-color: $color-primery-light;
+  accent-color: $color-primery-light;
 }
 
 .count-stock {
-	margin-left: auto;
+  margin-left: auto;
 }
 
 .price-data,
 .release-date-data {
-	display: flex;
-	justify-content: space-between;
-	padding-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1rem;
 }
 
 .price-unit,
 .release-date-unit {
-	font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .price-ranges,
 .release-date-ranges {
-	position: relative;
+  position: relative;
 }
 
 input[type='range'].range {
-	position: absolute;
-	width: 100%;
-	height: 0.5rem;
-	background: $color-gray-dark;
-	outline: none;
-	-webkit-appearance: none;
-	appearance: none;
-	pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 0.5rem;
+  background: $color-gray-dark;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: none;
 
-	&:nth-child(2) {
-		background: none;
-	}
+  &:nth-child(2) {
+    background: none;
+  }
 }
 
 input[type='range'].range::-webkit-slider-thumb {
-	width: 1.5rem;
-	height: 1.5rem;
-	background: $color-primery-light;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	-webkit-appearance: none;
-	cursor: ew-resize;
-	pointer-events:all;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: $color-primery-light;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  cursor: ew-resize;
+  pointer-events: all;
 }
 
 .color__data {
-	display: flex;
-	column-gap: 1rem;
+  display: flex;
+  column-gap: 1rem;
 }
 
 .data-color {
-	width: 2rem;
-	height: 2rem;
-	-moz-border-radius: 50%;
-	-webkit-border-radius: 50%;
-	border-radius: 50%;
-	border: 0.1rem solid $color-gray-dark;
+  width: 2rem;
+  height: 2rem;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: 0.1rem solid $color-gray-dark;
 
-	&_red {
-		background-color: $color-red;
-	}
-	&-white {
-		background-color: $color-white;
-	}
-	&_black {
-		background-color: $color-black;
-	}
+  &_red {
+    background-color: $color-red;
+  }
+
+  &-white {
+    background-color: $color-white;
+  }
+
+  &_black {
+    background-color: $color-black;
+  }
 }
 
 .data-color.active {
-	border: 0.3rem solid $color-primery;
+  border: 0.3rem solid $color-primery;
 }
 
 .filter-buttons {
-	display: flex;
-	flex-direction: column;
-	row-gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
 }
 
 .button {
-	padding: 2rem 1rem;
-	font-size: 1.5rem;
-	color: $color-white;
-	background-color: $color-primery;
-	-moz-border-radius: 0.5rem;
-	-webkit-border-radius: 0.5rem;
-	border-radius: 0.5rem;
-	cursor: pointer;
+  padding: 2rem 1rem;
+  font-size: 1.5rem;
+  color: $color-white;
+  background-color: $color-primery;
+  -moz-border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
 
-	&:hover {
-		background-color: $color-primery-light;
-		transition: all 0.5s ease-out;
-	}
+  &:hover {
+    background-color: $color-primery-light;
+    transition: all 0.5s ease-out;
+  }
 }
 
 .catalog {
-	flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 //----------end styles for MAIN---------------------
@@ -201,150 +201,171 @@ input[type='range'].range::-webkit-slider-thumb {
 //----------styles for CATALOG----------------------
 
 .catalog__content {
-	padding: 1.5rem;
+  padding: 1.5rem;
 }
 
 .catalog__sort {
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .sort-view {
-	display: flex;
-	column-gap: 1rem;
+  display: flex;
+  column-gap: 1rem;
 }
 
 .icon-view {
-	width: 2.8rem;
-	height: 2.8rem;
-	background-repeat: no-repeat;
-	background-size: contain;
-	cursor: pointer;
+  width: 2.8rem;
+  height: 2.8rem;
+  background-repeat: no-repeat;
+  background-size: contain;
+  cursor: pointer;
 
-	&_big {
-		background-image: url('assets/icons/icon-view_big.png');
-	}
+  &_big {
+    background-image: url('assets/icons/icon-view_big.png');
+  }
 
-	&_small {
-		background-image: url('assets/icons/icon-view_small.png');
-	}
+  &_small {
+    background-image: url('assets/icons/icon-view_small.png');
+  }
 }
 
 .icon-view.active {
-	border: 0.1rem solid $color-primery;
+  border: 0.1rem solid $color-primery;
 }
 
 .catalog__sort {
-	margin-bottom: 3rem;
-	padding-bottom: 1rem;
-	font-size: 1.6rem;
-	color: $color-primery-light;
-	border-bottom: 0.1rem solid $color-gray-dark;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  font-size: 1.6rem;
+  color: $color-primery-light;
+  border-bottom: 0.1rem solid $color-gray-dark;
 }
 
 .count-found-products {
-	font-weight: bold;
-	font-size: 2rem;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
 .sort-bar {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
-	row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  row-gap: 1rem;
 }
 
 .products {
-	display: flex;
-	flex-wrap: wrap;
-	column-gap: 2rem;
-	row-gap: 2rem;
-	justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+  row-gap: 2rem;
+  justify-content: space-between;
 }
+
+.catalog__products.small .products {
+  //background: red;
+}
+
+.catalog__products.big .products {
+  flex-direction: column;
+  //background: green;
+}
+
 
 .product-card {
-	display: flex;
-	flex-direction: column;
-	width: 28rem;
-	border: 0.1rem solid $color-gray-dark;
-	-moz-border-radius: 0.5rem;
-	-webkit-border-radius: 0.5rem;
-	border-radius: 0.5rem;
-	overflow: hidden;
-	cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  width: 28rem;
+  border: 0.1rem solid $color-gray-dark;
+  -moz-border-radius: 0.5rem;
+  -webkit-border-radius: 0.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
 }
 
+.catalog__products.big .product-card {
+  width: 100%;
+  flex-direction: row;
+}
+
+
 .product-card.active {
-	border: 0.1rem solid $color-primery-light;
+  border: 0.1rem solid $color-primery-light;
 }
 
 .product-card__image {
-	width: 100%;
-	height: 20rem;
-	overflow: hidden;
+  width: 100%;
+  height: 20rem;
+  overflow: hidden;
 }
 
+.catalog__products.big .product-card__image {
+  width: 20%;
+  height: 20rem;
+  overflow: hidden;
+}
+
+
 .card-image {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .product-card:hover .card-image {
-	transform: scale(1.05);
-	transition: all 0.5s ease-out;
+  transform: scale(1.05);
+  transition: all 0.5s ease-out;
 }
 
 .product-card__content {
-	flex: 1 1 auto;
-	padding: 1rem;
-	background-color: $color-gray-light;
+  flex: 1 1 auto;
+  padding: 1rem;
+  background-color: $color-gray-light;
 }
 
 .product-card__details {
-	display: flex;
-	flex-direction: column;
-	row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
 }
 
 .product-info {
-	display: flex;
-	flex-direction: column;
-	row-gap: 0.5rem;
-	color: $color-black;
-	font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  color: $color-black;
+  font-size: 1.4rem;
 }
 
 .product-block {
-	display: flex;
-	column-gap: 1rem;
-	justify-content: space-between;
-	align-items: flex-end
+  display: flex;
+  column-gap: 1rem;
+  justify-content: space-between;
+  align-items: flex-end
+}
+
+.catalog__products.big .product-block {
+  flex-direction: column;
 }
 
 .product-stock {
-	color: $color-text;
+  color: $color-text;
 }
 
 .product-stock__value {
-	color: $color-black;
-	font-weight: bold;
+  color: $color-black;
+  font-weight: bold;
 }
 
 .product-card .button {
-	flex: 1 0 auto;
-	padding: 1rem;
+  flex: 1 0 auto;
+  padding: 1rem;
 }
 
 .product-card .button.active {
-	background-color: $color-gray-dark;
+  background-color: $color-gray-dark;
 }
 
 //----------end styles for CATALOG-------------------
-
-//----------styles for Product Item-------------------
-
-
-//----------end styles for Product Item-------------------
-

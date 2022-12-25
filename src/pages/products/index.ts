@@ -7,6 +7,7 @@ import {isEmpty} from "../../utils/isEmpty";
 import {generateURL} from "../../utils/generateURL";
 import {SortBy} from "../../components/view/sortBy";
 import {sortArrayOfObjects} from "../../utils/sortArrayOfObjects";
+import {ModeViewProductsList} from "../../components/view/modeViewProductsList";
 
 export enum SortKeys {
     PRICEASC = "price-ASC",
@@ -15,7 +16,19 @@ export enum SortKeys {
     RATINGDESK = "rating-DESC",
 }
 
+export enum ModesViewKeys {
+    BIG = "big",
+    SMALL = "small",
+}
 
+let modesViews = [
+    {
+        key: ModesViewKeys.BIG,
+    },
+    {
+        key: ModesViewKeys.SMALL
+    }
+]
 let sortFields = [
     {
         key: SortKeys.PRICEASC,
@@ -42,9 +55,9 @@ class ProductsPage {
     private filteredProducts: ProductInterface[];
     public filterParams: FilterParams;
     private readonly catalogProducts: HTMLDivElement;
-    private sort: string;
+    private sort: SortKeys;
     private readonly queryParams: string
-    private view: string;
+    private view: ModesViewKeys;
     private readonly filterWrapper: HTMLDivElement;
 
     constructor(id: string, products: ProductInterface[], queryParams: string = "") {
@@ -54,7 +67,7 @@ class ProductsPage {
 
         this.products = products
         this.sort = SortKeys.RATINGASC
-        this.view = "" // "blocks"
+        this.view = ModesViewKeys.SMALL // "blocks"
         this.filterParams = {
             category: [],
             brand: [],
@@ -87,7 +100,6 @@ class ProductsPage {
                 }
             })
         }
-
     }
 
     private createContentPage() {
@@ -140,22 +152,9 @@ class ProductsPage {
 
     }
 
-    private createViewModeBlock(): HTMLDivElement {
-        let modeView = document.createElement("div")
-        modeView.classList.add("sort-view")
-        let modeSmall = document.createElement("div")
-        modeSmall.classList.add("icon-view")
-        modeSmall.classList.add("icon-view_small")
-        modeSmall.textContent = "1"
-
-        let modeBig = document.createElement("div")
-        modeBig.classList.add("icon-view")
-        modeBig.classList.add("icon-view_big")
-        modeBig.textContent = "2"
-        modeView.append(modeSmall)
-        modeView.append(modeBig)
-        return modeView
-    }
+    // private createViewModeBlock(): HTMLDivElement {
+    //
+    // }
 
     private createCountsElementsBlock(): HTMLDivElement {
         let countElements = document.createElement("div")
@@ -185,7 +184,8 @@ class ProductsPage {
         catalogSort.classList.add("catalog__sort")
 
 
-        catalogSort.append(this.createViewModeBlock())
+        catalogSort.append(new ModeViewProductsList().render(this.view, modesViews, (data: ModesViewKeys) => this.handleModeView(data)))
+
         catalogSort.append(this.createCountsElementsBlock())
         catalogSort.append(new SortBy().render(this.sort, sortFields, (data: SortKeys) => this.handleSortBy(data)))
 
@@ -265,7 +265,6 @@ class ProductsPage {
     }
 
     private renderProductList(productsArr: ProductInterface[]): HTMLDivElement {
-
         let products = document.createElement("div")
         products.classList.add("products")
         if (productsArr.length) {
@@ -328,7 +327,7 @@ class ProductsPage {
         let newURL = generateURL(newOBj)
         window.history.pushState({}, "", "/#products" + newURL);
 
-        let newObj  = this.getFilteredProducts(this.filterParams, this.products)
+        let newObj = this.getFilteredProducts(this.filterParams, this.products)
         this.updateProductList(newObj)
     }
 
@@ -337,8 +336,21 @@ class ProductsPage {
         let keyForSort = key.substring(0, key.indexOf("-")) as keyof ProductInterface
         let figureSort = key.substring(key.indexOf("-") + 1, key.length)
 
-        let newObj  = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort);
+        let newObj = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort);
         this.updateProductList(newObj)
+    }
+
+    private handleModeView(key: ModesViewKeys) {
+        if (key === ModesViewKeys.SMALL) {
+            this.view = ModesViewKeys.SMALL
+            this.catalogProducts.classList.remove(ModesViewKeys.BIG)
+            this.catalogProducts.classList.add(ModesViewKeys.SMALL)
+        }
+        if (key === ModesViewKeys.BIG) {
+            this.view = ModesViewKeys.BIG
+            this.catalogProducts.classList.remove(ModesViewKeys.SMALL)
+            this.catalogProducts.classList.add(ModesViewKeys.BIG)
+        }
     }
 
     render() {

@@ -3,7 +3,8 @@ export enum keysParamsFilter {
     category = "category",
     brand = "brand",
     price = "price",
-    stock = "stock"
+    stock = "stock",
+
 }
 
 export interface FilterParams {
@@ -11,7 +12,7 @@ export interface FilterParams {
     brand: string[],
     price: [number, number] | [],
     stock: [number, number] | [],
-    search: string
+    search: string,
 }
 
 export interface FilterParamSetter {

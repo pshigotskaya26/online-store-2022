@@ -8,9 +8,6 @@ import Controller from "../controller/controller";
 import AppView from "../view/appView";
 import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
-import {types} from "sass";
-import Number = types.Number;
-import {ProductInterface} from "../../types/Product";
 import {productsData} from "../../data/products";
 
 class App {
@@ -32,11 +29,11 @@ class App {
         currentPage.innerHTML = ""
         let page: CartPage | ProductPage | ProductsPage | ErrorPage | null = null;
         if (hashPage === "") {
-            page = new ErrorPage("error-page");
+            page = new ProductsPage("products-page", productsData,queryParams ?? queryParams);
         } else if (hashPage === "cart") {
             page = new CartPage("cart-page");
         } else if (hashPage.includes("products")) {
-            page = new ProductsPage("products-page", productsData);
+            page = new ProductsPage("products-page", productsData, queryParams ?? queryParams);
         } else if (hashPage.includes("product/")) {
             if (idProduct) {
                 let product = this.controller.getProduct(idProduct)
@@ -75,8 +72,7 @@ class App {
         this.container.append(pageHTML)
 
         let URLParams: URLParams = getURLParams(window.location.hash)
-		console.log('URLParams in checkLocation: ', URLParams);
-        this
+
         if (URLParams.hashPage) {
             this.renderNewPage(URLParams)
         }
@@ -84,33 +80,12 @@ class App {
 
     run() {
         addEventListener("DOMContentLoaded", () => {
-			//console.log('Header: ', Header);
-
-            // checkLocalStorage
             this.container.append(Header)
 
-            // check URL (params) => parse params => set params
             this.checkLocation()
 
             this.container.append(Footer)
-            // render UI
 
-
-            // PRODUCTS
-            // render filter
-            //  add eventListener form => change URL => rerender products list
-
-            // render products
-            //  addEventListener add/remove to cart
-            //  addEventListener open product
-
-
-            // let a = <HTMLButtonElement>document.getElementById("testtt")
-            // a.addEventListener("click", () => {
-            //
-            //     console.log(newURL)
-            // })
-            // Обработчик роутров
             this.enableRouteChange()
 
 

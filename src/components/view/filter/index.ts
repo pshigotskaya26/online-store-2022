@@ -31,7 +31,6 @@ class Filter {
         this.form = document.createElement("form")
         this.cb = cb
     }
-
     public drawFilter() {
         let template = document.createElement("div")
         let valueInput = this.getValueInSearchField(keysParamsFilter.search)
@@ -96,7 +95,6 @@ class Filter {
         this._enableHandlerForm()
         return template
     }
-
     private drawSearchField(title: string, key: keysParamsFilter, value: string) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
@@ -112,7 +110,6 @@ class Filter {
         wrapper.append(input)
         return wrapper
     }
-
     private drawCheckboxField(title: string, key: keysParamsFilter, arr: CountedElement[]) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
@@ -152,7 +149,6 @@ class Filter {
 
         return wrapper
     }
-
     private drawRangeMultiplyField(title: string, key: keysParamsFilter, [min, max]: [number, number]) {
         let wrapper = document.createElement("div")
         wrapper.classList.add("filter-item-wrapper")
@@ -166,10 +162,12 @@ class Filter {
         headers.classList.add("release-date-data")
         let headerFrom = document.createElement("div")
         headerFrom.classList.add("release-date-data__from")
-        headerFrom.textContent = String(min)
+        let defaultValueFrom = this.filterParams[key][0]
+        headerFrom.textContent = defaultValueFrom ? String(defaultValueFrom) : String(min)
         let headerTo = document.createElement("div")
         headerTo.classList.add("release-date-data__to")
-        headerTo.textContent = String(max)
+        let defaultValueTo = this.filterParams[key][1]
+        headerTo.textContent = defaultValueTo ? String(defaultValueTo) : String(max)
 
         headers.append(headerFrom)
         headers.append(headerTo)
@@ -232,7 +230,6 @@ class Filter {
 
         return wrapper
     }
-
     private countElements(param: keyof FilterParams): CountedElement[] {
         let res: CountedElement[] = []
         let values = null
@@ -284,7 +281,6 @@ class Filter {
         return [min, max]
 
     }
-
     private getValueInSearchField(param: keyof FilterParams): string {
         let value = ""
         if (param === keysParamsFilter.search) {
@@ -294,7 +290,7 @@ class Filter {
     }
 
     private _enableHandlerForm() {
-        this.form.addEventListener("input", (event) => {
+        this.form.addEventListener("change", (event) => {
             let target = event.target as HTMLInputElement
             if (target.tagName === 'INPUT') {
                 if (target.type === "checkbox") {
@@ -311,6 +307,8 @@ class Filter {
                     this.cb({key, keyHelper, value})
                 }
             }
+
+
         })
 
     }

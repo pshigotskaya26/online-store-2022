@@ -208,6 +208,11 @@ input[type='range'].range::-webkit-slider-thumb {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
+	padding:  0rem 1.5rem;
+}
+
+.catalog__products {
+	padding:  0rem 1.5rem;
 }
 
 .sort-view {

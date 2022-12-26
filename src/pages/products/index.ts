@@ -55,7 +55,13 @@ class ProductsPage {
                     if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
                         if (event.target.classList.contains('button')) {
                             event.target.classList.toggle('active');
-                            event.target.innerText = 'В корзине';
+							if (event.target.classList.contains('active')) {
+								event.target.innerText = 'В корзине';
+							}
+							else {
+								event.target.innerText = 'В корзину';
+							}
+                            
                         }
                         else {
                             let valueFromDataId = event.currentTarget.getAttribute('data-id');

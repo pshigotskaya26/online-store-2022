@@ -34,10 +34,4 @@ export class ProductItem {
         return card
         
     }
-    
-    	private handleEventClickOnProductItem() {
-        //this.product.
-      }
-    
-   
 }

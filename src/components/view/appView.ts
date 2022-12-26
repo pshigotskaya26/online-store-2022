@@ -1,20 +1,19 @@
-import Product from "./product";
 import {ProductInterface} from "../../types/Product";
 
 export class AppView {
-    product: Product;
+    // product: Product;
     constructor() {
-        this.product = new Product();
+        // this.product = new Product();
     }
 
     drawProducts(data: ProductInterface[]) {
-        const values = data ?? [];
-        this.product.drawCard(values)
+        // const values = data ?? [];
+        // this.product.drawCard(values)
     }
     //
     drawProductPage(product: ProductInterface) {
-        const value = product ?? {};
-        this.product.drawProductPage(value)
+        // const value = product ?? {};
+        // this.product.drawProductPage(value)
     }
 
 

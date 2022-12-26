@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d204f910-5d92-443c-bc7a-bf496b95ede1" name="Changes" comment="feat: added filtration to the products page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/view/productItem/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/view/productItem/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/products/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/products/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +33,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/alexander/projects/rss/online-store/src/utils",
+    "last_opened_file_path": "/home/alexander/projects/rss/online-store/src/components/view",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -47,8 +47,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/utils" />
       <recent name="$PROJECT_DIR$/src/components/view" />
+      <recent name="$PROJECT_DIR$/src/utils" />
       <recent name="$PROJECT_DIR$/src/types" />
       <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/pages" />
@@ -81,6 +81,10 @@
       <workItem from="1671819496016" duration="18779000" />
       <workItem from="1671876334474" duration="138000" />
       <workItem from="1671887489081" duration="752000" />
+      <workItem from="1671889532324" duration="6170000" />
+      <workItem from="1671909684870" duration="13011000" />
+      <workItem from="1671961245456" duration="11000" />
+      <workItem from="1671964709795" duration="12130000" />
     </task>
     <task id="LOCAL-00001" summary="feat: added tailwind">
       <created>1670963668333</created>

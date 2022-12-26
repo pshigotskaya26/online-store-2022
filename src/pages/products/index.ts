@@ -4,37 +4,111 @@ import {ProductItem} from "../../components/view/productItem";
 import Filter from "../../components/view/filter";
 import {getMinMaxValueInObject} from "../../types/getMinMaxValueInObject";
 import {isEmpty} from "../../utils/isEmpty";
-import {isFitObject} from "../../utils/isFitObject";
+import {generateURL} from "../../utils/generateURL";
+import {SortBy} from "../../components/view/sortBy";
+import {sortArrayOfObjects} from "../../utils/sortArrayOfObjects";
+import {ModeViewProductsList} from "../../components/view/modeViewProductsList";
+
+export enum SortKeys {
+    PRICEASC = "price-ASC",
+    PRICEDESK = "price-DESC",
+    RATINGASC = "rating-ASC",
+    RATINGDESK = "rating-DESC",
+}
+
+export enum ModesViewKeys {
+    BIG = "big",
+    SMALL = "small",
+}
+
+let modesViews = [
+    {
+        key: ModesViewKeys.BIG,
+    },
+    {
+        key: ModesViewKeys.SMALL
+    }
+]
+let sortFields = [
+    {
+        key: SortKeys.PRICEASC,
+        title: "По возрастанию цены"
+    },
+    {
+        key: SortKeys.PRICEDESK,
+        title: "По убыванию цены"
+    },
+    {
+        key: SortKeys.RATINGASC,
+        title: "По возрастанию рейтинга"
+    },
+    {
+        key: SortKeys.RATINGDESK,
+        title: "По убыванию рейтинга"
+    }
+]
+
 
 class ProductsPage {
     private readonly container: HTMLElement;
     private readonly products: ProductInterface[];
     private filteredProducts: ProductInterface[];
-    private readonly filterParams: FilterParams;
-    private readonly catalogProducts: HTMLDivElement
+    public filterParams: FilterParams;
+    private readonly catalogProducts: HTMLDivElement;
+    private sort: SortKeys;
+    private readonly queryParams: string
+    private view: ModesViewKeys;
+    private readonly filterWrapper: HTMLDivElement;
+    private countFoundProducts: HTMLSpanElement;
 
-    constructor(id: string, products: ProductInterface[]) {
+    constructor(id: string, products: ProductInterface[], queryParams: string = "") {
         this.container = document.createElement("main");
         this.container.classList.add("main")
         this.container.id = id;
-        //Наверное вынести в контроллер
+
         this.products = products
+        this.sort = SortKeys.RATINGASC
+        this.view = ModesViewKeys.SMALL // "blocks"
         this.filterParams = {
             category: [],
             brand: [],
             price: [],
             stock: [],
-            search: ""
+            search: "",
         }
+        this._setParamsFromURL(queryParams)
+        this.filterWrapper = document.createElement("div")
+        this.queryParams = queryParams
         this.filteredProducts = this.getFilteredProducts(this.filterParams, this.products)
         this.catalogProducts = document.createElement("div")
+        this.countFoundProducts = document.createElement("span")
     }
 
+    private _setParamsFromURL(queryParams: string) {
+        if (queryParams) {
+            let arr = queryParams.split("&")
+            arr.forEach(el => {
+                let arr = el.split("=")
+                let key = arr[0] as keyof FilterParams
+                let values = [...arr[1].split(",")]
+                if (key === keysParamsFilter.search) {
+                    this.filterParams[key] = arr[1]
+                } else {
+                    if (key === keysParamsFilter.stock || key === keysParamsFilter.price) {
+                        this.filterParams[key] = [+values[0], +values[1]]
+                    } else {
+                        this.filterParams[key] = values
+                    }
+                }
+            })
+        }
+    }
 
     private createContentPage() {
         let template = document.createElement("div");
         let mainContainer = document.createElement("div")
         mainContainer.classList.add("main__container")
+
         mainContainer.append(this.createFilterBlock())
         mainContainer.append(this.createListBlock())
 
@@ -73,22 +147,37 @@ class ProductsPage {
         }
     }
 
-    private createFilterBlock() {
+    private createFilterBlock(): HTMLDivElement {
         let template = document.createElement("div")
         template.classList.add("filters")
         let title = document.createElement("h2")
         title.classList.add("filters__title")
         title.textContent = "Параметры"
         template.append(title)
-
         let filter = new Filter(this.filterParams, this.products, (data) => this.handleFilterParams(data))
-        template.append(filter.drawFilter())
+        this.filterWrapper.append(filter.drawFilter())
+
+        template.append(this.filterWrapper)
 
         return template
 
     }
 
-    private createListBlock() {
+    private createCountsElementsBlock(): HTMLDivElement {
+        let countElements = document.createElement("div")
+        countElements.classList.add("count-products")
+
+
+        this.countFoundProducts.classList.add("count-found-products")
+        this.countFoundProducts.textContent = String(this.filteredProducts.length)
+
+        countElements.textContent = "Найдено: "
+        countElements.append(this.countFoundProducts)
+
+        return countElements
+    }
+
+    private createListBlock(): HTMLDivElement {
         let catalog = document.createElement("div")
         catalog.classList.add("catalog")
         let catalogTitle = document.createElement("h2")
@@ -97,27 +186,19 @@ class ProductsPage {
 
         let catalogContent = document.createElement("div")
 
+
         let catalogSort = document.createElement("div")
         catalogSort.classList.add("catalog__sort")
-        catalogSort.innerHTML = `
-                        <div class="sort-view">
-                    <div class="icon-view icon-view_small"></div>
-                    <div class="icon-view icon-view_big active"></div>
-                </div>
-                <div class="count-products">Найдено: <span class="count-found-products">cdf</span></div>
-                <div class="sort-bar">
-                    <div class="sort-bar__text">Сортировать по:</div>
-                    <select name="select-parametr">
-                        <option value="price-ASC">По возрастанию цены</option>
-                        <option value="price-DESC">По убыванию цены</option>
-                        <option value="raiting-ASC">По возрастанию рейтинга</option>
-                        <option value="raiting-DESC">По убыванию рейтинга</option>
-                    </select>
-                </div>
-`
+
+
+        catalogSort.append(new ModeViewProductsList().render(this.view, modesViews, (data: ModesViewKeys) => this.handleModeView(data)))
+
+        catalogSort.append(this.createCountsElementsBlock())
+        catalogSort.append(new SortBy().render(this.sort, sortFields, (data: SortKeys) => this.handleSortBy(data)))
+
         this.catalogProducts.classList.add("catalog__products")
 
-        let list = this.renderProductList(this.filterParams, this.filteredProducts)
+        let list = this.renderProductList(this.filteredProducts)
 
         this.catalogProducts.append(list)
 
@@ -131,45 +212,91 @@ class ProductsPage {
     }
 
     private getFilteredProducts(filterParams: FilterParams, products: ProductInterface[]): ProductInterface[] | [] {
-
         const isEmptyFilter = isEmpty<FilterParams>(this.filterParams)
         if (isEmptyFilter) {
             return products
         } else {
             let res: ProductInterface[] = []
-            products.forEach((el,i) => {
-                if (i <= 10) {
-                    let temp = isFitObject(el, filterParams)
-                    console.log("--------")
+            products.forEach((el, i) => {
+                let isFit = this.isFitObject(el, filterParams)
+                if (isFit) {
+                    res.push(el)
                 }
-
-
             })
             return res
         }
-
     }
 
+    private isFitObject(el: ProductInterface, params: FilterParams): boolean {
+        let res: boolean[] = []
+        for (const key in params) {
+            let filterParamsValues = params[key as keyof typeof params] // :(
+            let currentElValue = el[key as keyof typeof el] // :(
 
+            if (filterParamsValues.length === 0) {
+                res.push(true)
+            } else {
+                if (key === keysParamsFilter.brand || key === keysParamsFilter.category) {
+                    if (Array.isArray(filterParamsValues) && currentElValue) {
+                        let resT = filterParamsValues.some(el => el === currentElValue)
+                        res.push(resT)
+                    }
+                }
+                if (key === keysParamsFilter.price || key === keysParamsFilter.stock) {
+                    if (Array.isArray(filterParamsValues) && currentElValue) {
+                        let sortArr = filterParamsValues.sort((a, b) => +a - +b)
+                        if ((currentElValue >= sortArr[0]) && (currentElValue <= sortArr[1])) {
+                            res.push(true)
+                        } else {
+                            res.push(false)
+                        }
+                    }
+                }
+                if (key === keysParamsFilter.search) {
+                    let name = el["title"] + el["description"] + el["price"] + el["stock"]
+                    if (name.toUpperCase().trim().includes(String(filterParamsValues).toUpperCase().trim())) {
+                        res.push(true)
+                    } else {
+                        res.push(false)
+                    }
+                }
+            }
+        }
+        return res.every(el => el)
+    }
 
-
-    private createHeaderTitle(text: string) {
+    private createHeaderTitle(text: string): HTMLHeadElement {
         let headerTitle = document.createElement("h1");
         headerTitle.innerHTML = text;
         return headerTitle;
     }
 
-    private renderProductList(params: FilterParams, productsArr: ProductInterface[]): HTMLDivElement {
-
+    private renderProductList(productsArr: ProductInterface[]): HTMLDivElement {
         let products = document.createElement("div")
         products.classList.add("products")
-        console.log(productsArr)
-        productsArr.forEach((product: ProductInterface) => {
-            let productItem = new ProductItem(product).render()
-            products.append(productItem)
-        })
+        if (productsArr.length) {
+            productsArr.forEach((product: ProductInterface) => {
+                let productItem = new ProductItem(product).render()
+                products.append(productItem)
+            })
+        } else {
+            let el = document.createElement("div")
+            el.textContent = "Ничего нет :("
+            products.append(el)
+        }
 
         return products
+    }
+
+    private updateProductList(products: ProductInterface[]) {
+        this.catalogProducts.innerHTML = ""
+        this.filteredProducts = products
+
+        this.countFoundProducts.textContent = String(this.filteredProducts.length)
+
+        let list = this.renderProductList(this.filteredProducts)
+        console.log("rerender DefaultValues in Form")
+        this.catalogProducts.append(list)
     }
 
     private handleFilterParams({key, keyHelper, value}: FilterParamSetter) {
@@ -195,7 +322,6 @@ class ProductsPage {
                     this.filterParams[key][0] = +value
                 }
             }
-
             if (keyHelper === "to") {
                 if (!this.filterParams[key].length) {
                     let [min,] = getMinMaxValueInObject<ProductInterface>(key, this.products)
@@ -207,10 +333,35 @@ class ProductsPage {
             }
         }
 
-        // this.catalogProducts.innerHTML = ""
-        // this.filteredProducts = this.getFilteredProducts(this.filterParams, this.products)
-        // console.log(this.filteredProducts)
-        // this.catalogProducts.append(this.renderProductList(this.filterParams, this.products))
+        let newOBj = Object.assign(this.filterParams, {sort: this.sort}, {view: this.view})
+
+        let newURL = generateURL(newOBj)
+        window.history.pushState({}, "", "/#products" + newURL);
+
+        let newObj = this.getFilteredProducts(this.filterParams, this.products)
+        this.updateProductList(newObj)
+    }
+
+    private handleSortBy(key: SortKeys) {
+        this.sort = key
+        let keyForSort = key.substring(0, key.indexOf("-")) as keyof ProductInterface
+        let figureSort = key.substring(key.indexOf("-") + 1, key.length)
+
+        let newObj = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort);
+        this.updateProductList(newObj)
+    }
+
+    private handleModeView(key: ModesViewKeys) {
+        if (key === ModesViewKeys.SMALL) {
+            this.view = ModesViewKeys.SMALL
+            this.catalogProducts.classList.remove(ModesViewKeys.BIG)
+            this.catalogProducts.classList.add(ModesViewKeys.SMALL)
+        }
+        if (key === ModesViewKeys.BIG) {
+            this.view = ModesViewKeys.BIG
+            this.catalogProducts.classList.remove(ModesViewKeys.SMALL)
+            this.catalogProducts.classList.add(ModesViewKeys.BIG)
+        }
     }
 
     render() {

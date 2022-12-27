@@ -5,6 +5,11 @@
 
 //----------styles for MAIN-------------------
 
+h1 {
+  visibility: hidden;
+  font-size: 0;
+}
+
 .main__container {
   display: flex;
   column-gap: 2.5rem;

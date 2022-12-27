@@ -1,3 +1,5 @@
+import CartLayout from "./index.html"
+import "./style.scss"
 class CartPage {
     private container: HTMLElement;
 
@@ -14,17 +16,23 @@ class CartPage {
     }
 
     private createContentPage() {
-        return "1"
-        // let headerTitle = document.createElement("h1");
-        // headerTitle.innerHTML = text;
-        // return headerTitle;
+        let template = document.createElement("div");
+        let mainContainer = document.createElement("div")
+        mainContainer.classList.add("main__container")
+        mainContainer.innerHTML = CartLayout
+
+        template.append(mainContainer)
+        return template;
     }
 
     render() {
         const title = this.createHeaderTitle("Cart Page")
-        this.container.append(title)
         const content = this.createContentPage()
-        this.container.append(content)
+        const container = document.createElement("div")
+        container.classList.add("container")
+        container.append(title)
+        container.append(content)
+        this.container.append(container)
         return this.container
     }
 }

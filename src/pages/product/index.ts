@@ -3,6 +3,9 @@ import PageTemplate from "./index.html";
 import "./index.scss";
 
 import { cart } from "../../components/app/app";
+import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
+import { updateDataInHeader } from "../../types/updateDataInHeader";
+import header from "../../components/view/header";
 
 class ProductPage {
     private container: HTMLElement;
@@ -76,9 +79,19 @@ class ProductPage {
 					event.target.classList.toggle('active');
 					if (event.target.classList.contains('active')) {
 						event.target.innerText = 'В корзине';
+						cart.addItemToCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						setCartInfoInLocal(cart);
+						updateDataInHeader(header);
 					}
 					else {
 						event.target.innerText = 'В корзину';
+						cart.removeItemFromCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						setCartInfoInLocal(cart);
+						updateDataInHeader(header);
 					}
 				}
 			});

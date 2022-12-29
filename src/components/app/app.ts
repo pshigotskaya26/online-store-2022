@@ -9,6 +9,29 @@ import AppView from "../view/appView";
 import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
 import {productsData} from "../../data/products";
+import Cart from "../view/cart";
+import { CartItemInterface } from "../../types/cart";
+
+export let cart = new Cart();
+
+if (cart) {
+	let generalCount = localStorage.getItem('generalCount');
+	let generalSum = localStorage.getItem('generalSum');
+	let arrayCartItemsFromLocal = localStorage.getItem('arrayCartItems');
+
+	if (generalCount) {
+		cart.generalCountInCart = +generalCount;
+	}
+
+	if (generalSum) {
+		cart.generalSummInCart = +generalSum;
+	}
+
+	if (arrayCartItemsFromLocal) {
+		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
+	}
+}
+console.log('cart in app: ', cart);
 
 class App {
     private container: HTMLElement;
@@ -80,6 +103,8 @@ class App {
 
     run() {
         addEventListener("DOMContentLoaded", () => {
+			//console.log('Header: ', Header);
+
             this.container.append(Header)
 
             this.checkLocation()
@@ -87,8 +112,6 @@ class App {
             this.container.append(Footer)
 
             this.enableRouteChange()
-
-
         }, true)
 
     }

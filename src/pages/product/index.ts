@@ -2,6 +2,8 @@ import {ProductInterface} from "../../types/Product";
 import PageTemplate from "./index.html";
 import "./index.scss";
 
+import { cart } from "../../components/app/app";
+
 class ProductPage {
     private container: HTMLElement;
     product: ProductInterface;
@@ -48,6 +50,21 @@ class ProductPage {
 		});
 
 		return galleryNode;
+	}
+
+	//set class active to button for the product that is in the cart
+	private setActiveToButton() {
+		if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
+			cart.arrayCartItems.forEach(item => {
+				if (this.product.id === item.id) {
+					let buttonToCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
+					if (buttonToCartNode) {
+						buttonToCartNode.classList.add('active');
+						buttonToCartNode.innerText = 'В корзине';
+					}
+				}
+			});
+		}
 	}
 
 	private handleOfClickEventOnButtonToCart() {
@@ -178,6 +195,7 @@ class ProductPage {
 		this.handleOfClickEventOnImage();
 		this.handleOfClickEventOnButtonToCart();
 		this.handleOfClickEventOnButtonBuy();
+		this.setActiveToButton();
         return this.container
     }
 }

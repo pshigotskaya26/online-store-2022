@@ -8,6 +8,12 @@ import {generateURL} from "../../utils/generateURL";
 import {SortBy} from "../../components/view/sortBy";
 import {sortArrayOfObjects} from "../../utils/sortArrayOfObjects";
 import {ModeViewProductsList} from "../../components/view/modeViewProductsList";
+import Cart from "../../components/view/cart";
+import { CartItemInterface } from "../../types/cart";
+import { cart } from "../../components/app/app";
+import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
+import header from "../../components/view/header";
+import { updateDataInHeader } from "../../types/updateDataInHeader";
 
 export enum SortKeys {
     PRICEASC = "price-ASC",
@@ -112,12 +118,38 @@ class ProductsPage {
         mainContainer.append(this.createFilterBlock())
         mainContainer.append(this.createListBlock())
 
+		this.setActiveToButton();
+
         this._enableHandlerPageCard()
 
         template.append(mainContainer)
         return template;
     }
 
+	private setActiveToButton() {
+		//cart.arrayCartItems = [{id: 1, count: 1, price: 20}];
+		if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
+			let productsNode: HTMLElement | null = this.catalogProducts.querySelector('.products');
+			
+			if (productsNode) {
+				let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
+				
+				cart.arrayCartItems.forEach(item => {
+					arrayProductsNodes.forEach(productCard => {
+						let valueFromDataId = productCard.getAttribute('data-id');
+						if (Number(valueFromDataId) === item.id) {
+							let buttonNode: HTMLElement | null = productCard.querySelector('button');
+							if (buttonNode) {
+								buttonNode.classList.add('active');
+								buttonNode.innerText = 'В корзине';
+							}
+						}
+					});
+				});
+			}
+		}
+	}
+	
     private _enableHandlerPageCard() {
         let productsNode: HTMLElement | null = this.catalogProducts.querySelector('.products');
         if (productsNode) {
@@ -128,12 +160,27 @@ class ProductsPage {
                 productItem.addEventListener('click', (event: Event) => {
                     if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
                         if (event.target.classList.contains('button')) {
+
+							let valueFromDataId = Number(event.currentTarget.getAttribute('data-id'));
+
                             event.target.classList.toggle('active');
 							if (event.target.classList.contains('active')) {
 								event.target.innerText = 'В корзине';
+								cart.addItemToCart(valueFromDataId);
+								cart.calculateGeneralCount();
+								cart.calculateGeneralPrice();
+								console.log('cart after add item: ', cart);
+								setCartInfoInLocal(cart);
+								updateDataInHeader(header);
 							}
 							else {
 								event.target.innerText = 'В корзину';
+								cart.removeItemFromCart(valueFromDataId);
+								cart.calculateGeneralCount();
+								cart.calculateGeneralPrice();
+								console.log('cart after add item: ', cart);
+								setCartInfoInLocal(cart);
+								updateDataInHeader(header);
 							}
                             
                         }
@@ -201,6 +248,7 @@ class ProductsPage {
         let list = this.renderProductList(this.filteredProducts)
 
         this.catalogProducts.append(list)
+		//this.setActiveToButton();
 
         catalogContent.append(catalogSort)
         catalogContent.append(this.catalogProducts)
@@ -297,6 +345,8 @@ class ProductsPage {
         let list = this.renderProductList(this.filteredProducts)
         console.log("rerender DefaultValues in Form")
         this.catalogProducts.append(list)
+		this.setActiveToButton();
+		this._enableHandlerPageCard();
     }
 
     private handleFilterParams({key, keyHelper, value}: FilterParamSetter) {
@@ -340,6 +390,7 @@ class ProductsPage {
 
         let newObj = this.getFilteredProducts(this.filterParams, this.products)
         this.updateProductList(newObj)
+		//this.setActiveToButton();
     }
 
     private handleSortBy(key: SortKeys) {
@@ -349,6 +400,7 @@ class ProductsPage {
 
         let newObj = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort);
         this.updateProductList(newObj)
+		//this.setActiveToButton();
     }
 
     private handleModeView(key: ModesViewKeys) {
@@ -372,6 +424,8 @@ class ProductsPage {
         container.append(title)
         container.append(content)
         this.container.append(container)
+		console.log('cart--');
+
         return this.container
     }
 }

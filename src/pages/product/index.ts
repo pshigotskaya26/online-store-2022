@@ -2,6 +2,11 @@ import {ProductInterface} from "../../types/Product";
 import PageTemplate from "./index.html";
 import "./index.scss";
 
+import { cart } from "../../components/app/app";
+import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
+import { updateDataInHeader } from "../../types/updateDataInHeader";
+import header from "../../components/view/header";
+
 class ProductPage {
     private container: HTMLElement;
     product: ProductInterface;
@@ -50,6 +55,21 @@ class ProductPage {
 		return galleryNode;
 	}
 
+	//set class active to button for the product that is in the cart
+	private setActiveToButton() {
+		if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
+			cart.arrayCartItems.forEach(item => {
+				if (this.product.id === item.id) {
+					let buttonToCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
+					if (buttonToCartNode) {
+						buttonToCartNode.classList.add('active');
+						buttonToCartNode.innerText = 'В корзине';
+					}
+				}
+			});
+		}
+	}
+
 	private handleOfClickEventOnButtonToCart() {
 		let buttonInCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
 
@@ -59,9 +79,19 @@ class ProductPage {
 					event.target.classList.toggle('active');
 					if (event.target.classList.contains('active')) {
 						event.target.innerText = 'В корзине';
+						cart.addItemToCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						setCartInfoInLocal(cart);
+						updateDataInHeader(header);
 					}
 					else {
 						event.target.innerText = 'В корзину';
+						cart.removeItemFromCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						setCartInfoInLocal(cart);
+						updateDataInHeader(header);
 					}
 				}
 			});
@@ -178,6 +208,7 @@ class ProductPage {
 		this.handleOfClickEventOnImage();
 		this.handleOfClickEventOnButtonToCart();
 		this.handleOfClickEventOnButtonBuy();
+		this.setActiveToButton();
         return this.container
     }
 }

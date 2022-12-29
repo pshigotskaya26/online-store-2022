@@ -119,10 +119,75 @@
             <h2 class="cart__title">Summary</h2>
             <div class="cart__summary-wrapper">
                 <div class="cart__summary-positions">
-                    <p class="cart__subtotal">Subtotal: <span id="cart__subtotal" class="cart__subtotal--value">900</span></p>
+                    <p class="cart__subtotal">Subtotal: <span id="cart__subtotal"
+                                                              class="cart__subtotal--value">900</span></p>
                 </div>
 
                 <button class="button cart-button">Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <div class="modal__overlay">
+            <div class="modal__content">
+                <div class="modal__title">
+                    <h2 class="cart__title">Форма заказа</h2>
+                    <button class="modal__button-close">X</button>
+                </div>
+                <div class="modal__main">
+                    <form action="#" class="form">
+                        <div class="form__item">
+                            <label class="form__item-label" for="name">Имя Фамилия</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter email">
+                            <p class="form__error-text">Валидация: содержит не менее двух слов, длина каждого не
+                                менее 3 символов</p>
+                        </div>
+                        <div class="form__item">
+                            <label class="form__item-label" for="phone">Номер телефона</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Enter phone">
+                            <p class="form__error-text">Валидация: должно начинаться с '+', содержать только
+                                цифры и быть не короче 9 цифр +5</p>
+                        </div>
+                        <div class="form__item">
+                            <label class="form__item-label" for="address">Адрес доставки</label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter address">
+                            <p class="form__error-text">Валидация: содержит не менее трех слов, длина каждого не
+                                менее 5 символов +5</p>
+                        </div>
+                        <div class="form__item">
+                            <label class="form__item-label" for="email">E-mail</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email">
+                            <p class="form__error-text">проверяется, является ли введенный текст электронной
+                                почтой</p>
+                        </div>
+                        <div class="form__item">
+                            <label class="form__item-label" for="numbercard">numbercard</label>
+                            <div>logo</div>
+                            <input type="email" class="form-control" id="numbercard" placeholder="Enter email">
+                            <p class="form__error-text"> реализована автоматическая смена логотипа платежной
+                                   системы.
+                                   Например, если номер карты начинает с 4, устанавливается логотип Visa, если 5 -
+                                   MasterCard. Реализовать не менее 3 платежных систем. +5</p>
+                        </div>
+                        <div class="form__item">
+                            <label for="carddutarion">срока действия карты</label>
+                            <input type="text" class="form-control" id="carddutarion"
+                                   placeholder="срока действия карты">
+                            <p class="form__error-text">Валидация: допускается ввод только цифр, месяц не может
+                                быть больше 12, длина поля должна быть равна 4. Например 12/25. Разделитель не
+                                учитывается и добавляется автоматически +5</p>
+                        </div>
+                        <div class="form__item">
+                            <label for="cardcvv">CVV</label>
+                            <input type="text" class="form-control" id="cardcvv" placeholder="срока действия карты">
+                            <p class="form__error-text">Валидация: длина 3 символа, допускается ввод только цифр
+                                +5</p>
+                        </div>
+                        <input type="submit" disabled class="button" value="Submit">
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>

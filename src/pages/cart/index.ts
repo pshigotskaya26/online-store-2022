@@ -1,10 +1,13 @@
+import CartLayout from "./index.html"
+import "./style.scss"
+
 class CartPage {
     private container: HTMLElement;
 
     constructor(id: string) {
         this.container = document.createElement("main");
-        this.container.classList.add("main")
-        this.container.id = id
+        this.container.classList.add("main");
+        this.container.id = id;
     }
 
     private createHeaderTitle(text: string) {
@@ -14,18 +17,31 @@ class CartPage {
     }
 
     private createContentPage() {
-        return "1"
-        // let headerTitle = document.createElement("h1");
-        // headerTitle.innerHTML = text;
-        // return headerTitle;
+        let template = document.createElement("div");
+        let mainContainer = document.createElement("div");
+        mainContainer.classList.add("main__container");
+        mainContainer.innerHTML = CartLayout;
+        let modalWindow: HTMLElement | null = mainContainer.querySelector("#modal");
+
+        modalWindow?.addEventListener("click", (event) => {
+            if (event.target instanceof HTMLElement && event.target.classList.contains('modal__button-close')) {
+                modalWindow?.classList.remove("hidden");
+            }
+        })
+
+        template.append(mainContainer);
+        return template;
     }
 
     render() {
-        const title = this.createHeaderTitle("Cart Page")
-        this.container.append(title)
-        const content = this.createContentPage()
-        this.container.append(content)
-        return this.container
+        const title = this.createHeaderTitle("Cart Page");
+        const content = this.createContentPage();
+        const container = document.createElement("div");
+        container.classList.add("container");
+        container.append(title);
+        container.append(content);
+        this.container.append(container);
+        return this.container;
     }
 }
 

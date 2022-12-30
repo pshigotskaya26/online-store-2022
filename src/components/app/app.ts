@@ -10,7 +10,8 @@ import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
 import {productsData} from "../../data/products";
 import Cart from "../view/cart";
-import { CartItemInterface } from "../../types/cart";
+//import { CartItemInterface } from "../../types/cart";
+//import header from "../view/header";
 
 export let cart = new Cart();
 
@@ -30,7 +31,11 @@ if (cart) {
 	if (arrayCartItemsFromLocal) {
 		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
 	}
+
+	cart.updateDataInHeader(Header);
 }
+
+//cart.updateDataInHeader(header);
 console.log('cart in app: ', cart);
 
 class App {
@@ -106,6 +111,8 @@ class App {
 			//console.log('Header: ', Header);
 
             this.container.append(Header)
+
+			console.log('Header: ', Header);
 
             this.checkLocation()
 

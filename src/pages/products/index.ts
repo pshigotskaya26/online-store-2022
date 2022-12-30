@@ -13,7 +13,7 @@ import { CartItemInterface } from "../../types/cart";
 import { cart } from "../../components/app/app";
 import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
 import header from "../../components/view/header";
-import { updateDataInHeader } from "../../types/updateDataInHeader";
+//import { updateDataInHeader } from "../../types/updateDataInHeader";
 
 export enum SortKeys {
     PRICEASC = "price-ASC",
@@ -171,7 +171,8 @@ class ProductsPage {
 								cart.calculateGeneralPrice();
 								console.log('cart after add item: ', cart);
 								setCartInfoInLocal(cart);
-								updateDataInHeader(header);
+								cart.updateDataInHeader(header);
+								//updateDataInHeader(header);
 							}
 							else {
 								event.target.innerText = 'В корзину';
@@ -180,7 +181,8 @@ class ProductsPage {
 								cart.calculateGeneralPrice();
 								console.log('cart after add item: ', cart);
 								setCartInfoInLocal(cart);
-								updateDataInHeader(header);
+								cart.updateDataInHeader(header);
+								//updateDataInHeader(header);
 							}
                             
                         }

@@ -4,7 +4,8 @@ import "./index.scss";
 
 import { cart } from "../../components/app/app";
 import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
-import { updateDataInHeader } from "../../types/updateDataInHeader";
+//import { updateDataInHeader } from "../../types/updateDataInHeader";
+//import header from "../../components/view/header";
 import header from "../../components/view/header";
 
 class ProductPage {
@@ -83,7 +84,8 @@ class ProductPage {
 						cart.calculateGeneralCount();
 						cart.calculateGeneralPrice();
 						setCartInfoInLocal(cart);
-						updateDataInHeader(header);
+						cart.updateDataInHeader(header);
+						//updateDataInHeader(header);
 					}
 					else {
 						event.target.innerText = 'В корзину';
@@ -91,7 +93,8 @@ class ProductPage {
 						cart.calculateGeneralCount();
 						cart.calculateGeneralPrice();
 						setCartInfoInLocal(cart);
-						updateDataInHeader(header);
+						cart.updateDataInHeader(header);
+						//updateDataInHeader(header);
 					}
 				}
 			});

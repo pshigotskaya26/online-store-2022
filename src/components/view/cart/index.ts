@@ -1,6 +1,9 @@
 import { CartItemInterface } from "../../../types/cart";
 import CartItem from "../cartItem";
 import { productsData } from "../../../data/products";
+import header from "../header";
+import { getCountFromLocal } from "../../../types/getCountFromLocal";
+import { getSumFromLocal } from "../../../types/getSumFromLocal";
 
 class Cart {
 	generalCountInCart: number;
@@ -64,7 +67,18 @@ class Cart {
 				return sum + (currentCartItem.count * currentCartItem.price);
 			}, 0);
 		}
+	}
 
+	updateDataInHeader(header: HTMLElement) {
+		let countInHeader: HTMLElement | null = header.querySelector('.basket-info__count');
+		let sumInHeader: HTMLElement | null = header.querySelector('.basket-info__sum');
+	
+		if (countInHeader) {
+			getCountFromLocal(countInHeader);
+		}
+		if (sumInHeader) {
+			getSumFromLocal(sumInHeader);
+		}
 	}
 
 	displayGeneralCountInCart() {

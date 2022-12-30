@@ -37,12 +37,34 @@
     min-height: 400px;
   }
 
+  &__summary-positions {
+	  display: flex;
+	  flex-direction: column;
+	  row-gap: 1rem;
+	  color: $color-primery;
+	  font-weight: bold;
+  }
+
+  &__subtotal-value {
+	  color: $color-text;
+  }
+
+  &__total-count-value {
+	color: $color-text;
+  }
+
   &__item {
     display: flex;
     justify-content: space-between;
     border: 1px solid #c2c2c2;
     margin-bottom: 10px;
+	padding: 1rem 0;
     align-items: center
+  }
+
+  &__item-order-numb {
+	  width: 5rem;
+	  text-align: center;
   }
 
   &__item-image {
@@ -58,16 +80,28 @@
   }
 
   &__item-description {
-    width: calc(100% - 220px);
+	  display: flex;
+	  flex-direction: column;
+	  row-gap: 1rem;
+    width: calc(100% - 270px);
     margin: 0 10px;
+  }
+
+  &__item-title {
+	  padding-bottom: 0;
+  }
+
+  &__item-parametrs {
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: space-between;
+	  column-gap: 1rem;
+	  font-size: 1.5rem;
+	  color: $color-text;
   }
 
   &__item-price {
     position: relative;
-    font-weight: 700;
-  }
-
-  &__subtotal--value {
     font-weight: 700;
   }
 
@@ -76,7 +110,7 @@
     position: absolute;
   }
 
-  &__subtotal--value:after {
+  &__subtotal-value:after {
     content: "$";
     position: absolute;
   }

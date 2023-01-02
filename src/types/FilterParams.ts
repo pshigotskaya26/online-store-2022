@@ -1,22 +1,22 @@
 export enum keysParamsFilter {
+    brands = "brands",
+    categories = "categories",
+    prices = "prices",
+    stocks = "stocks",
     search = "search",
-    category = "category",
-    brand = "brand",
-    price = "price",
-    stock = "stock",
-
 }
 
 export interface FilterParams {
-    category: string[],
-    brand: string[],
-    price: [number, number] | [],
-    stock: [number, number] | [],
+    categories: string[],
+    brands: string[],
+    prices: [number, number] | [],
+    stocks: [number, number] | [],
     search: string,
 }
 
+
 export interface FilterParamSetter {
-    key: keysParamsFilter,
+    key: keyof FilterParams,
     keyHelper?: string | null
     value: string
 }

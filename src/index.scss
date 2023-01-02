@@ -84,7 +84,7 @@ h1 {
     background-color: $color-primery-light;
     -moz-border-radius: 0.5rem;
     -webkit-border-radius: 0.5rem;
-    border-radius: 0.5 remx;
+    border-radius: 0.5rem;
   }
 }
 
@@ -92,6 +92,11 @@ h1 {
   display: flex;
   column-gap: 1rem;
 }
+
+.filter-item-disable {
+  color: gray;
+}
+
 
 .filter-item input:checked {
   accent-color: $color-primery-light;
@@ -287,7 +292,6 @@ input[type='range'].range::-webkit-slider-thumb {
 
 .catalog__products.big .products {
   flex-direction: column;
-
 }
 
 

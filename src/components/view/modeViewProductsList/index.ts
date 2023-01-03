@@ -19,11 +19,13 @@ export class ModeViewProductsList {
     root: HTMLDivElement
     controller: Controller;
     currentModeView: ModesViewKeys;
+    handleView: () => void
 
-    constructor(controller: Controller) {
+    constructor(controller: Controller, handleView: () => void) {
         this.root = document.createElement("div")
         this.controller = controller
-        this.currentModeView = this.controller.getCurrentView()
+        this.currentModeView = this.controller.getCurrentView();
+        this.handleView = handleView
     }
 
     render(): HTMLDivElement {
@@ -45,17 +47,25 @@ export class ModeViewProductsList {
         modeView.addEventListener("click", (event) => {
             if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
                 if (!event.target.classList.contains("active")) {
-                    let id = event.target.getAttribute("data-key") as any
+                    let id = event.target.getAttribute("data-key") as ModesViewKeys;
                     if (modeView.querySelectorAll(".icon-view")) {
                         modeView.querySelectorAll(".icon-view").forEach(el => {
                             el.classList.remove("active")
                         })
                     }
                     event.target.classList.add("active")
-                    // cb(id)
+                    this.handleModeView(id)
                 }
             }
         })
         return modeView
+    }
+
+    private handleModeView(key: ModesViewKeys) {
+        if (key === ModesViewKeys.SMALL || key === ModesViewKeys.BIG) {
+            localStorage.setItem("view", key)
+            this.controller.setView(key)
+            this.handleView()
+        }
     }
 }

@@ -1,9 +1,10 @@
-import {CountedProduct, ProductInterface} from "../../types/Product";
+import {CountedProduct, ProductInterface, RangeCounterProducts} from "../../types/Product";
 import {productsData} from "../../data/products";
 import {FilterParams, keysParamsFilter} from "../../types/FilterParams";
 import {isEmpty} from "../../utils/isEmpty";
 import {SortKeys} from "../view/sortBy";
 import {ModesViewKeys} from "../view/modeViewProductsList";
+import {sortArrayOfObjects} from "../../utils/sortArrayOfObjects";
 
 
 export class ProductsModel {
@@ -16,7 +17,8 @@ export class ProductsModel {
 
     constructor() {
         this.products = productsData
-        this.filteredProducts = this.getFilteredProducts()
+        this.filteredProducts = []
+        this.generateFilteredProducts()
 
         this.paramsFilter = {
             categories: [],
@@ -53,6 +55,13 @@ export class ProductsModel {
         }
     }
 
+    setSortProducts() {
+        let keyForSort = this.modeSort.substring(0, this.modeSort.indexOf("-")) as keyof ProductInterface
+        let figureSort = this.modeSort.substring(this.modeSort.indexOf("-") + 1, this.modeSort.length)
+        let sortedArray = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
+        this.filteredProducts = sortedArray
+    }
+
     private getCountedProducts(key: keyof ProductInterface): CountedProduct[] {
         let res: CountedProduct[] = []
         if (key === "category" || key === "brand") {
@@ -67,7 +76,6 @@ export class ProductsModel {
                     selected: this.isSelectedFilterItem(key, el)
                 }
             })
-
         }
         return res
     }
@@ -86,12 +94,14 @@ export class ProductsModel {
         return arr.filter(el => el[key] === str).length
     }
 
-    private rangeValues(key: keyof ProductInterface): { min: number, max: number, minDefault: number, maxDefault: number } {
+    private rangeValues(key: keyof ProductInterface): RangeCounterProducts {
         let allValues = [0, 0]
         let filteredValues = [0, 0]
         if (key === "price" || key === "stock") {
             allValues = this.getMinMaxValue(this.products.map(el => el[key]))
             filteredValues = this.getMinMaxValue(this.filteredProducts.map(el => el[key]))
+
+
         }
         return {
             min: allValues[0], max: allValues[1], minDefault: filteredValues[0], maxDefault: filteredValues[1]
@@ -103,11 +113,11 @@ export class ProductsModel {
         return [a[0], a[a.length - 1]]
     }
 
-    getFilteredProducts() {
+    generateFilteredProducts() {
         const isEmptyFilter = isEmpty<FilterParams>(this.paramsFilter)
 
         if (isEmptyFilter) {
-            return this.products
+            this.filteredProducts = this.products
         } else {
             let res: ProductInterface[] = []
             this.products.forEach((el, i) => {
@@ -116,8 +126,15 @@ export class ProductsModel {
                     res.push(el)
                 }
             })
-            return res
+            this.filteredProducts = res
         }
+    }
+
+    getFilteredProducts() {
+        this.generateFilteredProducts()
+        let keyForSort = this.modeSort.substring(0, this.modeSort.indexOf("-")) as keyof ProductInterface
+        let figureSort = this.modeSort.substring(this.modeSort.indexOf("-") + 1, this.modeSort.length)
+        return sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
     }
 
     private isFitObject(el: ProductInterface): boolean {
@@ -236,6 +253,8 @@ export class ProductsModel {
     getCurrentModeView(): ModesViewKeys {
         return this.modeView
     }
+
+    //Sorting
 
     setModeSort(mode: SortKeys) {
         this.modeSort = mode

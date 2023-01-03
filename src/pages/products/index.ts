@@ -42,7 +42,9 @@ class ProductsPage {
         return template;
     }
 
-    updateProductsList = () => this.productsList.productsList.update()
+    updateProductsList = () => {
+        this.productsList.productsList.update()
+    }
 
     // private setActiveToButton(): void {
     //     if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
@@ -130,32 +132,6 @@ class ProductsPage {
         return headerTitle;
     }
 
-
-    // private handleSortBy(key: SortKeys = this.sort) {
-    //     this.sort = key
-    //     localStorage.setItem("sort", key)
-    //     let keyForSort = key.substring(0, key.indexOf("-")) as keyof ProductInterface
-    //     let figureSort = key.substring(key.indexOf("-") + 1, key.length)
-    //
-    //     let newObj = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort);
-    //     this.updateProductList(newObj)
-    // }
-
-    // private handleModeView(key: ModesViewKeys) {
-    //     if (key === ModesViewKeys.SMALL) {
-    //         this.view = ModesViewKeys.SMALL
-    //         localStorage.setItem("view", ModesViewKeys.SMALL)
-    //         this.catalogProducts.classList.remove(ModesViewKeys.BIG)
-    //         this.catalogProducts.classList.add(ModesViewKeys.SMALL)
-    //     }
-    //     if (key === ModesViewKeys.BIG) {
-    //         this.view = ModesViewKeys.BIG
-    //         localStorage.setItem("view", ModesViewKeys.BIG)
-    //         this.catalogProducts.classList.remove(ModesViewKeys.SMALL)
-    //         this.catalogProducts.classList.add(ModesViewKeys.BIG)
-    //     }
-    // }
-
     render() {
         const title = this.createHeaderTitle("Products Page")
         const content = this.createContentPage()
@@ -164,7 +140,6 @@ class ProductsPage {
         container.append(title)
         container.append(content)
         this.container.append(container)
-        console.log('cart--');
         return this.container
     }
 }

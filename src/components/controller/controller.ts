@@ -59,6 +59,10 @@ class Controller {
         this.model.updateFilteredProducts()
     }
 
+
+    setSortProducts() {
+        this.model.setSortProducts()
+    }
     getProduct(id: string | number): ProductInterface {
         return this.model.getProduct(id)
     }

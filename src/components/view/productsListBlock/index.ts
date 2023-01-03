@@ -16,8 +16,8 @@ export class ProductsListBlock {
         this.root = root
         this.controller = controller
         this.filteredProducts = this.controller.getFilteredProducts()
-        this.modeView = new ModeViewProductsList(this.controller)
-        this.modeSort = new SortBy(this.controller)
+        this.modeView = new ModeViewProductsList(this.controller, this.handleView)
+        this.modeSort = new SortBy(this.controller, this.handleSort)
         this.productsList = new ProductsList(this.controller)
     }
 
@@ -47,6 +47,11 @@ export class ProductsListBlock {
         return catalog
     }
 
+    handleView = () => this.productsList.update()
+    handleSort = () => {
+        this.controller.setSortProducts()
+        this.productsList.update()
+    }
 
 }
 

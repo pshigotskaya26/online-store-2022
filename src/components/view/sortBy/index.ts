@@ -30,9 +30,12 @@ let sortFields = [
 export class SortBy {
     controller: Controller;
     currentModeSort: SortKeys
-    constructor(controller: Controller) {
+    handleSort: () => void;
+
+    constructor(controller: Controller, handleSort: () => void) {
         this.controller = controller
         this.currentModeSort = this.controller.getCurrentSort()
+        this.handleSort = handleSort
     }
 
     render(): HTMLDivElement {
@@ -54,8 +57,11 @@ export class SortBy {
         })
 
         selectParameter.addEventListener("change", (e: Event) => {
-            let target = e.target as HTMLSelectElement
-            // cb(target.value as SortKeys)
+            if (e.target instanceof HTMLSelectElement && e.currentTarget instanceof HTMLSelectElement) {
+                this.controller.setSort(e.target.value as SortKeys)
+                localStorage.setItem("sort", e.target.value)
+                this.handleSort()
+            }
         })
 
         sortBarBlock.append(sortBarText)

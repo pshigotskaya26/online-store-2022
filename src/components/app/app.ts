@@ -82,11 +82,11 @@ class App {
             this.renderNewPage(URLParams)
         })
 
-        window.onpopstate = () => {
-            console.log("aa")
-            // let URLParams: URLParams = getURLParams(window.location.hash)
-            // App.renderNewPage(URLParams)
-        }
+        // window.onpopstate = () => {
+        //     console.log("aa")
+        //     // let URLParams: URLParams = getURLParams(window.location.hash)
+        //     // App.renderNewPage(URLParams)
+        // }
     }
 
     private _checkLocation() {

@@ -36,6 +36,15 @@ export class ProductsModel {
         return this.products.filter(n => n.id.toString() === id.toString())[0]
     }
 
+    resetParamsFilter() {
+        this.paramsFilter.categories = []
+        this.paramsFilter.brands = []
+        this.paramsFilter.prices = []
+        this.paramsFilter.stocks = []
+        this.paramsFilter.search = ""
+        this.updateFilteredProducts()
+    }
+
     updateFilteredProducts() {
         this.filteredProducts = this.getFilteredProducts()
     }
@@ -115,7 +124,6 @@ export class ProductsModel {
 
     generateFilteredProducts() {
         const isEmptyFilter = isEmpty<FilterParams>(this.paramsFilter)
-
         if (isEmptyFilter) {
             this.filteredProducts = this.products
         } else {
@@ -134,7 +142,8 @@ export class ProductsModel {
         this.generateFilteredProducts()
         let keyForSort = this.modeSort.substring(0, this.modeSort.indexOf("-")) as keyof ProductInterface
         let figureSort = this.modeSort.substring(this.modeSort.indexOf("-") + 1, this.modeSort.length)
-        return sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
+        let arr = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
+        return arr
     }
 
     private isFitObject(el: ProductInterface): boolean {

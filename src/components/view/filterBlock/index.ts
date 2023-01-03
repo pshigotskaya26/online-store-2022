@@ -14,7 +14,6 @@ export class FilterBlock {
         this.filterProducts = new FilterProducts(controller, this.formWrapper, this.updateProductsList)
         let data = this.controller.getDataForForm()
         this.filterProducts.render(data)
-
     }
 
     render(): HTMLElement {

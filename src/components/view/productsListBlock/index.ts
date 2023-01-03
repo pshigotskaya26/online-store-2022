@@ -11,11 +11,13 @@ export class ProductsListBlock {
     modeView: ModeViewProductsList;
     modeSort: SortBy;
     productsList: ProductsList;
+    countFoundProducts: HTMLSpanElement;
 
     constructor(root: HTMLElement, controller: Controller) {
         this.root = root
         this.controller = controller
         this.filteredProducts = this.controller.getFilteredProducts()
+        this.countFoundProducts = document.createElement("span")
         this.modeView = new ModeViewProductsList(this.controller, this.handleView)
         this.modeSort = new SortBy(this.controller, this.handleSort)
         this.productsList = new ProductsList(this.controller)
@@ -35,6 +37,7 @@ export class ProductsListBlock {
 
 
         catalogSort.append(this.modeView.render())
+        catalogSort.append(this.createCountsElementsBlock())
         catalogSort.append(this.modeSort.render())
 
 
@@ -53,6 +56,23 @@ export class ProductsListBlock {
         this.productsList.update()
     }
 
+
+    private createCountsElementsBlock(): HTMLDivElement {
+        let countElements = document.createElement("div")
+        countElements.classList.add("count-products")
+        this.countFoundProducts.classList.add("count-found-products")
+        this.countFoundProducts.textContent = String(this.filteredProducts.length)
+
+        countElements.textContent = "Найдено: "
+        countElements.append(this.countFoundProducts)
+
+        return countElements
+    }
+
+    updateCounterElements() {
+        let count = this.controller.getFilteredProducts().length
+        this.countFoundProducts.textContent = String(count)
+    }
 }
 
 

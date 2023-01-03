@@ -25,6 +25,11 @@ export class ProductsList {
         this.root.innerHTML = ""
         this.modeView = this.controller.getCurrentView()
         this.root.classList.add(this.modeView)
+        if (!this.filteredProducts.length) {
+            let nothing = document.createElement("div")
+            nothing.textContent = "Ничего нет"
+            this.products.append(nothing)
+        }
         this.filteredProducts.forEach(product => {
             this.products.append(new ProductItem(product).render())
         })
@@ -34,13 +39,19 @@ export class ProductsList {
     }
 
     update() {
-        console.log("handleSort b")
         this.products.innerHTML = ""
         let filteredArray = this.controller.getFilteredProducts()
-
+        console.log(filteredArray)
         this.root.className = "catalog__products"
         this.modeView = this.controller.getCurrentView()
         this.root.classList.add(this.modeView)
+
+        if (!filteredArray.length) {
+            let nothing = document.createElement("div")
+            nothing.textContent = "Ничего нет"
+            this.products.append(nothing)
+        }
+
         filteredArray.forEach(product => {
             this.products.append(new ProductItem(product).render())
         })

@@ -25,6 +25,7 @@ export class InputField {
         input.type = this.typeInput
         input.name = this.nameInput
         input.value = this.value
+        input.placeholder = "Введите значение"
         input.defaultValue = this.value
         wrapper.append(input)
         return wrapper

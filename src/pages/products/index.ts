@@ -26,6 +26,11 @@ class ProductsPage {
         this.productsList = new ProductsList(this.listProductsHTML, controller)
     }
 
+    private createHeaderTitle(text: string): HTMLHeadElement {
+        let headerTitle = document.createElement("h1");
+        headerTitle.innerHTML = text;
+        return headerTitle;
+    }
 
     private createContentPage(): HTMLElement {
         let template = document.createElement("div");
@@ -34,15 +39,29 @@ class ProductsPage {
 
         mainContainer.append(this.filterBlock.render())
         mainContainer.append(this.productsList.render())
+
         // this.setActiveToButton();
-        //
         // this._enableHandlerPageCard()
 
         template.append(mainContainer)
         return template;
     }
 
+    render() {
+        const title = this.createHeaderTitle("Products Page")
+        const content = this.createContentPage()
+        const container = document.createElement("div")
+        container.classList.add("container")
+        container.append(title)
+        container.append(content)
+        this.container.append(container)
+        return this.container
+    }
+
+
     updateProductsList = () => {
+        console.log("updateList")
+        this.productsList.updateCounterElements()
         this.productsList.productsList.update()
     }
 
@@ -69,6 +88,7 @@ class ProductsPage {
     //     }
     // }
     //
+
     // private _enableHandlerPageCard(): void {
     //     let productsNode: HTMLElement | null = this.catalogProducts.querySelector('.products');
     //     if (productsNode) {
@@ -111,37 +131,10 @@ class ProductsPage {
     //     }
     // }
 
-    // private createCountsElementsBlock(): HTMLDivElement {
-    //     let countElements = document.createElement("div")
-    //     countElements.classList.add("count-products")
-    //
-    //     this.countFoundProducts.classList.add("count-found-products")
-    //     this.countFoundProducts.textContent = String(this.filteredProducts.length)
-    //
-    //     countElements.textContent = "Найдено: "
-    //     countElements.append(this.countFoundProducts)
-    //
-    //     return countElements
-    // }
+
     //
 
 
-    private createHeaderTitle(text: string): HTMLHeadElement {
-        let headerTitle = document.createElement("h1");
-        headerTitle.innerHTML = text;
-        return headerTitle;
-    }
-
-    render() {
-        const title = this.createHeaderTitle("Products Page")
-        const content = this.createContentPage()
-        const container = document.createElement("div")
-        container.classList.add("container")
-        container.append(title)
-        container.append(content)
-        this.container.append(container)
-        return this.container
-    }
 }
 
 export default ProductsPage;

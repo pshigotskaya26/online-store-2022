@@ -3,6 +3,7 @@ import Model from "../model";
 import {SortKeys} from "../view/sortBy";
 import {ModesViewKeys} from "../view/modeViewProductsList";
 import {keysParamsFilter} from "../../types/FilterParams";
+import {generateURL} from "../../utils/generateURL";
 
 class Controller {
     model: Model
@@ -59,10 +60,10 @@ class Controller {
         this.model.updateFilteredProducts()
     }
 
-
     setSortProducts() {
         this.model.setSortProducts()
     }
+
     getProduct(id: string | number): ProductInterface {
         return this.model.getProduct(id)
     }
@@ -74,6 +75,11 @@ class Controller {
 
     getFilteredProducts(): ProductInterface[] {
         return this.model.getFilteredProducts()
+    }
+
+    updateURL() {
+        let url = generateURL(this.model.paramsFilter)
+        window.history.pushState({}, "", "/#products" + url);
     }
 
     setView(mode: ModesViewKeys) {
@@ -90,6 +96,16 @@ class Controller {
 
     getCurrentSort(): SortKeys {
         return this.model.getCurrentModeSort()
+    }
+
+    getURL() {
+        let url = "generateUdcRL"
+        navigator.clipboard.writeText(url)
+    }
+
+    resetFilterParams() {
+        this.model.resetParamsFilter()
+        this.updateURL()
     }
 }
 

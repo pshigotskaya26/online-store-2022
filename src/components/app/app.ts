@@ -44,7 +44,6 @@ class App {
     constructor() {
         this.model = new Model()
         this.controller = new Controller()
-        this._checkLocalStorage()
         this.container = document.body;
         this.initialPage = new ProductsPage("products-page", productsData, this.controller)
     }
@@ -77,17 +76,16 @@ class App {
     }
 
     private enableRouteChange() {
-        addEventListener("hashchange", () => {
-            let URLParams: URLParams = getURLParams(window.location.hash)
-            console.log('URLParams: ', URLParams);
-            this.renderNewPage(URLParams)
-        })
+        addEventListener("hashchange", this.handleURLParams)
+        addEventListener("popstate", this.handleURLParams)
+    }
 
-        // window.onpopstate = () => {
-        //     console.log("aa")
-        //     // let URLParams: URLParams = getURLParams(window.location.hash)
-        //     // App.renderNewPage(URLParams)
-        // }
+    handleURLParams = () => {
+        let URLParams: URLParams = getURLParams(window.location.hash)
+        if (URLParams.queryParams) {
+            this.controller.setQueryParamsFromURLToModel(URLParams.queryParams)
+        }
+        this.renderNewPage(URLParams)
     }
 
     private _checkLocation() {
@@ -107,16 +105,6 @@ class App {
         }
     }
 
-    private _checkLocalStorage() {
-        // let viewLS = localStorage.getItem("view") as ModesViewKeys
-        // let sortLS = localStorage.getItem("sort") as SortKeys
-        // if (viewLS) {
-        //     this.controller.setView(viewLS)
-        // }
-        // if (sortLS) {
-        //     this.controller.setSort(sortLS)
-        // }
-    }
 
     run() {
         addEventListener("DOMContentLoaded", () => {

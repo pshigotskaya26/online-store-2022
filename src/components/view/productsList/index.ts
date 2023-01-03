@@ -70,7 +70,6 @@ export class ProductsList {
 
                 if (parentId) {
                     if (event.target.classList.contains("button-to-cart")) {
-                        // let valueFromDataId = Number(event.currentTarget.getAttribute('data-id'));
                         event.target.classList.toggle('active');
                         if (event.target.classList.contains('active')) {
                             event.target.innerText = 'В корзине';

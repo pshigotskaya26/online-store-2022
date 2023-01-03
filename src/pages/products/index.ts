@@ -41,7 +41,6 @@ class ProductsPage {
         mainContainer.append(this.productsList.render())
 
         // this.setActiveToButton();
-        // this._enableHandlerPageCard()
 
         template.append(mainContainer)
         return template;
@@ -64,76 +63,6 @@ class ProductsPage {
         this.productsList.updateCounterElements()
         this.productsList.productsList.update()
     }
-
-    // private setActiveToButton(): void {
-    //     if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
-    //         let productsNode: HTMLElement | null = this.catalogProducts.querySelector('.products');
-    //
-    //         if (productsNode) {
-    //             let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
-    //
-    //             cart.arrayCartItems.forEach(item => {
-    //                 arrayProductsNodes.forEach(productCard => {
-    //                     let valueFromDataId = productCard.getAttribute('data-id');
-    //                     if (Number(valueFromDataId) === item.id) {
-    //                         let buttonNode: HTMLElement | null = productCard.querySelector('button');
-    //                         if (buttonNode) {
-    //                             buttonNode.classList.add('active');
-    //                             buttonNode.innerText = 'В корзине';
-    //                         }
-    //                     }
-    //                 });
-    //             });
-    //         }
-    //     }
-    // }
-    //
-
-    // private _enableHandlerPageCard(): void {
-    //     let productsNode: HTMLElement | null = this.catalogProducts.querySelector('.products');
-    //     if (productsNode) {
-    //
-    //         let arrayProductsNodes = productsNode.querySelectorAll<HTMLElement>('.product-card');
-    //
-    //         arrayProductsNodes.forEach(productItem => {
-    //             productItem.addEventListener('click', (event: Event) => {
-    //                 if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
-    //                     if (event.target.classList.contains('button')) {
-    //
-    //                         let valueFromDataId = Number(event.currentTarget.getAttribute('data-id'));
-    //
-    //                         event.target.classList.toggle('active');
-    //                         if (event.target.classList.contains('active')) {
-    //                             event.target.innerText = 'В корзине';
-    //                             cart.addItemToCart(valueFromDataId);
-    //                             cart.calculateGeneralCount();
-    //                             cart.calculateGeneralPrice();
-    //                             console.log('cart after add item: ', cart);
-    //                             setCartInfoInLocal(cart);
-    //                             updateDataInHeader(header);
-    //                         } else {
-    //                             event.target.innerText = 'В корзину';
-    //                             cart.removeItemFromCart(valueFromDataId);
-    //                             cart.calculateGeneralCount();
-    //                             cart.calculateGeneralPrice();
-    //                             console.log('cart after add item: ', cart);
-    //                             setCartInfoInLocal(cart);
-    //                             updateDataInHeader(header);
-    //                         }
-    //
-    //                     } else {
-    //                         let valueFromDataId = event.currentTarget.getAttribute('data-id');
-    //                         window.location.href = `/#product/${valueFromDataId}`;
-    //                     }
-    //                 }
-    //             });
-    //         });
-    //     }
-    // }
-
-
-    //
-
 
 }
 

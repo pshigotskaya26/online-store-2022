@@ -63,7 +63,6 @@ export class ModeViewProductsList {
 
     private handleModeView(key: ModesViewKeys) {
         if (key === ModesViewKeys.SMALL || key === ModesViewKeys.BIG) {
-            localStorage.setItem("view", key)
             this.controller.setView(key)
             this.handleView()
         }

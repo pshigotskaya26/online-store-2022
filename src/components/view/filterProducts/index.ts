@@ -79,17 +79,22 @@ export class FilterProducts {
         })
 
         this.form.addEventListener("click", (event) => {
-            if (event.target instanceof HTMLInputElement && event.currentTarget instanceof HTMLFormElement) {
-                if (event.target.type === "button" && event.target.value === RESET) {
+            let target = event.target
+            if (target instanceof HTMLButtonElement && event.currentTarget instanceof HTMLFormElement) {
+                if (target.type === "button" && target.value === RESET) {
                     this.controller.resetFilterParams()
                     this.update()
                     this.updateProductsList()
-
                 }
-                if (event.target.type === "button" && event.target.value === COPY_URL) {
+                if (target.type === "button" && target.value === COPY_URL) {
+                    target.classList.add("copied")
                     this.controller.getURL()
                 }
             }
+        })
+
+        this.form.addEventListener("animationend", () => {
+            this.form.querySelector(".button.copied")?.classList.remove("copied")
         })
     }
 

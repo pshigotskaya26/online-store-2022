@@ -202,6 +202,29 @@ input[type='range'].range::-webkit-slider-thumb {
   }
 }
 
+.button.copied {
+  position: relative;
+  animation: a 1s linear 1 alternate;
+  content: "";
+}
+
+.button.copied:after {
+  position: absolute;
+  content: "Скопировано";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: red;
+  line-height: 55px;
+}
+
+@keyframes a {
+  100% {
+    background: red;
+  }
+}
+
 .catalog {
   flex: 1 1 auto;
 }
@@ -215,18 +238,16 @@ input[type='range'].range::-webkit-slider-thumb {
 }
 
 .catalog__sort {
-	display: flex;
-  
-  
-  
-	justify-content: space-between;
-	align-items: flex-end;
-	padding:  0rem 1.5rem;
+  display: flex;
+
+
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0rem 1.5rem;
 }
 
 .catalog__products {
-	padding:  0rem 1.5rem;
-
+  padding: 0rem 1.5rem;
 
 
   display: flex;

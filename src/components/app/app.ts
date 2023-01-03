@@ -40,6 +40,7 @@ class App {
     private static defaultPageId = "current-page"
     private readonly controller: Controller;
     private model: Model;
+
     constructor() {
         this.model = new Model()
         this.controller = new Controller()
@@ -107,14 +108,14 @@ class App {
     }
 
     private _checkLocalStorage() {
-        let viewLS = localStorage.getItem("view") as ModesViewKeys
-        let sortLS = localStorage.getItem("sort") as SortKeys
-        if (viewLS) {
-            this.controller.setView(viewLS)
-        }
-        if (sortLS) {
-            this.controller.setSort(sortLS)
-        }
+        // let viewLS = localStorage.getItem("view") as ModesViewKeys
+        // let sortLS = localStorage.getItem("sort") as SortKeys
+        // if (viewLS) {
+        //     this.controller.setView(viewLS)
+        // }
+        // if (sortLS) {
+        //     this.controller.setSort(sortLS)
+        // }
     }
 
     run() {

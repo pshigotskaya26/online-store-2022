@@ -9,7 +9,7 @@ export interface ProductInterface {
     brand: string,
     category: string,
     thumbnail: string,
-    images: string[]
+    images: string[],
 }
 
 export interface CountedProduct {

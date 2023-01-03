@@ -1,10 +1,9 @@
 export class Button {
-    root: HTMLInputElement;
+    root: HTMLButtonElement;
     name: string;
 
     constructor(name: string) {
-        this.root = document.createElement("input")
-
+        this.root = document.createElement("button")
         this.name = name
     }
 

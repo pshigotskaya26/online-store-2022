@@ -1,10 +1,11 @@
 import HeaderTemplate from "./index.html"
 import "../header/index.scss"
-import { updateDataInHeader } from "../../../types/updateDataInHeader"
+//import { updateDataInHeader } from "../../../types/updateDataInHeader"
+import { cart } from "../../app/app"
 
 const header = document.createElement("header")
-header.innerHTML = HeaderTemplate
+header.innerHTML = HeaderTemplate;
 
-updateDataInHeader(header);
+console.log(header);
 
 export default header

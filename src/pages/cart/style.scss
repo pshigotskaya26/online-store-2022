@@ -10,7 +10,7 @@
   padding: 11px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
 
   &__list {
     width: calc(100% - 20px);
@@ -34,7 +34,24 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+	row-gap: 4rem;
     min-height: 400px;
+  }
+
+  &__summary-positions {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+	color: $color-primery;
+	font-weight: bold;
+  }
+
+  &__subtotal-value {
+	  color: $color-text;
+  }
+
+  &__total-count-value {
+	color: $color-text;
   }
 
   &__item {
@@ -42,7 +59,13 @@
     justify-content: space-between;
     border: 1px solid #c2c2c2;
     margin-bottom: 10px;
-    align-items: center
+	padding: 1rem 0;
+    align-items: center;
+  }
+
+  &__item-order-numb {
+	width: 5rem;
+	text-align: center;
   }
 
   &__item-image {
@@ -58,16 +81,34 @@
   }
 
   &__item-description {
-    width: calc(100% - 220px);
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+    width: calc(100% - 270px);
     margin: 0 10px;
+  }
+
+  &__item-title {
+	padding-bottom: 0;
+	cursor: pointer;
+  }
+
+  &__item-title:hover {
+	color: $color-primery-light;
+	transition: all ease-out 0.3s;
+  }
+
+  &__item-parametrs {
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: space-between;
+	  column-gap: 1rem;
+	  font-size: 1.5rem;
+	  color: $color-text;
   }
 
   &__item-price {
     position: relative;
-    font-weight: 700;
-  }
-
-  &__subtotal--value {
     font-weight: 700;
   }
 
@@ -76,7 +117,7 @@
     position: absolute;
   }
 
-  &__subtotal--value:after {
+  &__subtotal-value:after {
     content: "$";
     position: absolute;
   }
@@ -93,6 +134,17 @@
       border: 1px solid gray;
       background: #e8e8e8;
     }
+  }
+
+  &__text-error {
+	display: none;
+  }
+
+  &__text-error.active {
+	  display: block;
+	color: $color-red;
+	font-style: italic;
+	font-size: 1.2rem;
   }
 }
 
@@ -144,8 +196,80 @@
   }
 }
 
+.cart__promokod {
+	display: flex;
+	flex-direction: column;
+	row-gap: 2rem;
+}
 
+.applied-promokods {
+	display: none;
+}
 
+.applied-promokods.active {
+	display: block;
+	border-radius: 0.5rem;
+	background-color: $color-gray-light;
+	overflow: hidden;
+}
+
+.applied-promokods .button {
+	padding: 1rem;
+}
+
+.applied-promokods__title {
+	text-align: center;
+	background-color: $color-primery-light;
+	color: $color-white;
+	font-weight: normal;
+	padding: 1rem;
+}
+
+.applied-promo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 1rem;
+	padding: 1rem;
+}
+
+.applied-promo__text {
+	flex: 0 0 20rem;
+}
+
+.promo-code {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+}
+
+.promo-code__text {
+	padding-bottom: 1rem;
+}
+
+.promo-examples__text {
+	text-align: center;
+	color: $color-red;
+}
+
+.promo-code-offer {
+	display: none;
+}
+
+.promo-code-offer.active {
+	display: flex;
+	column-gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.promo-code-offer__text {
+	flex: 0 0 20rem;
+}
+
+.promo-code-offer .button {
+	padding: 1rem;
+}
 
 .form {
 

@@ -21,7 +21,7 @@ export class ProductItem {
 							<div class="product-category">Категория: <span class="product-category__value">${this.product.category}</span></div>
 							<div class="product-brand">Производитель: <span class="product-brand__value">${this.product.brand}</span></div>
 							<div class="product-price">Стоимость: <span class="product-price__value">${this.product.price}$</span></div>
-							<div class="product-discount">Скидка: <span class="product-discount__value">${this.product.discountPercentage}%</span></div>
+							<div class="product-discount">Рейтинг: <span class="product-discount__value">${this.product.rating}</span></div>
 							<div class="product-block">
 								<div class="product-stock">На складе: <span class="product-stock__value">${this.product.stock} <span class="product-stock-unit">шт.</span></span></div>
 								<button class="button button-to-cart">В корзину</button>

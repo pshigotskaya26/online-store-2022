@@ -163,7 +163,7 @@ export class ProductsModel {
                 res.push(this.isFitInRange(this.paramsFilter.stocks, el.price))
             }
             if (key === keysParamsFilter.search) {
-                let fieldsStr = el["title"] + el["description"] + el["price"] + el["stock"]
+                let fieldsStr = el["title"] + el["description"] + el["price"] + el["stock"] + el["category"] + el["brand"]
                 res.push(this.isFitInString(fieldsStr, this.paramsFilter.search))
             }
         }

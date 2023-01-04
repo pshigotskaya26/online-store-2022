@@ -1,3 +1,6 @@
+import { PromokodItemInterface } from './../../types/promokod';
+import { ProductInterface } from './../../types/Product';
+import { promokod } from './../../components/app/app';
 import CartLayout from "./index.html"
 import "./style.scss"
 import { CartItemInterface } from "../../types/cart";
@@ -8,6 +11,8 @@ import SummaryBlock from "../../components/view/summaryBlock";
 import { setCartInfoInLocal } from '../../types/setCartInfoInLocal';
 import header from "../../components/view/header";
 import { getStockOfProduct } from "../../types/getStockOfProduct";
+import PromokodBlock from '../../components/view/promokodBlock';
+
 
 class CartPage {
     private container: HTMLElement;
@@ -43,9 +48,35 @@ class CartPage {
 		let summaryBlockGeneralSumCountNode: HTMLElement | null = mainContainer.querySelector('.cart__summary-positions');
 		summaryBlockGeneralSumCountNode?.append(this.renderSummaryBlock());
 
+		
+		let appliedPromokodsNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods');
+		appliedPromokodsNode?.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
+
         template.append(mainContainer);
         return template;
     }
+
+	private renderAppliedBlock(arrayAppliedPromokod: PromokodItemInterface[]): HTMLDivElement {
+		let appliedPromokodsBlockNode = document.createElement('div')
+		appliedPromokodsBlockNode.classList.add('applied-promokods-block');
+
+		if (arrayAppliedPromokod.length) {
+			appliedPromokodsBlockNode.append(new PromokodBlock().render());
+		}
+
+		return appliedPromokodsBlockNode;
+	}
+
+	private updateAppliedBlock() {
+
+		/*
+		let cartListNode: HTMLElement | null = document.querySelector('.cart__list');
+		if (cartListNode) {
+			cartListNode.innerHTML = '';
+			cartListNode.append(this.renderCartProductList(cart.arrayCartItems));
+		}	
+		*/
+	}
 
 	private renderCartProductList(productsInCart: CartItemInterface[]): HTMLDivElement {
 		let cartProductsList = document.createElement('div');

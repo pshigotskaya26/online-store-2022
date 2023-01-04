@@ -48,9 +48,6 @@ class CartItem {
 		return cartItem;
 	}
 
-	addEventListenerCliclOnCartItem() {
-		
-	}
 }
 
 export default CartItem;

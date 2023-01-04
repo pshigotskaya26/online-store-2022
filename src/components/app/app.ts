@@ -10,10 +10,13 @@ import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
 import {productsData} from "../../data/products";
 import Cart from "../view/cart";
-//import { CartItemInterface } from "../../types/cart";
-//import header from "../view/header";
+
+import Promokod from "../view/promokod";
 
 export let cart = new Cart();
+export let promokod = new Promokod();
+console.log('promokod: ', promokod);
+
 
 if (cart) {
 	let generalCount = localStorage.getItem('generalCount');
@@ -35,8 +38,20 @@ if (cart) {
 	cart.updateDataInHeader(Header);
 }
 
-//cart.updateDataInHeader(header);
-console.log('cart in app: ', cart);
+if (promokod) {
+	promokod.arrayAppliedPromokod = [{"id":"RS","name":"Rolling Scopes School","discount":10},{"id":"EPM","name":"EPAM Systems","discount":10}];
+	/*
+	let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokods');
+
+	if (arrayAppliedPromokodFromLocal) {
+		promokod.arrayAppliedPromokod = JSON.parse(arrayAppliedPromokodFromLocal);
+	}
+	else {
+		console.log('there is no array of Promokods fromlocal');
+	}
+	*/
+
+}
 
 class App {
     private container: HTMLElement;
@@ -82,12 +97,12 @@ class App {
     private enableRouteChange() {
         addEventListener("hashchange", () => {
             let URLParams: URLParams = getURLParams(window.location.hash)
-            console.log('URLParams: ', URLParams);
+            //console.log('URLParams: ', URLParams);
             this.renderNewPage(URLParams)
         })
 
         window.onpopstate = () => {
-            console.log("aa")
+            //console.log("aa")
             // let URLParams: URLParams = getURLParams(window.location.hash)
             // App.renderNewPage(URLParams)
         }
@@ -112,7 +127,7 @@ class App {
 
             this.container.append(Header)
 
-			console.log('Header: ', Header);
+			//console.log('Header: ', Header);
 
             this.checkLocation()
 

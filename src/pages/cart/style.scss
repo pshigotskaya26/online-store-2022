@@ -34,6 +34,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+	row-gap: 4rem;
     min-height: 400px;
   }
 
@@ -195,8 +196,80 @@
   }
 }
 
+.cart__promokod {
+	display: flex;
+	flex-direction: column;
+	row-gap: 2rem;
+}
 
+.applied-promokods {
+	display: none;
+}
 
+.applied-promokods.active {
+	display: block;
+	border-radius: 0.5rem;
+	background-color: $color-gray-light;
+	overflow: hidden;
+}
+
+.applied-promokods .button {
+	padding: 1rem;
+}
+
+.applied-promokods__title {
+	text-align: center;
+	background-color: $color-primery-light;
+	color: $color-white;
+	font-weight: normal;
+	padding: 1rem;
+}
+
+.applied-promo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	column-gap: 1rem;
+	padding: 1rem;
+}
+
+.applied-promo__text {
+	flex: 0 0 20rem;
+}
+
+.promo-code {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+}
+
+.promo-code__text {
+	padding-bottom: 1rem;
+}
+
+.promo-examples__text {
+	text-align: center;
+	color: $color-red;
+}
+
+.promo-code-offer {
+	display: none;
+}
+
+.promo-code-offer.active {
+	display: flex;
+	column-gap: 1rem;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.promo-code-offer__text {
+	flex: 0 0 20rem;
+}
+
+.promo-code-offer .button {
+	padding: 1rem;
+}
 
 .form {
 

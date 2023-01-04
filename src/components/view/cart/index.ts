@@ -37,7 +37,7 @@ class Cart {
 		}
 	}
 
-	checkIfItemInCart(id: number) {
+	checkIfItemInCart(id: number): boolean {
 		if (this.arrayCartItems.filter(cartItem => cartItem.id === id)[0] !== undefined) {
 			return true;
 		}

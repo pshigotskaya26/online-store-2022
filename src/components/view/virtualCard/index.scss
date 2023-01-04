@@ -1,0 +1,22 @@
+.credit-card {
+  background-image: linear-gradient(to right top, #45004f, #40004a, #3b0145, #360140, #31013b);
+  width: 400px;
+  min-height: 100px;
+  margin: 0 auto;
+  border-radius: 14px;
+
+  &__content {
+    display: flex;
+    padding: 20px;
+    color: white;
+  }
+
+  &__logo {
+    width: 20%;
+  }
+
+  input {
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+}

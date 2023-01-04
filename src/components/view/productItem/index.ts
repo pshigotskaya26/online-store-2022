@@ -24,7 +24,7 @@ export class ProductItem {
 							<div class="product-discount">Скидка: <span class="product-discount__value">${this.product.discountPercentage}%</span></div>
 							<div class="product-block">
 								<div class="product-stock">На складе: <span class="product-stock__value">${this.product.stock} <span class="product-stock-unit">шт.</span></span></div>
-								<button class="button">В корзину</button>
+								<button class="button button-to-cart">В корзину</button>
 							</div>
 						</div>
 					</div>

@@ -4,7 +4,7 @@ import {ProductItem} from "../productItem";
 import {ModesViewKeys} from "../modeViewProductsList";
 import {cart} from "../../app/app";
 import {setCartInfoInLocal} from "../../../types/setCartInfoInLocal";
-import {updateDataInHeader} from "../../../types/updateDataInHeader";
+// import {updateDataInHeader} from "../../../types/updateDataInHeader";
 import header from "../header";
 
 export class ProductsList {
@@ -78,7 +78,7 @@ export class ProductsList {
                             cart.calculateGeneralPrice();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
-                            updateDataInHeader(header);
+                            // updateDataInHeader(header);
                         } else {
                             event.target.innerText = 'В корзину';
                             cart.removeItemFromCart(+parentId);
@@ -86,7 +86,7 @@ export class ProductsList {
                             cart.calculateGeneralPrice();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
-                            updateDataInHeader(header);
+                            // updateDataInHeader(header);
                         }
                     } else {
                         window.location.href = `/#product/${parentId}`

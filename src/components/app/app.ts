@@ -42,7 +42,7 @@ if (cart) {
 
 if (promokod) {
 	promokod.arrayAppliedPromokod = [{"id":"RS","name":"Rolling Scopes School","discount":10},{"id":"EPM","name":"EPAM Systems","discount":10}];
-
+/*
 	let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokods');
 
 	if (arrayAppliedPromokodFromLocal) {
@@ -51,6 +51,7 @@ if (promokod) {
 	else {
 		console.log('there is no array of Promokods fromlocal');
 	}
+	*/
 
 }
 

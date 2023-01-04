@@ -12,6 +12,7 @@ import { setCartInfoInLocal } from '../../types/setCartInfoInLocal';
 import header from "../../components/view/header";
 import { getStockOfProduct } from "../../types/getStockOfProduct";
 import PromokodBlock from '../../components/view/promokodBlock';
+import PromokodExample from '../../components/view/promokodExample';
 
 
 class CartPage {
@@ -49,33 +50,42 @@ class CartPage {
 		summaryBlockGeneralSumCountNode?.append(this.renderSummaryBlock());
 
 		
-		let appliedPromokodsNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods');
-		appliedPromokodsNode?.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
+		let appliedPromokodsBlockNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods-block');
+		appliedPromokodsBlockNode?.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
+
+		let promoExamplesNode: HTMLElement | null = mainContainer.querySelector('.promo-examples');
+		promoExamplesNode?.append(this.renderPromokodExampleBlock());
 
         template.append(mainContainer);
         return template;
     }
 
+	private renderPromokodExampleBlock() {
+		let promoExamplesBlock = document.createElement('div')
+		promoExamplesBlock.classList.add('promokod-example-block');
+
+		promoExamplesBlock.append(new PromokodExample().render());
+		return promoExamplesBlock;
+	}
+
 	private renderAppliedBlock(arrayAppliedPromokod: PromokodItemInterface[]): HTMLDivElement {
-		let appliedPromokodsBlockNode = document.createElement('div')
-		appliedPromokodsBlockNode.classList.add('applied-promokods-block');
+		let appliedPromokodsWrapper = document.createElement('div')
+		appliedPromokodsWrapper.classList.add('applied-promokods-wrapper');
 
 		if (arrayAppliedPromokod.length) {
-			appliedPromokodsBlockNode.append(new PromokodBlock().render());
+			appliedPromokodsWrapper.append(new PromokodBlock().render());
 		}
 
-		return appliedPromokodsBlockNode;
+		return appliedPromokodsWrapper;
 	}
 
 	private updateAppliedBlock() {
-
-		/*
-		let cartListNode: HTMLElement | null = document.querySelector('.cart__list');
-		if (cartListNode) {
-			cartListNode.innerHTML = '';
-			cartListNode.append(this.renderCartProductList(cart.arrayCartItems));
+		let appliedPromokodsBlockNode: HTMLElement | null = document.querySelector('.applied-promokods-block');
+		
+		if (appliedPromokodsBlockNode) {
+			appliedPromokodsBlockNode.innerHTML = '';
+			appliedPromokodsBlockNode.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
 		}	
-		*/
 	}
 
 	private renderCartProductList(productsInCart: CartItemInterface[]): HTMLDivElement {

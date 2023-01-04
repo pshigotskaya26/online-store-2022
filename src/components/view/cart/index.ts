@@ -2,8 +2,6 @@ import { CartItemInterface } from "../../../types/cart";
 import CartItem from "../cartItem";
 import { productsData } from "../../../data/products";
 import header from "../header";
-import { getCountFromLocal } from "../../../types/getCountFromLocal";
-import { getSumFromLocal } from "../../../types/getSumFromLocal";
 
 class Cart {
 	generalCountInCart: number;
@@ -17,25 +15,26 @@ class Cart {
 	}
 
 	addItemToCart(id: number) {
-		let existInCart = this.checkIfItemInCart(id);
-
-		//if cart has product
-		if (existInCart) {
-			let price = productsData.filter(product => product.id === id)[0].price;
-			let currentCount = this.arrayCartItems.filter(product => product.id === id)[0].count;
-			let cartItem = new CartItem(id, currentCount + 1, price);
-			this.arrayCartItems.push(cartItem);
-		}
-		//if cart doesn't have product
-		else {
-			let price = productsData.filter(product => product.id === id)[0].price;
-			let cartItem = new CartItem(id, 1, price);
-			this.arrayCartItems.push(cartItem);
-		}
+		let price = productsData.filter(product => product.id === id)[0].price;
+		let cartItem = new CartItem(id, 1, price);
+		this.arrayCartItems.push(cartItem);
 	}
 
 	removeItemFromCart(id: number) {
 		this.arrayCartItems = this.arrayCartItems.filter(product => product.id !== id);
+	}
+
+	changeCountOfCartItem(id: number, newCount: number): void {
+		let existInCart = this.checkIfItemInCart(id);
+
+		if (existInCart) {
+			this.arrayCartItems.forEach(product => {
+				if (product.id === id) {
+					product.count = newCount;
+				}
+				return product;
+			});
+		}
 	}
 
 	checkIfItemInCart(id: number) {
@@ -74,24 +73,12 @@ class Cart {
 		let sumInHeader: HTMLElement | null = header.querySelector('.basket-info__sum');
 	
 		if (countInHeader) {
-			getCountFromLocal(countInHeader);
+			countInHeader.innerHTML = `${this.generalCountInCart} <span class="basket-unit">шт.</span>`;
 		}
 		if (sumInHeader) {
-			getSumFromLocal(sumInHeader);
+			sumInHeader.innerHTML = `${this.generalSummInCart} $<span class="basket-unit"></span>`;
 		}
 	}
-
-	displayGeneralCountInCart() {
-
-	}
-
-	displayGeneralSummInCart() {
-
-	}
 }
-
-//let cart = new Cart();
-
-//export { cart };
 
 export default Cart;

@@ -1,6 +1,3 @@
-import { getCountFromLocal } from "./getCountFromLocal";
-import { getSumFromLocal } from "./getSumFromLocal";
-
 
 /*
 export function updateDataInHeader(tag: HTMLElement) {

@@ -10,7 +10,7 @@
   padding: 11px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: stretch;
 
   &__list {
     width: calc(100% - 20px);
@@ -38,11 +38,11 @@
   }
 
   &__summary-positions {
-	  display: flex;
-	  flex-direction: column;
-	  row-gap: 1rem;
-	  color: $color-primery;
-	  font-weight: bold;
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
+	color: $color-primery;
+	font-weight: bold;
   }
 
   &__subtotal-value {
@@ -59,12 +59,12 @@
     border: 1px solid #c2c2c2;
     margin-bottom: 10px;
 	padding: 1rem 0;
-    align-items: center
+    align-items: center;
   }
 
   &__item-order-numb {
-	  width: 5rem;
-	  text-align: center;
+	width: 5rem;
+	text-align: center;
   }
 
   &__item-image {
@@ -80,15 +80,21 @@
   }
 
   &__item-description {
-	  display: flex;
-	  flex-direction: column;
-	  row-gap: 1rem;
+	display: flex;
+	flex-direction: column;
+	row-gap: 1rem;
     width: calc(100% - 270px);
     margin: 0 10px;
   }
 
   &__item-title {
-	  padding-bottom: 0;
+	padding-bottom: 0;
+	cursor: pointer;
+  }
+
+  &__item-title:hover {
+	color: $color-primery-light;
+	transition: all ease-out 0.3s;
   }
 
   &__item-parametrs {
@@ -127,6 +133,17 @@
       border: 1px solid gray;
       background: #e8e8e8;
     }
+  }
+
+  &__text-error {
+	display: none;
+  }
+
+  &__text-error.active {
+	  display: block;
+	color: $color-red;
+	font-style: italic;
+	font-size: 1.2rem;
   }
 }
 

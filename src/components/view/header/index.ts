@@ -8,8 +8,4 @@ header.innerHTML = HeaderTemplate;
 
 console.log(header);
 
-//cart.updateDataInHeader(header);
-
-//updateDataInHeader(header);
-
 export default header

@@ -13,6 +13,7 @@ import header from "../../components/view/header";
 import { getStockOfProduct } from "../../types/getStockOfProduct";
 import PromokodBlock from '../../components/view/promokodBlock';
 import PromokodExample from '../../components/view/promokodExample';
+import PromokodSearch from '../../components/view/promokodSearch';
 
 
 class CartPage {
@@ -53,12 +54,23 @@ class CartPage {
 		let appliedPromokodsBlockNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods-block');
 		appliedPromokodsBlockNode?.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
 
-		let promoExamplesNode: HTMLElement | null = mainContainer.querySelector('.promo-examples');
-		promoExamplesNode?.append(this.renderPromokodExampleBlock());
+		let promokodExamplesNode: HTMLElement | null = mainContainer.querySelector('.promo-examples');
+		promokodExamplesNode?.append(this.renderPromokodExampleBlock());
+
+		let promokodSearchNode: HTMLElement | null = mainContainer.querySelector('.promo-code__search');
+		promokodSearchNode?.append(this.renderPromokodSearch());
 
         template.append(mainContainer);
         return template;
     }
+
+	private renderPromokodSearch() {
+		let promokodSearchBlock = document.createElement('div')
+		promokodSearchBlock.classList.add('promokod-search-block');
+
+		promokodSearchBlock.append(new PromokodSearch().render());
+		return promokodSearchBlock;
+	}
 
 	private renderPromokodExampleBlock() {
 		let promoExamplesBlock = document.createElement('div')

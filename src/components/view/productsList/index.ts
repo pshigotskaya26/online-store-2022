@@ -78,6 +78,7 @@ export class ProductsList {
                             cart.calculateGeneralPrice();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
+							cart.updateDataInHeader(header);
                             // updateDataInHeader(header);
                         } else {
                             event.target.innerText = 'В корзину';
@@ -86,6 +87,7 @@ export class ProductsList {
                             cart.calculateGeneralPrice();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
+							cart.updateDataInHeader(header);
                             // updateDataInHeader(header);
                         }
                     } else {

@@ -1,0 +1,45 @@
+.form {
+
+  &__item-label {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    background: #ececec;
+    margin-bottom: 5px;
+    padding: 5px;
+  }
+
+  &__item input {
+    width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+  }
+
+  &__error-text.hidden {
+    display: none;
+
+  }
+
+  &__error-text {
+    color: red;
+    font-size: 11px;
+  }
+
+  &__item input:focus {
+    border-color: #334b99;
+  }
+
+
+  &__item input:invalid {
+    background: red;
+  }
+
+}

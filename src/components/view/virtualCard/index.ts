@@ -2,13 +2,123 @@ import "./index.scss"
 
 export class VirtualCard {
     root: HTMLDivElement;
+    activeCard: string;
+
     constructor() {
         this.root = document.createElement("div")
         this.root.classList.add("credit-card")
-        // this._enableValidation()
+        this.activeCard = this.renderDefaultLogo()
     }
 
-    renderVISA = () => {
+    _enableValidation() {
+        let numberCurd = this.root.querySelector("#numberCard")
+        numberCurd?.addEventListener("keyup", this.handleKeyUpNumberCard)
+        numberCurd?.addEventListener("blur", this.handleBlurNumberCard)
+
+        let date = this.root.querySelector("#dateCard")
+        date?.addEventListener("keyup", this.handleKeyUpDateCard)
+        // date?.addEventListener("input", this.handleInputNumberCard)
+
+    }
+
+    handleKeyUpNumberCard(e: Event) {
+        let regexpCard = /^[0-9]{16}$/
+        this.updateLogoCard(4)
+        if (e.target instanceof HTMLInputElement) {
+            e.target.value = e.target.value.replace(/[^0-9\.]/g, '')
+
+            if (regexpCard.test(e.target.value)) {
+                e.target.classList.remove("error")
+            }
+        }
+    }
+
+    handleBlurNumberCard = (e: Event) => {
+        let error = this.root.querySelector(".form__error-number-text")
+        if (e.target instanceof HTMLInputElement) {
+            let regexpCard = /^[0-9]{16}$/
+
+            if (!regexpCard.test(e.target.value)) {
+                e.target.classList.add("error")
+                error?.classList.remove("hidden")
+            } else {
+                e.target.classList.remove("error")
+                error?.classList.add("hidden")
+            }
+        }
+    }
+
+    handleKeyUpDateCard = (e: Event) => {
+        console.log("b")
+        if (e.target instanceof HTMLInputElement) {
+            let error = this.root.querySelector(".form__error-date-text")
+            e.target.value = e.target.value.replace(/[^0-9\.]/g, '')
+
+            if (e.target.value.length >= 5) {
+                e.target.value = e.target.value.substring(0, 5)
+            }
+
+            if (e.target.value.length === 2) {
+                if (+e.target.value <= 12) {
+                    e.target.value = e.target.value + "/"
+                } else {
+                    error?.classList.remove("hidden")
+                }
+            }
+
+            if (e.target.value.length === 3) {
+                console.log(e.target.value)
+            }
+            if (e.target.value.length === 4) {
+                console.log(e.target.value)
+            }
+
+        }
+    }
+
+    updateLogoCard = (value?: number): void => {
+        let creditCardLogo: HTMLDivElement | null = document.querySelector(".credit-card__logo")
+        if (creditCardLogo) {
+            if (value === 4) {
+                creditCardLogo.innerHTML = this.renderVISA()
+            } else if (value === 5) {
+                creditCardLogo.innerHTML = this.renderMasterCard()
+            } else {
+                creditCardLogo.innerHTML = this.renderDefaultLogo()
+            }
+        }
+    }
+
+    render() {
+        this.root.innerHTML = `            
+        <div class="credit-card__content">
+            <div class="credit-card__logo">${this.activeCard}</div>
+            <div class="credit-card__data">
+                <div class="credit-card__number">
+                    <input id="numberCard" name="numberCard" value="" placeholder="1111 1111 1111 1111">
+                    <p class="form__error-text form__error-number-text hidden">16 символов!</p>
+                </div>
+                <div class="credit-card__desc">
+                    <div class="credit-card__date">
+                        <input id="dateCard" name="date" value="" placeholder="12/17">
+                        <p class="form__error-text form__error-date-text hidden">Некорректный формат</p>
+                    </div>
+                    <div class="credit-card__cvv">
+                        <input name="cvv" value="" placeholder="126">
+                        <p class="form__error-text hidden">Некорректный формат</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+        this._enableValidation()
+        return this.root
+    }
+
+    renderDefaultLogo = (): string => {
+        return `<img src="#" alt="df"/>`
+    }
+    renderVISA = (): string => {
         return `
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -87,7 +197,7 @@ export class VirtualCard {
      style="fill:#faa61a" /></g>
 </svg>`
     }
-    renderMasterCard = () => {
+    renderMasterCard = (): string => {
         return `
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
@@ -130,36 +240,6 @@ export class VirtualCard {
 </svg>`
     }
 
-    handlet() {
-        console.log("sa")
-    }
-
-    _enableValidation() {
-        let numberCurd = this.root.querySelector("#numberCard")
-        numberCurd?.addEventListener("click", this.handlet)
-    }
-
-    render() {
-        this.root.innerHTML = `            
-        <div class="credit-card__content">
-            <div class="credit-card__logo"></div>
-            <div class="credit-card__data">
-                <div class="credit-card__number">
-                    <input id="numberCard" name="numberCard" value="" placeholder="1111 1111 1111 1111">
-                </div>
-                <div class="credit-card__desc">
-                    <div class="credit-card__date">
-                        <input name="date" value="" placeholder="12/17">
-                    </div>
-                    <div class="credit-card__cvv">
-                        <input name="cvv" value="" placeholder="126">
-                    </div>
-                </div>
-            </div>
-        </div> 
-        `
-        return this.root
-    }
 }
 
 export default VirtualCard;

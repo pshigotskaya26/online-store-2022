@@ -11,17 +11,21 @@ import {setCartInfoInLocal} from '../../types/setCartInfoInLocal';
 import header from "../../components/view/header";
 import {getStockOfProduct} from "../../types/getStockOfProduct";
 import PromokodBlock from '../../components/view/promokodBlock';
+import {Modal} from "../../components/view/modal";
+import FormOrder from "../../components/view/formOrder";
 
 
 class CartPage {
     private container: HTMLElement;
-    handleModal: () => void
+    modal: Modal;
+    formOrder: FormOrder;
 
-    constructor(id: string, handleModal: () => void) {
+    constructor(id: string) {
         this.container = document.createElement("main");
         this.container.classList.add("main");
         this.container.id = id;
-        this.handleModal = handleModal
+        this.modal = new Modal()
+        this.formOrder = new FormOrder()
     }
 
     private createHeaderTitle(text: string) {
@@ -179,7 +183,7 @@ class CartPage {
         let buttonOrder: HTMLButtonElement | null = this.container.querySelector(".cart-button")
 
         buttonOrder?.addEventListener("click", () => {
-            this.handleModal()
+            this.modal.handleModal()
         })
     }
 
@@ -190,6 +194,7 @@ class CartPage {
         container.classList.add("container");
         container.append(title);
         container.append(content);
+        container.append(this.modal.render("Форма заказа", this.formOrder.render()))
         this.container.append(container);
         this.enableHandlerModal()
         return this.container;

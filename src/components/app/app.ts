@@ -61,13 +61,11 @@ class App {
     private initialPage: ProductsPage;
     private static defaultPageId = "current-page"
 
-    private modal: Modal;
-
     constructor() {
         this.controller = new Controller()
         this.container = document.body;
         this.initialPage = new ProductsPage("products-page", this.controller)
-        this.modal = new Modal()
+
     }
 
     private renderNewPage({hashPage, idProduct}: URLParams) {
@@ -77,7 +75,7 @@ class App {
         if (hashPage === "") {
             page = new ProductsPage("products-page", this.controller);
         } else if (hashPage === "cart") {
-            page = new CartPage("cart-page", this.handleModal);
+            page = new CartPage("cart-page");
         } else if (hashPage.includes("products")) {
             page = new ProductsPage("products-page", this.controller);
         } else if (hashPage.includes("product/")) {
@@ -127,10 +125,6 @@ class App {
         }
     }
 
-    private handleModal = () => {
-        this.modal.handleModal()
-    }
-
     run() {
         addEventListener("DOMContentLoaded", () => {
 
@@ -138,7 +132,6 @@ class App {
             this._checkLocation()
 
             this.container.append(Footer)
-            this.container.append(this.modal.render())
             this.enableRouteChange()
         }, true)
 

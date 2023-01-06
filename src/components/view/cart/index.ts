@@ -3,6 +3,8 @@ import CartItem from "../cartItem";
 import { productsData } from "../../../data/products";
 import header from "../header";
 import { promokod } from "../../app/app";
+import { PromokodItemInterface } from "../../../types/promokod";
+import PromokodItem from "../promokodItem/promokodItem";
 
 class Cart {
 	generalCountInCart: number;
@@ -72,13 +74,20 @@ class Cart {
 			}, 0);
 		}
 	}
+	
+	calculateGeneralDiscount(arrayOfPromokods: PromokodItemInterface[]) {
+		let sumOfDiscounts = arrayOfPromokods.reduce((sum, currentPromokod) => {
+			return sum + currentPromokod.discount;
+		}, 0);
 
-	/*
-	calculateGeneralDiscount() {
-
+		this.generalDiscount = sumOfDiscounts;
 	}
 
-	*/
+	calculateGeneralDiscountSumm() {
+		this.discountSumm = this.generalSummInCart - ((this.generalSummInCart * this.generalDiscount) / 100);
+	}
+
+
 
 	updateDataInHeader(header: HTMLElement) {
 		let countInHeader: HTMLElement | null = header.querySelector('.basket-info__count');

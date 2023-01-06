@@ -40,6 +40,10 @@ if (cart) {
         cart.generalDiscount = +generalDiscount;
     }
 
+	if (discountSumm) {
+        cart.discountSumm = +discountSumm;
+    }
+
 	if (arrayCartItemsFromLocal) {
 		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
 	}

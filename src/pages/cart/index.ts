@@ -155,6 +155,10 @@ class CartPage {
 							cart.removeItemFromCart(Number(idCartItem));
 							cart.calculateGeneralCount();
 							cart.calculateGeneralPrice();
+
+							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+							cart.calculateGeneralDiscountSumm();
+
 							setCartInfoInLocal(cart);
 							cart.updateDataInHeader(header);
 							this.updateCartProductList();
@@ -196,6 +200,9 @@ class CartPage {
 
 								cart.calculateGeneralCount();
 								cart.calculateGeneralPrice();
+								cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+								cart.calculateGeneralDiscountSumm();
+
 								setCartInfoInLocal(cart);
 								cart.updateDataInHeader(header);
 								this.updateCartProductList();
@@ -209,6 +216,8 @@ class CartPage {
 			});
 		}
 		else {
+			promokod.arrayAppliedPromokod = [];
+			this.updateSummaryBlock();
 			let el = document.createElement('p');
 			el.textContent = 'Товаров в корзине нет';
 			cartProductsList.append(el);
@@ -278,6 +287,10 @@ class CartPage {
 					if (!promokod.checkIfPromokodIsApplied(value)) {
 						promokod.addPromokod(value);
 
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
+						setCartInfoInLocal(cart);
+
 						console.log('promokod: add : ', promokod.arrayAppliedPromokod);
 						setArrayAppliedPromokod(promokod);
 						this.updateSummaryBlock();
@@ -310,7 +323,11 @@ class CartPage {
 							console.log('idFromParentNode: ', idFromParentNode);
 							promokod.removePromokod(idFromParentNode);
 							buttonItem.remove();
+							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+							cart.calculateGeneralDiscountSumm();
+							setCartInfoInLocal(cart);
 							console.log(promokod.arrayAppliedPromokod);
+							
 
 							setArrayAppliedPromokod(promokod);
 							this.updateSummaryBlock();

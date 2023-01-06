@@ -3,25 +3,31 @@ import VirtualCard from "../virtualCard";
 
 export class FormOrder {
     root: HTMLFormElement;
+    isOrder: boolean;
+    successMessage: HTMLElement;
 
     constructor() {
         this.root = document.createElement("form")
         this.root.action = "#"
         this.root.classList.add("form")
+        this.isOrder = false;
+        this.successMessage = document.createElement("div")
         this.handlerForm()
     }
 
-    handlerForm() {
+    handlerForm = () => {
         this.root.addEventListener('submit', (e) => {
             e.preventDefault()
-            console.log(this.root.querySelectorAll("input"))
+            this.successMessage.innerHTML = "<h2>Заказ принят, перенаправление на главную страницу</h2>"
+            setTimeout(() => {
+                window.location.href = "/#products"
+                console.log("очистить корзину TODO")
+            }, 4000)
         })
-
-
     }
 
     render(): HTMLElement {
-
+        this.successMessage.innerHTML = ""
         let inputs = [
             {
                 label: "Имя и фамилия",
@@ -29,7 +35,7 @@ export class FormOrder {
                 type: "text",
                 placeholder: "Иванов Иван",
                 errorText: "менее двух слов, длина каждого не менее 3 символов",
-                regex: new RegExp(/[A-Za-z]{3,}\b.+?[A-Za-z]{3,}/)
+                regex: new RegExp(/[а-яa-z]{3,}\s[а-яa-z]{3,}/, "i")
             },
             {
                 label: "Номер телефона",
@@ -45,7 +51,7 @@ export class FormOrder {
                 type: "text",
                 placeholder: "г.Минск, пр.Независимости, 18",
                 errorText: "не менее трех слов, длина каждого не менее 5 символов ",
-                regex: new RegExp(/[A-Za-z]{5,}.+[A-Za-z]{5,}.+?[A-Za-z]{5,}/)
+                regex: new RegExp(/[а-яa-z]{5,}.+[а-яa-z]{5,}.+?[а-яa-z]{5,}/i)
             },
             {
                 label: "E-mail",
@@ -59,14 +65,16 @@ export class FormOrder {
         inputs.forEach(input => {
             this.root.append(new InputForm(input.label, input.name, input.name, input.type, input.placeholder, input.errorText, input.regex).render())
         })
-
-        this.root.append(new VirtualCard().render())
+        let virtualCard = new VirtualCard()
+        let virtualCardTemplate = virtualCard.render()
+        this.root.append(virtualCardTemplate)
 
         let buttonSubmit = document.createElement("input")
         buttonSubmit.type = "submit"
         buttonSubmit.classList.add("button")
 
         this.root.append(buttonSubmit)
+        this.root.append(this.successMessage)
         return this.root
     }
 

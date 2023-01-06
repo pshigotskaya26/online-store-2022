@@ -33,6 +33,10 @@ export class InputForm {
         })
     }
 
+    createFieldRedirect() {
+        return document.createElement("div")
+    }
+
     render() {
         this.root.classList.add("form__item")
         let label = document.createElement("label")
@@ -44,8 +48,10 @@ export class InputForm {
         input.type = this.type
         input.classList.add("form-control")
         input.id = this.id
+        input.required = true
+        input.ariaLabel = this.errorText
         input.placeholder = this.placeholder
-
+        input.pattern = this.pattern.toString().slice(1, this.pattern.toString().lastIndexOf("/"))
         let textError = document.createElement("p")
         textError.classList.add("form__error-text")
         textError.classList.add("hidden")

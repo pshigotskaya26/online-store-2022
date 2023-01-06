@@ -1,5 +1,4 @@
 import "./index.scss"
-import VirtualCard from "../virtualCard";
 
 export class Modal {
     root: HTMLDivElement;
@@ -9,7 +8,7 @@ export class Modal {
         this.root = document.createElement("div")
         this.isVisibleModal = false
         this.root.classList.add("modal")
-        // this.root.classList.add("hidden")
+        this.root.classList.add("hidden")
         this.root.id = "modal"
     }
 

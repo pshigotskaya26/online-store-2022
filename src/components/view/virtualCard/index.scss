@@ -1,5 +1,5 @@
 .credit-card {
-  background-image: linear-gradient(to right top, #45004f, #40004a, #3b0145, #360140, #31013b);
+  background-image: linear-gradient(to right top, #9887cb, #59488b, #422791, #372d6c, #31013b);
   width: 400px;
   min-height: 100px;
   margin: 0 auto;
@@ -13,6 +13,13 @@
 
   &__logo {
     width: 20%;
+    height: 40px;
+    margin-right: 20px;
+    background: white;
+    overflow: hidden;
+  }
+  &__logo img {
+    width: 100%;
   }
 
   input {

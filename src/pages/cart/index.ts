@@ -1,9 +1,8 @@
-import {PromokodItemInterface} from './../../types/promokod';
-import {promokod} from './../../components/app/app';
+import {PromokodItemInterface} from '../../types/promokod';
+import {promokod} from '../../components/app/app';
 import CartLayout from "./index.html"
 import "./style.scss"
 import {CartItemInterface} from "../../types/cart";
-import {productsData} from '../../data/products';
 import CartItem from "../../components/view/cartItem";
 import {cart} from "../../components/app/app";
 import SummaryBlock from "../../components/view/summaryBlock";
@@ -194,7 +193,8 @@ class CartPage {
         container.classList.add("container");
         container.append(title);
         container.append(content);
-        container.append(this.modal.render("Форма заказа", this.formOrder.render()))
+        const modalFormOrder = this.modal.render("Форма заказа", this.formOrder.render())
+        container.append(modalFormOrder)
         this.container.append(container);
         this.enableHandlerModal()
         return this.container;

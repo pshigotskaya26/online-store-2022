@@ -218,10 +218,14 @@ class CartPage {
 		else {
 			promokod.arrayAppliedPromokod = [];
 			this.updateSummaryBlock();
+			this.updateAppliedBlock();
 			let el = document.createElement('p');
 			el.textContent = 'Товаров в корзине нет';
 			cartProductsList.append(el);
 		}
+		this.updateSummaryBlock();
+		this.updateAppliedBlock();
+
 		return cartProductsList;
 	}
 

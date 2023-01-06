@@ -9,7 +9,7 @@ class Promokod {
 		this.arrayAppliedPromokod = [];
 	}
 
-	private addPromokod(id: string) {
+	addPromokod(id: string) {
 		let idUpperCase = id.toUpperCase();
 
 		let idPromoFounded = promokodsData.filter(promo => promo.id === idUpperCase)[0].id;
@@ -21,11 +21,11 @@ class Promokod {
 		this.arrayAppliedPromokod.push(promokodItem)
 	}
 
-	private removePromokod(id: string) {
+	removePromokod(id: string) {
 		this.arrayAppliedPromokod = this.arrayAppliedPromokod.filter(promoItem => promoItem.id !== id);
 	}
 
-	private checkIfPromokodIsApplied(id: string): boolean {
+	checkIfPromokodIsApplied(id: string): boolean {
 		if (this.arrayAppliedPromokod.filter(promokodItem => promokodItem.id === id)[0] !== undefined) {
 			return true;
 		}
@@ -33,7 +33,6 @@ class Promokod {
 			return false;
 		}
 	}
-
 }
 
 export default Promokod;

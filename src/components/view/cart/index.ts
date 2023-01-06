@@ -2,15 +2,20 @@ import { CartItemInterface } from "../../../types/cart";
 import CartItem from "../cartItem";
 import { productsData } from "../../../data/products";
 import header from "../header";
+import { promokod } from "../../app/app";
 
 class Cart {
 	generalCountInCart: number;
 	generalSummInCart: number;
+	generalDiscount: number;
+	discountSumm: number;
 	arrayCartItems: CartItemInterface[];
 
 	constructor() {
 		this.generalCountInCart = 0;
 		this.generalSummInCart = 0;
+		this.generalDiscount = 0;
+		this.discountSumm = 0;
 		this.arrayCartItems = [];
 	}
 
@@ -67,6 +72,13 @@ class Cart {
 			}, 0);
 		}
 	}
+
+	/*
+	calculateGeneralDiscount() {
+
+	}
+
+	*/
 
 	updateDataInHeader(header: HTMLElement) {
 		let countInHeader: HTMLElement | null = header.querySelector('.basket-info__count');

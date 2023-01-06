@@ -1,3 +1,5 @@
+import { Button } from './../../components/view/button/index';
+import { CheckBoxField } from './../../components/view/checkBoxField/index';
 import { PromokodItemInterface } from './../../types/promokod';
 import { ProductInterface } from './../../types/Product';
 import { promokod } from './../../components/app/app';
@@ -9,12 +11,14 @@ import CartItem from "../../components/view/cartItem";
 import { cart } from "../../components/app/app";
 import SummaryBlock from "../../components/view/summaryBlock";
 import { setCartInfoInLocal } from '../../types/setCartInfoInLocal';
+import { setArrayAppliedPromokod } from '../../types/setArrayAppliedPromokod';
 import header from "../../components/view/header";
 import { getStockOfProduct } from "../../types/getStockOfProduct";
+import { isPromokodInData } from '../../types/isPromokodInData';
 import PromokodBlock from '../../components/view/promokodBlock';
 import PromokodExample from '../../components/view/promokodExample';
 import PromokodSearch from '../../components/view/promokodSearch';
-
+import PromokodOffer from '../../components/view/promokodOffer';
 
 class CartPage {
     private container: HTMLElement;
@@ -50,36 +54,66 @@ class CartPage {
 		let summaryBlockGeneralSumCountNode: HTMLElement | null = mainContainer.querySelector('.cart__summary-positions');
 		summaryBlockGeneralSumCountNode?.append(this.renderSummaryBlock());
 
-		
 		let appliedPromokodsBlockNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods-block');
 		appliedPromokodsBlockNode?.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
 
-		let promokodExamplesNode: HTMLElement | null = mainContainer.querySelector('.promo-examples');
+		let promokodExamplesNode: HTMLElement | null = mainContainer.querySelector('.promokod-examples');
 		promokodExamplesNode?.append(this.renderPromokodExampleBlock());
-
-		let promokodSearchNode: HTMLElement | null = mainContainer.querySelector('.promo-code__search');
-		promokodSearchNode?.append(this.renderPromokodSearch());
 
         template.append(mainContainer);
         return template;
     }
 
+	private renderPromokodOffer() {
+		let promokodOfferBlock = document.createElement('div')
+		promokodOfferBlock.classList.add('promokod-offer');
+		//promokodOfferBlock.append(new PromokodOffer().render());
+		//return promokodOfferBlock;
+	}
+
+/*
 	private renderPromokodSearch() {
 		let promokodSearchBlock = document.createElement('div')
 		promokodSearchBlock.classList.add('promokod-search-block');
 
-		promokodSearchBlock.append(new PromokodSearch().render());
+		let inpuSearch = new PromokodSearch().render();
+
+		inpuSearch.addEventListener('input', (event: Event) => {
+			console.log('event.target serach: ', event.target);
+
+			if (event.target instanceof HTMLInputElement) {
+				let valueOfSerach= event.target.value.trim().toUpperCase();
+
+				let promokodOfferNode: HTMLElement | null = document.querySelector('.promokod__offer');
+
+				if (promokodOfferNode) {
+					if (isPromokodInData(valueOfSerach)) {
+						if (promokod.checkIfPromokodIsApplied(valueOfSerach)) {
+							promokodOfferNode.append(new PromokodOffer().render(true, valueOfSerach));
+			
+						}
+						else {
+							promokodOfferNode.append(new PromokodOffer().render(false, valueOfSerach));
+						}
+					}
+					else {
+						promokodOfferNode.innerHTML = '';
+					}
+				}
+			}
+		});
+		promokodSearchBlock.append(inpuSearch);
 		return promokodSearchBlock;
 	}
+*/
 
-	private renderPromokodExampleBlock() {
+	private renderPromokodExampleBlock():HTMLDivElement {
 		let promoExamplesBlock = document.createElement('div')
-		promoExamplesBlock.classList.add('promokod-example-block');
-
+		promoExamplesBlock.classList.add('promokod-examples-block');
 		promoExamplesBlock.append(new PromokodExample().render());
 		return promoExamplesBlock;
 	}
-
+	
 	private renderAppliedBlock(arrayAppliedPromokod: PromokodItemInterface[]): HTMLDivElement {
 		let appliedPromokodsWrapper = document.createElement('div')
 		appliedPromokodsWrapper.classList.add('applied-promokods-wrapper');
@@ -88,30 +122,35 @@ class CartPage {
 			appliedPromokodsWrapper.append(new PromokodBlock().render());
 		}
 
+		this.handleEventClickOnRemovePromokod();
 		return appliedPromokodsWrapper;
 	}
 
 	private updateAppliedBlock() {
+		console.log('---update');
 		let appliedPromokodsBlockNode: HTMLElement | null = document.querySelector('.applied-promokods-block');
 		
 		if (appliedPromokodsBlockNode) {
 			appliedPromokodsBlockNode.innerHTML = '';
 			appliedPromokodsBlockNode.append(this.renderAppliedBlock(promokod.arrayAppliedPromokod));
+			this.handleEventClickOnRemovePromokod();
 		}	
 	}
 
-	private renderCartProductList(productsInCart: CartItemInterface[]): HTMLDivElement {
+
+	renderCartProductList(productsInCart: CartItemInterface[]): HTMLDivElement {
 		let cartProductsList = document.createElement('div');
 		cartProductsList.classList.add('cart-list');
 
 		if (productsInCart.length) {
 			productsInCart.forEach((cartProductItem: CartItemInterface, index) => {
 				let cartItem = new CartItem(cartProductItem.id, cartProductItem.count, cartProductItem.price).render(index);
-				console.log('cartItem: ', cartItem);
+				
 				//when we click on button remove or click onblock cart-item
 				cartItem.addEventListener('click', (event: Event) => {
 					if (event.target instanceof HTMLElement && event.currentTarget instanceof HTMLElement) {
 						if (event.target.classList.contains('button-remove')) {
+							//console.log('cartItem: ', cartItem);
 							let idCartItem = event.currentTarget.getAttribute('data-cart-id');
 							cart.removeItemFromCart(Number(idCartItem));
 							cart.calculateGeneralCount();
@@ -158,10 +197,10 @@ class CartPage {
 								cart.calculateGeneralCount();
 								cart.calculateGeneralPrice();
 								setCartInfoInLocal(cart);
-								
 								cart.updateDataInHeader(header);
 								this.updateCartProductList();
 								this.updateSummaryBlock();
+								this.updateAppliedBlock();
 							}
 						}
 					});
@@ -177,22 +216,22 @@ class CartPage {
 		return cartProductsList;
 	}
 
-	private updateCartProductList() {
-		let cartListNode: HTMLElement | null = document.querySelector('.cart__list');
+	updateCartProductList() {
+		let cartListNode: HTMLElement | null = this.container.querySelector('.cart__list');
 		if (cartListNode) {
 			cartListNode.innerHTML = '';
 			cartListNode.append(this.renderCartProductList(cart.arrayCartItems));
-		}	
+		}
 	}
 
-	private renderSummaryBlock(): HTMLDivElement {
+	renderSummaryBlock(): HTMLDivElement {
 		let summaryPositions = document.createElement('div');
 		summaryPositions.classList.add('summary-positions');
 		summaryPositions.append(new SummaryBlock().render());
 		return summaryPositions;
 	}
 
-	private updateSummaryBlock() {
+	updateSummaryBlock() {
 		let summaryBlockGeneralSumCountNode: HTMLElement | null = document.querySelector('.cart__summary-positions');
 		if (summaryBlockGeneralSumCountNode) {
 			summaryBlockGeneralSumCountNode.innerHTML = '';
@@ -200,7 +239,91 @@ class CartPage {
 		}	
 	}
 
-    render() {
+	handleEventInputInSerach() {
+		let searchNode: HTMLElement | null = this.container.querySelector('.promokod-search');
+	
+		searchNode?.addEventListener('input', (event: Event) => {
+			console.log('event.target serach: ', event.target);
+
+			if (event.target instanceof HTMLInputElement) {
+				let valueOfSerach= event.target.value.trim().toUpperCase();
+				console.log('valueOfSerach: ', valueOfSerach);
+
+				let promokodOfferNode: HTMLElement | null = document.querySelector('.promokod__offer');
+
+				if (promokodOfferNode) {
+					if (isPromokodInData(valueOfSerach)) {
+						if (promokod.checkIfPromokodIsApplied(valueOfSerach)) {
+							promokodOfferNode.append(new PromokodOffer().render(true, valueOfSerach));
+						}
+						else {
+							promokodOfferNode.append(new PromokodOffer().render(false, valueOfSerach));
+							this.handleEventClickOnAddPromokod(valueOfSerach);
+						}
+					}
+					else {
+						promokodOfferNode.innerHTML = '';
+					}
+				}
+			}
+		});
+	}
+
+	handleEventClickOnAddPromokod(value: string) {
+		let buttonPromokodAdd: HTMLElement | null = document.querySelector('.button-promokod-add');
+		if (buttonPromokodAdd) {
+
+			buttonPromokodAdd?.addEventListener('click', (event: Event) => {
+				if (event.target instanceof HTMLElement && event.target.classList.contains('button-promokod-add')) {
+					if (!promokod.checkIfPromokodIsApplied(value)) {
+						promokod.addPromokod(value);
+
+						console.log('promokod: add : ', promokod.arrayAppliedPromokod);
+						setArrayAppliedPromokod(promokod);
+						this.updateSummaryBlock();
+						this.updateAppliedBlock();
+						//this.handleEventClickOnRemovePromokod();
+						
+						let promokodOfferNode: HTMLElement | null = document.querySelector('.promokod__offer');
+
+						if (promokodOfferNode) {
+							promokodOfferNode.innerHTML = '';
+						}
+					}
+				}
+			});
+		}
+	}
+
+	handleEventClickOnRemovePromokod() {
+		console.log('this.container for remove: ', this.container);
+		let arrayButtonsRemovePromokod = this.container.querySelectorAll<HTMLElement>('.button-promo-drop');
+
+		if (arrayButtonsRemovePromokod) {
+			arrayButtonsRemovePromokod.forEach((buttonItem: HTMLElement) => {
+				buttonItem.addEventListener('click', (event: Event) => {
+					if (event.target instanceof HTMLElement) {
+						
+						let idFromParentNode = buttonItem.parentElement?.getAttribute('data-promokod-id');
+
+						if (idFromParentNode) {
+							console.log('idFromParentNode: ', idFromParentNode);
+							promokod.removePromokod(idFromParentNode);
+							buttonItem.remove();
+							console.log(promokod.arrayAppliedPromokod);
+
+							setArrayAppliedPromokod(promokod);
+							this.updateSummaryBlock();
+							this.updateAppliedBlock();
+						}
+					}
+					console.log('click on button Remove promo');
+				});
+			});
+		}
+	}
+
+    render(): HTMLElement{
         const title = this.createHeaderTitle("Cart Page");
         const content = this.createContentPage();
         const container = document.createElement("div");
@@ -208,6 +331,8 @@ class CartPage {
         container.append(title);
         container.append(content);
         this.container.append(container);
+		this.handleEventInputInSerach();
+		this.handleEventClickOnRemovePromokod();
         return this.container;
     }
 }

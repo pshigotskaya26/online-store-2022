@@ -4,7 +4,7 @@ import { PromokodItemInterface } from "../../../types/promokod";
 class PromokodExample {
 	render(): HTMLDivElement {
 		let promoExamplesText = document.createElement("div");
-		promoExamplesText.classList.add('promo-examples__text');
+		promoExamplesText.classList.add('promokod-examples__text');
 		
 
 		promoExamplesText.innerHTML = `

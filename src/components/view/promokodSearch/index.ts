@@ -4,7 +4,7 @@ class PromokodSearch {
         inputSearch.type = "serach";
 		inputSearch.classList.add('search-input');
 		inputSearch.classList.add('promo-search');
-		inputSearch.placeholder = "Введите нзвание промокода";
+		inputSearch.placeholder = "Введите навание промокода";
 
 		return inputSearch;
 	}

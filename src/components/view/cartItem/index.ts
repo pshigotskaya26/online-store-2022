@@ -39,7 +39,7 @@ class CartItem {
                         </div>
                     </div>
                     <div class="cart__item-count">
-                        <div class="cart__item-price">${this.price}</div>
+                        <div class="cart__item-price">${this.price * this.count}</div>
                         <input class="input-count" type="number" min="0" max="${productItemFounded[0].stock}" value="${this.count}">
 						<p class="cart__text-error">Введите кол-во товара</p>
                     </div>

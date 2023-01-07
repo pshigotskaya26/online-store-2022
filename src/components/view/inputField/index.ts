@@ -1,35 +1,25 @@
-export class InputField {
-    constructor(
-        readonly title: string,
-        readonly typeInput: string,
-        readonly nameInput: string,
-        readonly id: string,
-        readonly value: string,
-    ) {
-        this.title = title;
-        this.typeInput = typeInput;
-        this.nameInput = nameInput;
-        this.id = id;
-        this.value = value;
-    }
+export function createInputFieldHTMLElement(
+    title: string,
+    typeInput: string,
+    nameInput: string,
+    id: string,
+    value: string,
 
-    render() {
-        let wrapper = document.createElement("div")
-        wrapper.classList.add("filter-item-wrapper")
-        let titleEl = document.createElement("h3")
-        titleEl.classList.add("search__title")
-        titleEl.innerText = this.title
-        wrapper.append(titleEl)
-        let input = document.createElement("input")
-        input.classList.add("search-input")
-        input.type = this.typeInput
-        input.name = this.nameInput
-        input.value = this.value
-        input.placeholder = "Введите значение"
-        input.defaultValue = this.value
-        wrapper.append(input)
-        return wrapper
-    }
+): HTMLElement {
+    let wrapper = document.createElement("div")
+    wrapper.classList.add("filter-item-wrapper")
+    let titleEl = document.createElement("h3")
+    titleEl.classList.add("search__title")
+    titleEl.innerText = title
+    wrapper.append(titleEl)
+    let input = document.createElement("input")
+    input.classList.add("search-input")
+    input.type = typeInput
+    input.name = nameInput
+    input.value = value
+    input.placeholder = "Введите значение"
+    input.defaultValue = value
+
+    wrapper.append(input)
+    return wrapper
 }
-
-export default InputField;

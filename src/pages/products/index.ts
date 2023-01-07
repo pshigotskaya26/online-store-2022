@@ -1,4 +1,3 @@
-import {ProductInterface} from "../../types/Product";
 import FilterBlock from "../../components/view/filterBlock";
 import Controller from "../../components/controller/controller";
 import ProductsList from "../../components/view/productsListBlock";
@@ -13,7 +12,7 @@ class ProductsPage {
     filterBlock: FilterBlock;
     productsList: ProductsList
 
-    constructor(id: string, products: ProductInterface[], controller: Controller) {
+    constructor(id: string, controller: Controller) {
         this.controller = controller
         this.container = document.createElement("main");
         this.container.classList.add("main")

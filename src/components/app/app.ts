@@ -7,13 +7,11 @@ import Footer from "../view/footer";
 import Controller from "../controller/controller";
 import {URLParams} from "../../types/URLParams";
 import {getURLParams} from "../../utils/getURLParams";
-import {productsData} from "../../data/products";
+// import {productsData} from "../../data/products";
 import Cart from "../view/cart";
 
-import Model from "../model";
-import {SortKeys} from "../view/sortBy";
-import {ModesViewKeys} from "../view/modeViewProductsList";
 import Promokod from "../view/promokod";
+import {Modal} from "../view/modal";
 
 export let cart = new Cart();
 export let promokod = new Promokod();
@@ -35,7 +33,7 @@ if (cart) {
     if (generalSum) {
         cart.generalSummInCart = +generalSum;
     }
-
+    
 	if (generalDiscount) {
         cart.generalDiscount = +generalDiscount;
     }
@@ -48,12 +46,10 @@ if (cart) {
 		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
 	}
 
-	cart.updateDataInHeader(Header);
+    cart.updateDataInHeader(Header);
 }
 
 if (promokod) {
-	
-
 	let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokod');
 
 	if (arrayAppliedPromokodFromLocal) {
@@ -70,17 +66,16 @@ if (promokod) {
 console.log('promokod local: ', promokod.arrayAppliedPromokod);
 
 class App {
+    private readonly controller: Controller;
     private container: HTMLElement;
     private initialPage: ProductsPage;
     private static defaultPageId = "current-page"
-    private readonly controller: Controller;
-    private model: Model;
 
     constructor() {
-        this.model = new Model()
         this.controller = new Controller()
         this.container = document.body;
-        this.initialPage = new ProductsPage("products-page", productsData, this.controller)
+        this.initialPage = new ProductsPage("products-page", this.controller)
+
     }
 
     private renderNewPage({hashPage, idProduct}: URLParams) {
@@ -88,11 +83,11 @@ class App {
         currentPage.innerHTML = ""
         let page: CartPage | ProductPage | ProductsPage | ErrorPage | null = null;
         if (hashPage === "") {
-            page = new ProductsPage("products-page", productsData, this.controller);
+            page = new ProductsPage("products-page", this.controller);
         } else if (hashPage === "cart") {
             page = new CartPage("cart-page");
         } else if (hashPage.includes("products")) {
-            page = new ProductsPage("products-page", productsData, this.controller);
+            page = new ProductsPage("products-page", this.controller);
         } else if (hashPage.includes("product/")) {
             if (idProduct) {
                 let product = this.controller.getProduct(idProduct)
@@ -140,7 +135,6 @@ class App {
         }
     }
 
-
     run() {
         addEventListener("DOMContentLoaded", () => {
 
@@ -148,7 +142,6 @@ class App {
             this._checkLocation()
 
             this.container.append(Footer)
-
             this.enableRouteChange()
         }, true)
 

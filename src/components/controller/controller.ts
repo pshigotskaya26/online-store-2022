@@ -3,6 +3,7 @@ import Model from "../model";
 import {SortKeys} from "../view/sortBy";
 import {ModesViewKeys} from "../view/modeViewProductsList";
 import {FilterParams, keysParamsFilter} from "../../types/FilterParams";
+import {FormData} from "../../types/formData";
 
 class Controller {
     model: Model
@@ -73,7 +74,7 @@ class Controller {
         return this.model.getProduct(id)
     }
 
-    getDataForForm(): any {
+    getDataForForm(): FormData {
         this.model.updateFilteredProducts()
         return this.model.getDataForForm()
     }

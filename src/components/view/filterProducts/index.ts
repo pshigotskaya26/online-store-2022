@@ -1,10 +1,9 @@
-import InputField from "../inputField";
+import {createInputFieldHTMLElement} from "../inputField";
 import CheckBoxField from "../checkBoxField";
 import MultiplyRangeField from "../multiplyRangeField";
 import Controller from "../../controller/controller";
 import {keysParamsFilter} from "../../../types/FilterParams";
 import {CountedProduct, RangeCounterProducts} from "../../../types/Product";
-import {render} from "sass";
 import {Button} from "../button";
 
 interface FilterData {
@@ -33,15 +32,22 @@ export class FilterProducts {
 
     createFieldsForm({search, brands, categories, prices, stocks}: FilterData): HTMLElement {
         let formFields = document.createElement("div")
+        const { outerHTML: outerHTML_InputSearch } = createInputFieldHTMLElement("Поиск",
+            "text",
+            keysParamsFilter.search,
+            keysParamsFilter.search,
+            search,)
+
         formFields.innerHTML = `
-            ${new InputField("Поиск", "text", keysParamsFilter.search, keysParamsFilter.search, search).render().outerHTML}
+            ${outerHTML_InputSearch}
             ${new CheckBoxField("Категория", keysParamsFilter.categories, keysParamsFilter.categories, categories).render().outerHTML}
             ${new CheckBoxField("Бренд", keysParamsFilter.brands, keysParamsFilter.brands, brands).render().outerHTML}
             ${new MultiplyRangeField("Стоимость", keysParamsFilter.prices, keysParamsFilter.prices, prices).render().outerHTML} 
             ${new MultiplyRangeField("Количество на складе", keysParamsFilter.stocks, keysParamsFilter.stocks, stocks).render().outerHTML}
+
             <div class="filter-buttons">
-            ${new Button(RESET).render().outerHTML}
-            ${new Button(COPY_URL).render().outerHTML}
+                ${new Button(RESET).render().outerHTML}
+                ${new Button(COPY_URL).render().outerHTML}
             </div>
         `
         return formFields
@@ -55,6 +61,7 @@ export class FilterProducts {
 
     update() {
         let data = this.controller.getDataForForm()
+        console.log(data)
         this.form.innerHTML = ""
         this.form.innerHTML = this.createFieldsForm(data).outerHTML
     }

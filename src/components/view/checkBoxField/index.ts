@@ -1,9 +1,11 @@
+import {CountedProduct} from "../../../types/Product";
+
 export class CheckBoxField {
     constructor(
         readonly title: string,
         readonly nameInput: string,
         readonly id: string,
-        readonly values: any[]
+        readonly values: CountedProduct[]
     ) {
         this.title = title;
         this.nameInput = nameInput;

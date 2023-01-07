@@ -7,6 +7,8 @@ export class Button {
         this.name = name
     }
 
+
+
     render() {
         this.root.textContent = this.name
         this.root.type = "button"

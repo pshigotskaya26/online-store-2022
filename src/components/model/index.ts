@@ -117,7 +117,7 @@ export class ProductsModel {
         }
     }
 
-    private getMinMaxValue(arr: number[]): [number, number] {
+    getMinMaxValue(arr: number[]): [number, number] {
         let a = arr.sort((a, b) => a - b);
         return [a[0], a[a.length - 1]]
     }
@@ -142,8 +142,7 @@ export class ProductsModel {
         this.generateFilteredProducts()
         let keyForSort = this.modeSort.substring(0, this.modeSort.indexOf("-")) as keyof ProductInterface
         let figureSort = this.modeSort.substring(this.modeSort.indexOf("-") + 1, this.modeSort.length)
-        let arr = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
-        return arr
+        return sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
     }
 
     private isFitObject(el: ProductInterface): boolean {

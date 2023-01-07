@@ -6,6 +6,7 @@ import {cart} from "../../app/app";
 import {setCartInfoInLocal} from "../../../types/setCartInfoInLocal";
 // import {updateDataInHeader} from "../../../types/updateDataInHeader";
 import header from "../header";
+import { promokod } from "../../app/app";
 
 export class ProductsList {
     controller: Controller;
@@ -76,6 +77,8 @@ export class ProductsList {
                             cart.addItemToCart(+parentId);
                             cart.calculateGeneralCount();
                             cart.calculateGeneralPrice();
+							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+							cart.calculateGeneralDiscountSumm();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
 							cart.updateDataInHeader(header);
@@ -85,6 +88,8 @@ export class ProductsList {
                             cart.removeItemFromCart(+parentId);
                             cart.calculateGeneralCount();
                             cart.calculateGeneralPrice();
+							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+							cart.calculateGeneralDiscountSumm();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
 							cart.updateDataInHeader(header);

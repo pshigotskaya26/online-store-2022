@@ -5,7 +5,7 @@ import promokodAppliedView from '../promokodAppliedView';
 class PromokodBlock {
 	render() {
 		let promokodBlock = document.createElement('div');
-		promokodBlock.classList.add('promo-block');
+		promokodBlock.classList.add('promokod-block');
 
 		promokod.arrayAppliedPromokod.forEach((promokodItem: PromokodItemInterface) => {
 			let appliedPromokodItem = new promokodAppliedView().render(promokodItem);

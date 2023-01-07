@@ -21,6 +21,9 @@ console.log('promokod: ', promokod);
 if (cart) {
     let generalCount = localStorage.getItem('generalCount');
     let generalSum = localStorage.getItem('generalSum');
+	let generalDiscount = localStorage.getItem('generalDiscount');
+	let discountSumm = localStorage.getItem('discountSumm');
+	
     let arrayCartItemsFromLocal = localStorage.getItem('arrayCartItems');
 
     if (generalCount) {
@@ -30,30 +33,37 @@ if (cart) {
     if (generalSum) {
         cart.generalSummInCart = +generalSum;
     }
-
-    if (arrayCartItemsFromLocal) {
-        cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
+    
+	if (generalDiscount) {
+        cart.generalDiscount = +generalDiscount;
     }
+
+	if (discountSumm) {
+        cart.discountSumm = +discountSumm;
+    }
+
+	if (arrayCartItemsFromLocal) {
+		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
+	}
 
     cart.updateDataInHeader(Header);
 }
 
 if (promokod) {
-    promokod.arrayAppliedPromokod = [{"id": "RS", "name": "Rolling Scopes School", "discount": 10}, {
-        "id": "EPM",
-        "name": "EPAM Systems",
-        "discount": 10
-    }];
+	let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokod');
 
-    let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokods');
+	if (arrayAppliedPromokodFromLocal) {
+		promokod.arrayAppliedPromokod = JSON.parse(arrayAppliedPromokodFromLocal);
+		console.log('promokod local: ', promokod.arrayAppliedPromokod);
+	}
+	else {
+		console.log('there is no array of Promokods fromlocal');
+	}
 
-    if (arrayAppliedPromokodFromLocal) {
-        promokod.arrayAppliedPromokod = JSON.parse(arrayAppliedPromokodFromLocal);
-    } else {
-        console.log('there is no array of Promokods fromlocal');
-    }
-
+	//promokod.arrayAppliedPromokod = [{"id":"EPM","name":"EPAM Systems","discount":10}];
 }
+
+console.log('promokod local: ', promokod.arrayAppliedPromokod);
 
 class App {
     private readonly controller: Controller;

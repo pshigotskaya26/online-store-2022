@@ -1,6 +1,7 @@
 import {ProductInterface} from "../../types/Product";
 import PageTemplate from "./index.html";
 import "./index.scss";
+import { promokod } from "../../components/app/app";
 
 import { cart } from "../../components/app/app";
 import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
@@ -83,6 +84,8 @@ class ProductPage {
 						cart.addItemToCart(this.product.id);
 						cart.calculateGeneralCount();
 						cart.calculateGeneralPrice();
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
 						setCartInfoInLocal(cart);
 						cart.updateDataInHeader(header);
 						//updateDataInHeader(header);
@@ -92,6 +95,8 @@ class ProductPage {
 						cart.removeItemFromCart(this.product.id);
 						cart.calculateGeneralCount();
 						cart.calculateGeneralPrice();
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
 						setCartInfoInLocal(cart);
 						cart.updateDataInHeader(header);
 						//updateDataInHeader(header);
@@ -107,7 +112,23 @@ class ProductPage {
 		if (buttonBuyNode) {
 			buttonBuyNode.addEventListener('click', (event: Event) => {
 				if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
-					window.location.href="/#cart";
+					if (cart.checkIfItemInCart(this.product.id)) {
+						window.location.href="/#cart";
+					}
+					else {
+						cart.addItemToCart(this.product.id);
+
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
+
+						setCartInfoInLocal(cart);
+						cart.updateDataInHeader(header);
+
+						window.location.href="/#cart";
+					}
+					//window.location.href="/#cart";
 				}
 			});
 		}

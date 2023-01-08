@@ -24,28 +24,28 @@ import FormOrder from "../../components/view/formOrder";
 
 class CartPage {
     private container: HTMLElement;
-    modal: Modal;
-    formOrder: FormOrder;
 	cartProductList: HTMLDivElement;
 	summaryBlock: HTMLDivElement;
 	promokodExamplesBlock: HTMLDivElement;
 	appliedPromokodsBlock: HTMLDivElement;
 	promokodSearch: PromokodSearch;
 	promokodSearchHTML: HTMLDivElement;
+	modal: Modal;
+    formOrder: FormOrder;
 
     constructor(id: string) {
         this.container = document.createElement("main");
         this.container.classList.add("main");
         this.container.id = id;
-        this.modal = new Modal()
-        this.formOrder = new FormOrder()
 		this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
 		this.summaryBlock = new SummaryBlock().render();
 		this.promokodExamplesBlock = new PromokodExample().render();
 		this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
 		this.promokodSearch = new PromokodSearch(this);
-		this.promokodSearch.handleEventInputInSearch;
+		//this.promokodSearch.handleEventInputInSearch;
 		this.promokodSearchHTML = this.promokodSearch.render();
+		this.modal = new Modal()
+        this.formOrder = new FormOrder()
     }
 
     private createHeaderTitle(text: string) {
@@ -167,6 +167,14 @@ class CartPage {
 		}
 	}
 
+	enableHandlerModal() {
+        let buttonOrder: HTMLButtonElement | null = this.container.querySelector(".cart-button")
+
+        buttonOrder?.addEventListener("click", () => {
+            this.modal.handleModal()
+        })
+    }
+
     render(): HTMLElement{
         const title = this.createHeaderTitle("Cart Page");
         const content = this.createContentPage();
@@ -174,10 +182,13 @@ class CartPage {
         container.classList.add("container");
         container.append(title);
         container.append(content);
+		const modalFormOrder = this.modal.render("Форма заказа", this.formOrder.render());
+		container.append(modalFormOrder);
         this.container.append(container);
-		this.promokodSearch.handleEventInputInSearch;
+		//this.promokodSearch.handleEventInputInSearch;
 		//this.handleEventInputInSerach();
 		this.handleEventClickOnRemovePromokod();
+		this.enableHandlerModal()
         return this.container;
     }
 }

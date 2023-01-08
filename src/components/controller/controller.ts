@@ -88,8 +88,7 @@ class Controller {
 
     updateURL() {
         let url = this.generateURL(this.model.paramsFilter, this.model.modeView, this.model.modeSort)
-        let a = replaceHash(window.location.href, "#products" + url)
-        window.location.href = a
+        window.location.href =  replaceHash(window.location.href, "#products" + url)
     }
 
 

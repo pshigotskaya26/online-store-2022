@@ -17,39 +17,40 @@ import PromokodOffer from '../../components/view/promokodOffer';
 import CartProductList from '../../components/view/cartProductList';
 import {Modal} from "../../components/view/modal";
 import FormOrder from "../../components/view/formOrder";
-import { setIsVisibleModal } from '../../types/setIsVisibleModal';
+import {setIsVisibleModal} from '../../types/setIsVisibleModal';
 import {replaceHash} from "../../utils/replaceHash";
+import PromokodSearch from '../../components/view/promokodSearch';
 
 class CartPage {
     private container: HTMLElement;
-	cartProductList: HTMLDivElement;
-	summaryBlock: HTMLDivElement;
-	promokodExamplesBlock: HTMLDivElement;
-	appliedPromokodsBlock: HTMLDivElement;
-	promokodSearch: PromokodSearch;
-	promokodSearchHTML: HTMLDivElement;
-	modal: Modal;
+    cartProductList: HTMLDivElement;
+    summaryBlock: HTMLDivElement;
+    promokodExamplesBlock: HTMLDivElement;
+    appliedPromokodsBlock: HTMLDivElement;
+    promokodSearch: PromokodSearch;
+    promokodSearchHTML: HTMLDivElement;
+    modal: Modal;
     formOrder: FormOrder;
 
     constructor(id: string) {
         this.container = document.createElement("main");
         this.container.classList.add("main");
         this.container.id = id;
-      this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
-      this.summaryBlock = new SummaryBlock().render();
-      this.promokodExamplesBlock = new PromokodExample().render();
-      this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
-      this.promokodSearch = new PromokodSearch(this);
-      //this.promokodSearch.handleEventInputInSearch;
-      this.promokodSearchHTML = this.promokodSearch.render();
-      this.modal = new Modal()
-      this.formOrder = new FormOrder()
+        this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
+        this.summaryBlock = new SummaryBlock().render();
+        this.promokodExamplesBlock = new PromokodExample().render();
+        this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
+        this.promokodSearch = new PromokodSearch(this);
+        //this.promokodSearch.handleEventInputInSearch;
+        this.promokodSearchHTML = this.promokodSearch.render();
+        this.modal = new Modal()
+        this.formOrder = new FormOrder(this.handlerOrderCart)
     }
-    
-        handlerOrderCart() {
+
+    handlerOrderCart() {
         cart.clearCart()
         window.location.href = replaceHash(window.location.href, "#products")
-        }
+    }
 
     private createHeaderTitle(text: string) {
         let headerTitle = document.createElement("h1");
@@ -71,106 +72,104 @@ class CartPage {
         })
 
         let cartListNode: HTMLElement | null = mainContainer.querySelector('.cart__list');
-		cartListNode?.append(this.cartProductList);
+        cartListNode?.append(this.cartProductList);
 
-		let summaryBlockGeneralSumCountNode: HTMLElement | null = mainContainer.querySelector('.cart__summary-positions');
-		summaryBlockGeneralSumCountNode?.append(this.summaryBlock);
+        let summaryBlockGeneralSumCountNode: HTMLElement | null = mainContainer.querySelector('.cart__summary-positions');
+        summaryBlockGeneralSumCountNode?.append(this.summaryBlock);
 
-		let promokodExamplesNode: HTMLElement | null = mainContainer.querySelector('.promokod-examples');
-		promokodExamplesNode?.append(this.promokodExamplesBlock);
+        let promokodExamplesNode: HTMLElement | null = mainContainer.querySelector('.promokod-examples');
+        promokodExamplesNode?.append(this.promokodExamplesBlock);
 
-		let appliedPromokodsBlockNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods-block');
-		appliedPromokodsBlockNode?.append(this.appliedPromokodsBlock);
+        let appliedPromokodsBlockNode: HTMLElement | null = mainContainer.querySelector('.applied-promokods-block');
+        appliedPromokodsBlockNode?.append(this.appliedPromokodsBlock);
 
-		let promokodSearchBlock: HTMLElement | null = mainContainer.querySelector('.promokod__search');
-		promokodSearchBlock?.append(this.promokodSearchHTML);
+        let promokodSearchBlock: HTMLElement | null = mainContainer.querySelector('.promokod__search');
+        promokodSearchBlock?.append(this.promokodSearchHTML);
 
-		
-		
+
         template.append(mainContainer);
         return template;
     }
 
-	updateCartProductList() {
-		let cartListNode: HTMLElement | null = this.container.querySelector('.cart__list');
-		if (cartListNode) {
-			cartListNode.innerHTML = '';
-			this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
-			cartListNode.append(this.cartProductList);
-		}
-	}
+    updateCartProductList() {
+        let cartListNode: HTMLElement | null = this.container.querySelector('.cart__list');
+        if (cartListNode) {
+            cartListNode.innerHTML = '';
+            this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
+            cartListNode.append(this.cartProductList);
+        }
+    }
 
-	updateSummaryBlock() {
-		let summaryBlockGeneralSumCountNode: HTMLElement | null = document.querySelector('.cart__summary-positions');
-		if (summaryBlockGeneralSumCountNode) {
-			summaryBlockGeneralSumCountNode.innerHTML = '';
-			this.summaryBlock = new SummaryBlock().render();
-			summaryBlockGeneralSumCountNode.append(this.summaryBlock);
-		}	
-	}
+    updateSummaryBlock() {
+        let summaryBlockGeneralSumCountNode: HTMLElement | null = document.querySelector('.cart__summary-positions');
+        if (summaryBlockGeneralSumCountNode) {
+            summaryBlockGeneralSumCountNode.innerHTML = '';
+            this.summaryBlock = new SummaryBlock().render();
+            summaryBlockGeneralSumCountNode.append(this.summaryBlock);
+        }
+    }
 
-	updateAppliedBlock() {
-		let appliedPromokodsBlockNode: HTMLElement | null = document.querySelector('.applied-promokods-block');
-		
-		if (appliedPromokodsBlockNode) {
-			appliedPromokodsBlockNode.innerHTML = '';
-			this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
-			appliedPromokodsBlockNode.append(this.appliedPromokodsBlock);
-			this.handleEventClickOnRemovePromokod();
-		}
-	}
+    updateAppliedBlock() {
+        let appliedPromokodsBlockNode: HTMLElement | null = document.querySelector('.applied-promokods-block');
 
-	handleEventClickOnAddPromokod(value: string) {
-		let buttonPromokodAdd: HTMLElement | null = document.querySelector('.button-promokod-add');
-		if (buttonPromokodAdd) {
+        if (appliedPromokodsBlockNode) {
+            appliedPromokodsBlockNode.innerHTML = '';
+            this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
+            appliedPromokodsBlockNode.append(this.appliedPromokodsBlock);
+            this.handleEventClickOnRemovePromokod();
+        }
+    }
 
-			buttonPromokodAdd?.addEventListener('click', (event: Event) => {
-				if (event.target instanceof HTMLElement && event.target.classList.contains('button-promokod-add')) {
-					if (!promokod.checkIfPromokodIsApplied(value)) {
-						promokod.addPromokod(value);
-						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-						cart.calculateGeneralDiscountSumm();
-						setCartInfoInLocal(cart);
-						setArrayAppliedPromokod(promokod);
-						this.updateSummaryBlock();
-						this.updateAppliedBlock();
-						
-						let promokodOfferNode: HTMLElement | null = document.querySelector('.promokod__offer');
+    handleEventClickOnAddPromokod(value: string) {
+        let buttonPromokodAdd: HTMLElement | null = document.querySelector('.button-promokod-add');
+        if (buttonPromokodAdd) {
 
-						if (promokodOfferNode) {
-							promokodOfferNode.innerHTML = '';
-						}
-					}
-				}
-			});
-		}
-	}
+            buttonPromokodAdd?.addEventListener('click', (event: Event) => {
+                if (event.target instanceof HTMLElement && event.target.classList.contains('button-promokod-add')) {
+                    if (!promokod.checkIfPromokodIsApplied(value)) {
+                        promokod.addPromokod(value);
+                        cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+                        cart.calculateGeneralDiscountSumm();
+                        setCartInfoInLocal(cart);
+                        setArrayAppliedPromokod(promokod);
+                        this.updateSummaryBlock();
+                        this.updateAppliedBlock();
 
-	handleEventClickOnRemovePromokod() {
-		let arrayButtonsRemovePromokod = this.container.querySelectorAll<HTMLElement>('.button-promo-drop');
+                        let promokodOfferNode: HTMLElement | null = document.querySelector('.promokod__offer');
 
-		if (arrayButtonsRemovePromokod) {
-			arrayButtonsRemovePromokod.forEach((buttonItem: HTMLElement) => {
-				buttonItem.addEventListener('click', (event: Event) => {
-					if (event.target instanceof HTMLElement) {
-						let idFromParentNode = buttonItem.parentElement?.getAttribute('data-promokod-id');
+                        if (promokodOfferNode) {
+                            promokodOfferNode.innerHTML = '';
+                        }
+                    }
+                }
+            });
+        }
+    }
 
-						if (idFromParentNode) {
-							promokod.removePromokod(idFromParentNode);
-							buttonItem.remove();
-							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-							cart.calculateGeneralDiscountSumm();
-							setCartInfoInLocal(cart);
-							setArrayAppliedPromokod(promokod);
-							this.updateSummaryBlock();
-							this.updateAppliedBlock();
-						}
-					}
-				});
-			});
-		}
-	}
+    handleEventClickOnRemovePromokod() {
+        let arrayButtonsRemovePromokod = this.container.querySelectorAll<HTMLElement>('.button-promo-drop');
 
+        if (arrayButtonsRemovePromokod) {
+            arrayButtonsRemovePromokod.forEach((buttonItem: HTMLElement) => {
+                buttonItem.addEventListener('click', (event: Event) => {
+                    if (event.target instanceof HTMLElement) {
+                        let idFromParentNode = buttonItem.parentElement?.getAttribute('data-promokod-id');
+
+                        if (idFromParentNode) {
+                            promokod.removePromokod(idFromParentNode);
+                            buttonItem.remove();
+                            cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+                            cart.calculateGeneralDiscountSumm();
+                            setCartInfoInLocal(cart);
+                            setArrayAppliedPromokod(promokod);
+                            this.updateSummaryBlock();
+                            this.updateAppliedBlock();
+                        }
+                    }
+                });
+            });
+        }
+    }
 
 
     enableHandlerModal() {
@@ -182,20 +181,20 @@ class CartPage {
     }
 
 
-    render(): HTMLElement{
+    render(): HTMLElement {
         const title = this.createHeaderTitle("Cart Page");
         const content = this.createContentPage();
         const container = document.createElement("div");
         container.classList.add("container");
         container.append(title);
         container.append(content);
-		const modalFormOrder = this.modal.render("Форма заказа", this.formOrder.render());
-		container.append(modalFormOrder);
+        const modalFormOrder = this.modal.render("Форма заказа", this.formOrder.render());
+        container.append(modalFormOrder);
         this.container.append(container);
-		//this.promokodSearch.handleEventInputInSearch;
-		//this.handleEventInputInSerach();
-		this.handleEventClickOnRemovePromokod();
-		this.enableHandlerModal()
+        //this.promokodSearch.handleEventInputInSearch;
+        //this.handleEventInputInSerach();
+        this.handleEventClickOnRemovePromokod();
+        this.enableHandlerModal()
         return this.container;
     }
 }

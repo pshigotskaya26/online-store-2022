@@ -84,7 +84,7 @@ export class FilterProducts {
     }
 
     handlerForm(): void {
-        this.form.addEventListener("input", (event) => {
+        this.form.addEventListener("change", (event) => {
             event.preventDefault()
             if (event.target instanceof HTMLInputElement && event.currentTarget instanceof HTMLFormElement) {
 

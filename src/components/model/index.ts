@@ -67,8 +67,7 @@ export class ProductsModel {
     setSortProducts() {
         let keyForSort = this.modeSort.substring(0, this.modeSort.indexOf("-")) as keyof ProductInterface
         let figureSort = this.modeSort.substring(this.modeSort.indexOf("-") + 1, this.modeSort.length)
-        let sortedArray = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
-        this.filteredProducts = sortedArray
+        this.filteredProducts = sortArrayOfObjects<ProductInterface>(this.filteredProducts, keyForSort, figureSort)
     }
 
     private getCountedProducts(key: keyof ProductInterface): CountedProduct[] {
@@ -109,9 +108,8 @@ export class ProductsModel {
         if (key === "price" || key === "stock") {
             allValues = this.getMinMaxValue(this.products.map(el => el[key]))
             filteredValues = this.getMinMaxValue(this.filteredProducts.map(el => el[key]))
-
-
         }
+
         return {
             min: allValues[0], max: allValues[1], minDefault: filteredValues[0], maxDefault: filteredValues[1]
         }
@@ -159,7 +157,7 @@ export class ProductsModel {
                 res.push(this.isFitInRange(this.paramsFilter.prices, el.price))
             }
             if (key === keysParamsFilter.stocks) {
-                res.push(this.isFitInRange(this.paramsFilter.stocks, el.price))
+                res.push(this.isFitInRange(this.paramsFilter.stocks, el.stock))
             }
             if (key === keysParamsFilter.search) {
                 let fieldsStr = el["title"] + el["description"] + el["price"] + el["stock"] + el["category"] + el["brand"]
@@ -186,7 +184,7 @@ export class ProductsModel {
     }
 
     setCategories(value: string[]) {
-        this.paramsFilter.categories = value
+        this.paramsFilter.categories = value.map(el => el)
     }
 
     handleCategories(value: string) {
@@ -216,15 +214,16 @@ export class ProductsModel {
     }
 
     handlePrices(value: number, name?: string) {
+        let [min, max] = this.getMinMaxValue(this.filteredProducts.map(el => el.price))
         if (name === "from") {
             this.paramsFilter.prices[0] = value
             if (!this.paramsFilter.prices[1]) {
-                this.paramsFilter.prices[1] = 5000
+                this.paramsFilter.prices[1] = max
             }
         }
         if (name === "to") {
             if (!this.paramsFilter.prices[0]) {
-                this.paramsFilter.prices[0] = 0
+                this.paramsFilter.prices[0] = min
             }
             this.paramsFilter.prices[1] = value
         }
@@ -235,20 +234,20 @@ export class ProductsModel {
     }
 
     handleStocks(value: number, name?: string) {
+        let [min, max] = this.getMinMaxValue(this.filteredProducts.map(el => el.stock))
         if (name === "from") {
             this.paramsFilter.stocks[0] = value
             if (!this.paramsFilter.stocks[1]) {
-                this.paramsFilter.stocks[1] = 5000
+                this.paramsFilter.stocks[1] = max
             }
         }
         if (name === "to") {
             if (!this.paramsFilter.stocks[0]) {
-                this.paramsFilter.stocks[0] = 0
+                this.paramsFilter.stocks[0] = min
             }
             this.paramsFilter.stocks[1] = value
         }
     }
-
 
     setSearchValue(value: string) {
         this.paramsFilter.search = value
@@ -261,8 +260,6 @@ export class ProductsModel {
     getCurrentModeView(): ModesViewKeys {
         return this.modeView
     }
-
-    //Sorting
 
     setModeSort(mode: SortKeys) {
         this.modeSort = mode

@@ -1,10 +1,7 @@
-import { CartItemInterface } from "../../../types/cart";
+import {CartItemInterface} from "../../../types/cart";
 import CartItem from "../cartItem";
-import { productsData } from "../../../data/products";
-import header from "../header";
-import { promokod } from "../../app/app";
-import { PromokodItemInterface } from "../../../types/promokod";
-import PromokodItem from "../promokodItem/promokodItem";
+import {productsData} from "../../../data/products";
+import {PromokodItemInterface} from "../../../types/promokod";
 
 class Cart {
 	generalCountInCart: number;
@@ -98,6 +95,24 @@ class Cart {
 			sumInHeader.innerHTML = `${this.generalSummInCart} $<span class="basket-unit"></span>`;
 		}
 	}
+
+
+    clearCart() {
+        this.clearLocalStorage()
+        this.arrayCartItems = []
+        this.calculateGeneralCount()
+        this.calculateGeneralDiscountSumm()
+        this.calculateGeneralPrice()
+        this.clearLocalStorage()
+    }
+
+    clearLocalStorage = () => {
+        localStorage.removeItem("generalCount")
+        localStorage.removeItem("generalSum")
+        localStorage.removeItem("generalDiscount")
+        localStorage.removeItem("discountSumm")
+        localStorage.removeItem("arrayCartItems")
+    }
 }
 
 export default Cart;

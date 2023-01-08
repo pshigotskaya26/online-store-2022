@@ -1,30 +1,45 @@
 import {CountedProduct} from "../../../types/Product";
 
 export class CheckBoxField {
+    root: HTMLElement;
+    values: CountedProduct[]
+    items: HTMLElement;
+
     constructor(
         readonly title: string,
         readonly nameInput: string,
         readonly id: string,
-        readonly values: CountedProduct[]
     ) {
+        this.root = document.createElement("div")
+        this.items = document.createElement("div")
+        this.items.classList.add("category-filter-list")
+        this.items.classList.add("filter-list");
         this.title = title;
         this.nameInput = nameInput;
         this.id = id;
-        this.values = values
+        this.values = []
     }
 
-    render() {
-        let wrapper = document.createElement("div")
-        wrapper.classList.add("filter-item-wrapper")
+    render(values: CountedProduct[]) {
+        this.values = values
+
+        this.root = document.createElement("div")
+        this.root.classList.add("filter-item-wrapper")
+        this.root.id = String(Date.now())
         let titleEl = document.createElement("h3")
         titleEl.classList.add("search__title")
         titleEl.innerText = this.title
 
-        let template = document.createElement("div")
-        template.classList.add("category-filter-list")
-        template.classList.add("filter-list");
 
-        this.values.forEach(el => {
+        this.root.append(titleEl)
+        this.root.append(this.items)
+        this.createItems(values)
+        return this.root
+    }
+
+    createItems(values: CountedProduct[]) {
+        this.items.innerHTML = ""
+        values.forEach(el => {
             let filterItem = document.createElement("div")
             filterItem.classList.add("filter-item")
             if (!el.filteredCount) {
@@ -48,15 +63,14 @@ export class CheckBoxField {
             filterItem.append(inputItem)
             filterItem.append(labelItem)
             filterItem.append(spanItem)
-
-            template.append(filterItem)
-
-            template.append(filterItem)
+            this.items.append(filterItem)
         })
-        wrapper.append(titleEl)
-        wrapper.append(template)
 
-        return wrapper
+    }
+
+    update(newValues: CountedProduct[]) {
+        this.values = newValues
+        this.createItems(this.values)
     }
 }
 

@@ -43,17 +43,16 @@ if (cart) {
 }
 
 if (promokod) {
-	let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokod');
+    let arrayAppliedPromokodFromLocal = localStorage.getItem('arrayAppliedPromokod');
 
-	if (arrayAppliedPromokodFromLocal) {
-		promokod.arrayAppliedPromokod = JSON.parse(arrayAppliedPromokodFromLocal);
-		console.log('promokod local: ', promokod.arrayAppliedPromokod);
-	}
-	else {
-		console.log('there is no array of Promokods fromlocal');
-	}
+    if (arrayAppliedPromokodFromLocal) {
+        promokod.arrayAppliedPromokod = JSON.parse(arrayAppliedPromokodFromLocal);
+        console.log('promokod local: ', promokod.arrayAppliedPromokod);
+    } else {
+        console.log('there is no array of Promokods fromlocal');
+    }
 
-	//promokod.arrayAppliedPromokod = [{"id":"EPM","name":"EPAM Systems","discount":10}];
+    //promokod.arrayAppliedPromokod = [{"id":"EPM","name":"EPAM Systems","discount":10}];
 }
 
 console.log('promokod local: ', promokod.arrayAppliedPromokod);
@@ -68,7 +67,6 @@ class App {
         this.controller = new Controller()
         this.container = document.body;
         this.initialPage = new ProductsPage("products-page", this.controller)
-
     }
 
     private renderNewPage({hashPage, idProduct}: URLParams) {
@@ -98,9 +96,9 @@ class App {
         }
     }
 
-    private enableRouteChange() {
-        addEventListener("hashchange", this.handleURLParams)
-        addEventListener("popstate", this.handleURLParams)
+    private enableRouteChange = () => {
+        window.addEventListener("hashchange", this.handleURLParams)
+        window.addEventListener("popstate", this.handleURLParams)
     }
 
     handleURLParams = () => {
@@ -108,6 +106,8 @@ class App {
         if (URLParams.queryParams) {
             this.controller.setQueryParamsFromURLToModel(URLParams.queryParams)
         }
+
+        cart.updateDataInHeader(Header)
         this.renderNewPage(URLParams)
     }
 
@@ -135,6 +135,7 @@ class App {
             this._checkLocation()
 
             this.container.append(Footer)
+
             this.enableRouteChange()
         }, true)
 

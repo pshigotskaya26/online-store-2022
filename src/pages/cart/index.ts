@@ -1,27 +1,24 @@
-import { Button } from './../../components/view/button/index';
-import { CheckBoxField } from './../../components/view/checkBoxField/index';
-import { PromokodItemInterface } from './../../types/promokod';
-import { ProductInterface } from './../../types/Product';
-import { promokod } from './../../components/app/app';
+import {PromokodItemInterface} from '../../types/promokod';
+import {promokod} from '../../components/app/app';
 import CartLayout from "./index.html"
 import "./style.scss"
 import {CartItemInterface} from "../../types/cart";
 import CartItem from "../../components/view/cartItem";
 import {cart} from "../../components/app/app";
 import SummaryBlock from "../../components/view/summaryBlock";
-import { setCartInfoInLocal } from '../../types/setCartInfoInLocal';
-import { setArrayAppliedPromokod } from '../../types/setArrayAppliedPromokod';
+import {setCartInfoInLocal} from '../../types/setCartInfoInLocal';
+import {setArrayAppliedPromokod} from '../../types/setArrayAppliedPromokod';
 import header from "../../components/view/header";
-import { getStockOfProduct } from "../../types/getStockOfProduct";
-import { isPromokodInData } from '../../types/isPromokodInData';
+import {getStockOfProduct} from "../../types/getStockOfProduct";
+import {isPromokodInData} from '../../types/isPromokodInData';
 import PromokodBlock from '../../components/view/promokodBlock';
 import PromokodExample from '../../components/view/promokodExample';
-import PromokodSearch from '../../components/view/promokodSearch';
 import PromokodOffer from '../../components/view/promokodOffer';
 import CartProductList from '../../components/view/cartProductList';
 import {Modal} from "../../components/view/modal";
 import FormOrder from "../../components/view/formOrder";
 import { setIsVisibleModal } from '../../types/setIsVisibleModal';
+import {replaceHash} from "../../utils/replaceHash";
 
 class CartPage {
     private container: HTMLElement;
@@ -38,16 +35,21 @@ class CartPage {
         this.container = document.createElement("main");
         this.container.classList.add("main");
         this.container.id = id;
-		this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
-		this.summaryBlock = new SummaryBlock().render();
-		this.promokodExamplesBlock = new PromokodExample().render();
-		this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
-		this.promokodSearch = new PromokodSearch(this);
-		//this.promokodSearch.handleEventInputInSearch;
-		this.promokodSearchHTML = this.promokodSearch.render();
-		this.modal = new Modal()
-        this.formOrder = new FormOrder()
+      this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
+      this.summaryBlock = new SummaryBlock().render();
+      this.promokodExamplesBlock = new PromokodExample().render();
+      this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
+      this.promokodSearch = new PromokodSearch(this);
+      //this.promokodSearch.handleEventInputInSearch;
+      this.promokodSearchHTML = this.promokodSearch.render();
+      this.modal = new Modal()
+      this.formOrder = new FormOrder()
     }
+    
+        handlerOrderCart() {
+        cart.clearCart()
+        window.location.href = replaceHash(window.location.href, "#products")
+        }
 
     private createHeaderTitle(text: string) {
         let headerTitle = document.createElement("h1");
@@ -84,14 +86,11 @@ class CartPage {
 		promokodSearchBlock?.append(this.promokodSearchHTML);
 
 		
-
-		
 		
         template.append(mainContainer);
         return template;
     }
-    
-    
+
 	updateCartProductList() {
 		let cartListNode: HTMLElement | null = this.container.querySelector('.cart__list');
 		if (cartListNode) {
@@ -172,13 +171,16 @@ class CartPage {
 		}
 	}
 
-	enableHandlerModal() {
+
+
+    enableHandlerModal() {
         let buttonOrder: HTMLButtonElement | null = this.container.querySelector(".cart-button")
 
         buttonOrder?.addEventListener("click", () => {
             this.modal.handleModal()
         })
     }
+
 
     render(): HTMLElement{
         const title = this.createHeaderTitle("Cart Page");

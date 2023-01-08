@@ -1,3 +1,5 @@
+import "./style.scss"
+
 class ErrorPage {
     private container: HTMLElement;
 
@@ -13,7 +15,21 @@ class ErrorPage {
     }
 
     private createContentPage() {
-        return "1"
+        const container = document.createElement("div")
+        container.classList.add("container")
+        let error404wrapper = document.createElement("div")
+        error404wrapper.classList.add("error_wrapper")
+
+        let text = document.createElement("h3")
+        text.classList.add("errortext")
+        text.textContent = "Error 404"
+        error404wrapper.append(text)
+
+
+
+
+        container.append(error404wrapper)
+        return container
         // let headerTitle = document.createElement("h1");
         // headerTitle.innerHTML = text;
         // return headerTitle;

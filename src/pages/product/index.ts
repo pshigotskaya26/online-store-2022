@@ -1,13 +1,11 @@
 import {ProductInterface} from "../../types/Product";
 import PageTemplate from "./index.html";
 import "./index.scss";
-import { promokod } from "../../components/app/app";
-
-import { cart } from "../../components/app/app";
-import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
-//import { updateDataInHeader } from "../../types/updateDataInHeader";
-//import header from "../../components/view/header";
+import {promokod} from "../../components/app/app";
+import {cart} from "../../components/app/app";
+import {setCartInfoInLocal} from "../../types/setCartInfoInLocal";
 import header from "../../components/view/header";
+import {replaceHash} from "../../utils/replaceHash";
 import { setIsVisibleModal } from "../../types/setIsVisibleModal";
 
 class ProductPage {
@@ -20,10 +18,10 @@ class ProductPage {
         this.product = product
     }
 
-	private createBreadCrumbs() {
-		let breadCrumbsNode = document.createElement("div");
-		breadCrumbsNode.classList.add("bread__navigation");
-		breadCrumbsNode.innerHTML = `
+    private createBreadCrumbs() {
+        let breadCrumbsNode = document.createElement("div");
+        breadCrumbsNode.classList.add("bread__navigation");
+        breadCrumbsNode.innerHTML = `
 			<ul class="bread-navigation">
 				<li class="bread-navigation__item"><a href="#products">Store</a></li>
 				<li class="bread-navigation__item bread-navigation__item_arrow">>></li>
@@ -34,26 +32,26 @@ class ProductPage {
 				<li class="bread-navigation__item bread-navigation__item_title">${this.product.title}</li>
 			</ul>
 		`;
-		return breadCrumbsNode;
-	}
+        return breadCrumbsNode;
+    }
 
     private createHeaderTitle(text: string) {
         let headerTitle = document.createElement("h2");
-		headerTitle.classList.add("product-item__title");
+        headerTitle.classList.add("product-item__title");
         headerTitle.innerHTML = `${this.product.title}`;
         return headerTitle;
     }
 
-	private createGallery(): string {
-		let galleryNode = '';
+    private createGallery(): string {
+        let galleryNode = '';
 
-		this.product.images.forEach((pathOfImage, index) => {
-			galleryNode += `
+        this.product.images.forEach((pathOfImage, index) => {
+            galleryNode += `
 				<div class="additional-photos__item" data-id-photo="${index}">
 					<img class="additional-photos__image" src="${pathOfImage}" alt="${this.product.title}">
 				</div>
 			`;
-		});
+});
 
 		return galleryNode;
 	}
@@ -165,78 +163,78 @@ class ProductPage {
 
         template.innerHTML = PageTemplate;
 
-		let valueOfPrice: HTMLElement | null = template.content.querySelector(".product-info__price");
+        let valueOfPrice: HTMLElement | null = template.content.querySelector(".product-info__price");
 
-		if (valueOfPrice) {
-			valueOfPrice.textContent = `${this.product.price} $`;
-		}
+        if (valueOfPrice) {
+            valueOfPrice.textContent = `${this.product.price} $`;
+        }
 
-		let valueOfProductCategory: HTMLElement | null = template.content.querySelector(".product-description__value_category");
+        let valueOfProductCategory: HTMLElement | null = template.content.querySelector(".product-description__value_category");
 
-		if (valueOfProductCategory) {
-			valueOfProductCategory.textContent = this.product.category;
-		}
+        if (valueOfProductCategory) {
+            valueOfProductCategory.textContent = this.product.category;
+        }
 
-		let valueOfProductBrand: HTMLElement | null = template.content.querySelector(".product-description__value_brand");
-		
-		if (valueOfProductBrand) {
-			valueOfProductBrand.textContent = this.product.brand;
-		}
+        let valueOfProductBrand: HTMLElement | null = template.content.querySelector(".product-description__value_brand");
 
-		let valueOfProductDescription: HTMLElement | null = template.content.querySelector(".product-description__value_descr");
-		
-		if (valueOfProductDescription) {
-			valueOfProductDescription.textContent = this.product.description;
-		}
+        if (valueOfProductBrand) {
+            valueOfProductBrand.textContent = this.product.brand;
+        }
 
-		let valueOfProductDiscount: HTMLElement | null = template.content.querySelector(".product-description__value_discount");
-		
-		if (valueOfProductDiscount) {
-			valueOfProductDiscount.textContent = `${this.product.discountPercentage}%`;
-		}
+        let valueOfProductDescription: HTMLElement | null = template.content.querySelector(".product-description__value_descr");
 
-		let valueOfProductRating: HTMLElement | null = template.content.querySelector(".product-description__value_rating");
-		
-		if (valueOfProductRating) {
-			valueOfProductRating.textContent = `${this.product.rating}`;
-		}
+        if (valueOfProductDescription) {
+            valueOfProductDescription.textContent = this.product.description;
+        }
 
-		let valueOfProductStock: HTMLElement | null = template.content.querySelector(".product-description__value_stock");
-		
-		if (valueOfProductStock) {
-			valueOfProductStock.textContent = `${this.product.stock}`;
-		}
+        let valueOfProductDiscount: HTMLElement | null = template.content.querySelector(".product-description__value_discount");
 
-		let additionalPhotosNode = template.content.querySelector(".gallery__additional-photos");
-		
-		if (additionalPhotosNode) {
-			additionalPhotosNode.innerHTML = this.createGallery();
-		}
+        if (valueOfProductDiscount) {
+            valueOfProductDiscount.textContent = `${this.product.discountPercentage}%`;
+        }
 
-		let mainPhotoNode: HTMLImageElement | null = template.content.querySelector(".main-photo__image");
-		
-		if (mainPhotoNode) {
-			mainPhotoNode.src = this.product.thumbnail;
-		}
+        let valueOfProductRating: HTMLElement | null = template.content.querySelector(".product-description__value_rating");
 
-       return <HTMLDivElement>template.content.firstChild
+        if (valueOfProductRating) {
+            valueOfProductRating.textContent = `${this.product.rating}`;
+        }
+
+        let valueOfProductStock: HTMLElement | null = template.content.querySelector(".product-description__value_stock");
+
+        if (valueOfProductStock) {
+            valueOfProductStock.textContent = `${this.product.stock}`;
+        }
+
+        let additionalPhotosNode = template.content.querySelector(".gallery__additional-photos");
+
+        if (additionalPhotosNode) {
+            additionalPhotosNode.innerHTML = this.createGallery();
+        }
+
+        let mainPhotoNode: HTMLImageElement | null = template.content.querySelector(".main-photo__image");
+
+        if (mainPhotoNode) {
+            mainPhotoNode.src = this.product.thumbnail;
+        }
+
+        return <HTMLDivElement>template.content.firstChild
     }
 
     render() {
-		const breadCrumbs = this.createBreadCrumbs();
+        const breadCrumbs = this.createBreadCrumbs();
         const title = this.createHeaderTitle("Products Page")
         const content = this.createContentPage()
         const container = document.createElement("div")
         container.classList.add("container")
-		container.classList.add("product-item__container")
-		container.append(breadCrumbs)
+        container.classList.add("product-item__container")
+        container.append(breadCrumbs)
         container.append(title)
         container.append(content)
         this.container.append(container)
-		this.handleOfClickEventOnImage();
-		this.handleOfClickEventOnButtonToCart();
-		this.handleOfClickEventOnButtonBuy();
-		this.setActiveToButton();
+        this.handleOfClickEventOnImage();
+        this.handleOfClickEventOnButtonToCart();
+        this.handleOfClickEventOnButtonBuy();
+        this.setActiveToButton();
         return this.container
     }
 }

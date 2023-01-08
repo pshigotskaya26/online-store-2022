@@ -54,6 +54,7 @@ export class Modal {
         let mainContent: HTMLElement | null = this.root.querySelector(".modal__main")
         mainContent?.append(children)
         this._enableHandlerCloseModal()
+		
         return this.root
     }
 }

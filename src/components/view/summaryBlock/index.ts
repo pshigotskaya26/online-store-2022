@@ -2,16 +2,10 @@ import { cart } from "../../app/app";
 import { promokod } from "../../app/app";
 
 class SummaryBlock {
-	/*
-	constructor(container : HTMLElement) {
-		console.log('container fromcart page:  ', container);
-
-	}
-	*/
 
 	render(): HTMLDivElement {
 		let summaryBlockGeneralSumCountNode = document.createElement("div");
-		summaryBlockGeneralSumCountNode.classList.add('cart__summary-positions');
+		summaryBlockGeneralSumCountNode.classList.add('summary-positions');
 
 		if (promokod.arrayAppliedPromokod.length) {
 			summaryBlockGeneralSumCountNode.innerHTML = `
@@ -26,9 +20,6 @@ class SummaryBlock {
 			<p class="cart__total-sum">Total sum: <span class="cart__total-sum-value">${cart.generalSummInCart} $</span></p>
 		`;
 		}
-
-		
-
 		return summaryBlockGeneralSumCountNode;
 	}
 }

@@ -6,11 +6,9 @@ class PromokodExample {
 		let promoExamplesText = document.createElement("div");
 		promoExamplesText.classList.add('promokod-examples__text');
 		
-
 		promoExamplesText.innerHTML = `
 			Примеры промокодов: ${this.getAllPromokodId(promokodsData)}
 		`;
-
 		return promoExamplesText;
 	}
 
@@ -18,7 +16,6 @@ class PromokodExample {
 		let arrayOfPromokodId = promokodsData.map((promokodItem) => {
 			return `"${promokodItem.id}"`;
 		});
-
 		return arrayOfPromokodId.join(', ');
 	}
 }

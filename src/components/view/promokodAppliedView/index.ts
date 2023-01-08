@@ -11,7 +11,6 @@ class promokodAppliedView {
 			<p class="applied-promokod__text">${objectPromokodItem.name} - ${objectPromokodItem.discount}%</p>
 			<button class="button button-promo-drop">Удалить</button>
 		`;
-
 		return promokodAppliedItem;
 	}
 }

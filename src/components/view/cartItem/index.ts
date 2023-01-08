@@ -31,7 +31,6 @@ class CartItem {
 							<div class="cart__item-discount">Скидка: <span class="cart-discount__value">${productItemFounded[0].discountPercentage}%</span></div>
 							<div class="cart__item-stock">Кол-во на складе: <span class="cart-stock__value">${productItemFounded[0].stock}</span></div>
 						</div>
-						
                         <div class="cart__item--actions">
                             <button class=" button button-remove cart__item--actions cart__item--actions--remove">
                                 remove
@@ -44,10 +43,8 @@ class CartItem {
 						<p class="cart__text-error">Введите кол-во товара</p>
                     </div>
 		`;
-
 		return cartItem;
 	}
-
 }
 
 export default CartItem;

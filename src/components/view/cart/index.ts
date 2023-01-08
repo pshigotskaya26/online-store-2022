@@ -87,8 +87,6 @@ class Cart {
 		this.discountSumm = this.generalSummInCart - ((this.generalSummInCart * this.generalDiscount) / 100);
 	}
 
-
-
 	updateDataInHeader(header: HTMLElement) {
 		let countInHeader: HTMLElement | null = header.querySelector('.basket-info__count');
 		let sumInHeader: HTMLElement | null = header.querySelector('.basket-info__sum');

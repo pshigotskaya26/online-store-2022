@@ -6,6 +6,4 @@ import { cart } from "../../app/app"
 const header = document.createElement("header")
 header.innerHTML = HeaderTemplate;
 
-console.log(header);
-
 export default header

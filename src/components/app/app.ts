@@ -15,33 +15,26 @@ import {Modal} from "../view/modal";
 
 export let cart = new Cart();
 export let promokod = new Promokod();
-console.log('promokod: ', promokod);
-
 
 if (cart) {
     let generalCount = localStorage.getItem('generalCount');
     let generalSum = localStorage.getItem('generalSum');
 	let generalDiscount = localStorage.getItem('generalDiscount');
 	let discountSumm = localStorage.getItem('discountSumm');
-	
     let arrayCartItemsFromLocal = localStorage.getItem('arrayCartItems');
 
     if (generalCount) {
         cart.generalCountInCart = +generalCount;
     }
-
     if (generalSum) {
         cart.generalSummInCart = +generalSum;
     }
-    
 	if (generalDiscount) {
         cart.generalDiscount = +generalDiscount;
     }
-
 	if (discountSumm) {
         cart.discountSumm = +discountSumm;
     }
-
 	if (arrayCartItemsFromLocal) {
 		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
 	}

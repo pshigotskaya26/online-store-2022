@@ -8,7 +8,6 @@ class PromokodItem {
 		this.name = name;
 		this.discount = discount;
 	}
-
 }
 
 export default PromokodItem;

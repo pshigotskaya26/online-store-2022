@@ -194,6 +194,15 @@ class CartPage {
         //this.promokodSearch.handleEventInputInSearch;
         //this.handleEventInputInSerach();
         this.handleEventClickOnRemovePromokod();
+
+		let isVisibleModalFromLocal = localStorage.getItem('isVisibleModal');
+
+		if (isVisibleModalFromLocal) {
+			if (isVisibleModalFromLocal === 'true') {
+				this.modal.handleModal();
+			}
+		}
+		
         this.enableHandlerModal()
         return this.container;
     }

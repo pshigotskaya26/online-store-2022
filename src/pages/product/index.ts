@@ -112,7 +112,7 @@ class ProductPage {
 			buttonBuyNode.addEventListener('click', (event: Event) => {
 				if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
 					if (cart.checkIfItemInCart(this.product.id)) {
-						setIsVisibleModal(false);
+						setIsVisibleModal(true);
 						window.location.href = replaceHash(window.location.href, "#cart")
 					}
 					else {
@@ -126,7 +126,7 @@ class ProductPage {
 						setCartInfoInLocal(cart);
 						cart.updateDataInHeader(header);
 
-						setIsVisibleModal(false);
+						setIsVisibleModal(true);
 						window.location.href = replaceHash(window.location.href, "#cart")
 						
 					}

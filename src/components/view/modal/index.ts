@@ -28,6 +28,12 @@ export class Modal {
     _enableHandlerCloseModal() {
         let buttonClose = this.root.querySelector(".modal__button-close")
         buttonClose?.addEventListener("click", () => {
+			let isVisibleModalFromLocal = localStorage.getItem('isVisibleModal');
+
+			if (isVisibleModalFromLocal) {
+				localStorage.removeItem('isVisibleModal');
+			}
+			
             this.handleModal()
         })
 

@@ -9,8 +9,6 @@ class PromokodOffer {
 		let findedPromokod = getPromokodFromData(valueOfSerach);
 		promokodOfferNode.setAttribute('data-id-offer', findedPromokod.id);
 
-		console.log('findedPromokod: ', findedPromokod);
-
 		if (booleanValue) {
 			promokodOfferNode.innerHTML = `
 				<p class="promokod-offer__text">${findedPromokod.name} - ${findedPromokod.discount}%</p>
@@ -23,12 +21,8 @@ class PromokodOffer {
 				<button class="button button-promokod-add">Добавить</button>
 			`;
 		}
-
-	
 		return promokodOfferNode;
 	}
-
-	
 }
 
 export default PromokodOffer;

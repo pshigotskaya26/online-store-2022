@@ -6,6 +6,7 @@ import {cart} from "../../components/app/app";
 import {setCartInfoInLocal} from "../../types/setCartInfoInLocal";
 import header from "../../components/view/header";
 import {replaceHash} from "../../utils/replaceHash";
+import { setIsVisibleModal } from "../../types/setIsVisibleModal";
 
 class ProductPage {
     private container: HTMLElement;
@@ -50,104 +51,111 @@ class ProductPage {
 					<img class="additional-photos__image" src="${pathOfImage}" alt="${this.product.title}">
 				</div>
 			`;
-        });
+});
 
-        return galleryNode;
-    }
+		return galleryNode;
+	}
 
-    //set class active to button for the product that is in the cart
-    private setActiveToButton() {
-        if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
-            cart.arrayCartItems.forEach(item => {
-                if (this.product.id === item.id) {
-                    let buttonToCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
-                    if (buttonToCartNode) {
-                        buttonToCartNode.classList.add('active');
-                        buttonToCartNode.innerText = 'В корзине';
-                    }
-                }
-            });
-        }
-    }
+	//set class active to button for the product that is in the cart
+	private setActiveToButton() {
+		if (cart.arrayCartItems && cart.arrayCartItems.length !== 0) {
+			cart.arrayCartItems.forEach(item => {
+				if (this.product.id === item.id) {
+					let buttonToCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
+					if (buttonToCartNode) {
+						buttonToCartNode.classList.add('active');
+						buttonToCartNode.innerText = 'В корзине';
+					}
+				}
+			});
+		}
+	}
 
-    private handleOfClickEventOnButtonToCart() {
-        let buttonInCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
+	private handleOfClickEventOnButtonToCart() {
+		let buttonInCartNode: HTMLElement | null = this.container.querySelector('.button-to-cart');
 
-        if (buttonInCartNode) {
-            buttonInCartNode.addEventListener('click', (event: Event) => {
-                if (event.target instanceof HTMLElement && event.target.classList.contains('button-to-cart')) {
-                    event.target.classList.toggle('active');
-                    if (event.target.classList.contains('active')) {
-                        event.target.innerText = 'В корзине';
-                        cart.addItemToCart(this.product.id);
-                        cart.calculateGeneralCount();
-                        cart.calculateGeneralPrice();
-                        cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-                        cart.calculateGeneralDiscountSumm();
-                        setCartInfoInLocal(cart);
-                        cart.updateDataInHeader(header);
-                        //updateDataInHeader(header);
-                    } else {
-                        event.target.innerText = 'В корзину';
-                        cart.removeItemFromCart(this.product.id);
-                        cart.calculateGeneralCount();
-                        cart.calculateGeneralPrice();
-                        cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-                        cart.calculateGeneralDiscountSumm();
-                        setCartInfoInLocal(cart);
-                        cart.updateDataInHeader(header);
-                        //updateDataInHeader(header);
-                    }
-                }
-            });
-        }
-    }
+		if (buttonInCartNode) {
+			buttonInCartNode.addEventListener('click', (event: Event) => {
+				if (event.target instanceof HTMLElement && event.target.classList.contains('button-to-cart')) {
+					event.target.classList.toggle('active');
+					if (event.target.classList.contains('active')) {
+						event.target.innerText = 'В корзине';
+						cart.addItemToCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
+						setCartInfoInLocal(cart);
+						cart.updateDataInHeader(header);
+						//updateDataInHeader(header);
+					}
+					else {
+						event.target.innerText = 'В корзину';
+						cart.removeItemFromCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
+						setCartInfoInLocal(cart);
+						cart.updateDataInHeader(header);
+						//updateDataInHeader(header);
+					}
+				}
+			});
+		}
+	}
 
-    private handleOfClickEventOnButtonBuy() {
-        let buttonBuyNode: HTMLElement | null = this.container.querySelector('.button-buy');
+	private handleOfClickEventOnButtonBuy() {
+		let buttonBuyNode: HTMLElement | null = this.container.querySelector('.button-buy');
 
-        if (buttonBuyNode) {
-            buttonBuyNode.addEventListener('click', (event: Event) => {
-                if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
-                    if (cart.checkIfItemInCart(this.product.id)) {
+		if (buttonBuyNode) {
+			buttonBuyNode.addEventListener('click', (event: Event) => {
+				if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
+					if (cart.checkIfItemInCart(this.product.id)) {
+						setIsVisibleModal(false);
+						window.location.href="/#cart";
+					}
+					else {
+						cart.addItemToCart(this.product.id);
 
-                        window.location.href = replaceHash(window.location.href, "#cart")
-                    } else {
-                        cart.addItemToCart(this.product.id);
+						cart.calculateGeneralCount();
+						cart.calculateGeneralPrice();
+						cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+						cart.calculateGeneralDiscountSumm();
 
-                        cart.calculateGeneralCount();
-                        cart.calculateGeneralPrice();
-                        cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-                        cart.calculateGeneralDiscountSumm();
+						setCartInfoInLocal(cart);
+						cart.updateDataInHeader(header);
 
-                        setCartInfoInLocal(cart);
-                        cart.updateDataInHeader(header);
-                        window.location.href = replaceHash(window.location.href, "#cart")
-                    }
-                }
-            });
-        }
-    }
+						setIsVisibleModal(false);
+						window.location.href="/#cart";
+						
+					}
+					//window.location.href="/#cart";
+				}
+			});
+		}
+	}
 
-    private handleOfClickEventOnImage() {
-        let arrayProductsNodes = this.container.querySelectorAll<HTMLElement>('.additional-photos__item');
-
-        if (arrayProductsNodes) {
-            arrayProductsNodes.forEach(photoItem => {
-                photoItem.addEventListener('click', (event: Event) => {
-                    if (event.currentTarget instanceof HTMLElement && event.currentTarget.classList.contains('additional-photos__item')) {
-                        let idPhotoItem = event.currentTarget.getAttribute('data-id-photo');
-
-                        let mainPhotoNode: HTMLImageElement | null = this.container.querySelector(".main-photo__image");
-
-                        if (mainPhotoNode) {
-                            mainPhotoNode.src = this.product.images[Number(idPhotoItem)];
-                        }
-                    }
-                });
-            });
-        }
-    }
+	private handleOfClickEventOnImage() {
+		let arrayProductsNodes = this.container.querySelectorAll<HTMLElement>('.additional-photos__item');
+		console.log('arrayProductsNodes');
+		
+		if (arrayProductsNodes) {
+			arrayProductsNodes.forEach(photoItem => {
+				photoItem.addEventListener('click', (event: Event) => {
+					if (event.currentTarget instanceof HTMLElement && event.currentTarget.classList.contains('additional-photos__item')) {
+						let idPhotoItem = event.currentTarget.getAttribute('data-id-photo');
+						
+						let mainPhotoNode: HTMLImageElement | null = this.container.querySelector(".main-photo__image");
+		
+						if (mainPhotoNode) {
+							mainPhotoNode.src = this.product.images[Number(idPhotoItem)];
+						}
+					}
+				});
+			});
+		}
+	}
 
     private createContentPage() {
         let template: HTMLTemplateElement = document.createElement("template");

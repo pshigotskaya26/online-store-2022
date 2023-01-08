@@ -16,5 +16,4 @@ headerLink?.addEventListener("click", () => {
     window.location.href = replaceHash(window.location.href, "#products" + "/#")
 })
 
-
 export default header

@@ -36,20 +36,22 @@ class CartPage {
         this.container = document.createElement("main");
         this.container.classList.add("main");
         this.container.id = id;
+        this.checkURL()
         this.cartProductList = new CartProductList(cart.arrayCartItems, this).render();
         this.summaryBlock = new SummaryBlock().render();
         this.promokodExamplesBlock = new PromokodExample().render();
         this.appliedPromokodsBlock = new PromokodBlock(promokod.arrayAppliedPromokod).render();
         this.promokodSearch = new PromokodSearch(this);
-        //this.promokodSearch.handleEventInputInSearch;
         this.promokodSearchHTML = this.promokodSearch.render();
         this.modal = new Modal()
         this.formOrder = new FormOrder(this.handlerOrderCart)
     }
 
-    handlerOrderCart() {
-        cart.clearCart()
-        window.location.href = replaceHash(window.location.href, "#products")
+    checkURL() {
+        let hash = window.location.hash
+        if (hash.includes("?")) {
+            cart.setDataFromLS(hash.substring(hash.indexOf("?") + 1, hash.length))
+        }
     }
 
     private createHeaderTitle(text: string) {
@@ -180,6 +182,10 @@ class CartPage {
         })
     }
 
+    handlerOrderCart() {
+        cart.clearCart()
+        window.location.href = replaceHash(window.location.href, "#products")
+    }
 
     render(): HTMLElement {
         const title = this.createHeaderTitle("Cart Page");
@@ -195,14 +201,14 @@ class CartPage {
         //this.handleEventInputInSerach();
         this.handleEventClickOnRemovePromokod();
 
-		let isVisibleModalFromLocal = localStorage.getItem('isVisibleModal');
+        let isVisibleModalFromLocal = localStorage.getItem('isVisibleModal');
 
-		if (isVisibleModalFromLocal) {
-			if (isVisibleModalFromLocal === 'true') {
-				this.modal.handleModal();
-			}
-		}
-		
+        if (isVisibleModalFromLocal) {
+            if (isVisibleModalFromLocal === 'true') {
+                this.modal.handleModal();
+            }
+        }
+
         this.enableHandlerModal()
         return this.container;
     }

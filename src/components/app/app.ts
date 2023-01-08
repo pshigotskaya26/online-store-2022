@@ -19,8 +19,8 @@ export let promokod = new Promokod();
 if (cart) {
     let generalCount = localStorage.getItem('generalCount');
     let generalSum = localStorage.getItem('generalSum');
-	let generalDiscount = localStorage.getItem('generalDiscount');
-	let discountSumm = localStorage.getItem('discountSumm');
+    let generalDiscount = localStorage.getItem('generalDiscount');
+    let discountSumm = localStorage.getItem('discountSumm');
     let arrayCartItemsFromLocal = localStorage.getItem('arrayCartItems');
 
     if (generalCount) {
@@ -29,15 +29,15 @@ if (cart) {
     if (generalSum) {
         cart.generalSummInCart = +generalSum;
     }
-	if (generalDiscount) {
+    if (generalDiscount) {
         cart.generalDiscount = +generalDiscount;
     }
-	if (discountSumm) {
+    if (discountSumm) {
         cart.discountSumm = +discountSumm;
     }
-	if (arrayCartItemsFromLocal) {
-		cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
-	}
+    if (arrayCartItemsFromLocal) {
+        cart.arrayCartItems = JSON.parse(arrayCartItemsFromLocal);
+    }
 
     cart.updateDataInHeader(Header);
 }
@@ -75,7 +75,7 @@ class App {
         let page: CartPage | ProductPage | ProductsPage | ErrorPage | null = null;
         if (hashPage === "") {
             page = new ProductsPage("products-page", this.controller);
-        } else if (hashPage === "cart") {
+        } else if (hashPage.includes("cart")) {
             page = new CartPage("cart-page");
         } else if (hashPage.includes("products")) {
             page = new ProductsPage("products-page", this.controller);
@@ -102,9 +102,12 @@ class App {
     }
 
     handleURLParams = () => {
+
         let URLParams: URLParams = getURLParams(window.location.hash)
+
         if (URLParams.queryParams) {
             this.controller.setQueryParamsFromURLToModel(URLParams.queryParams)
+
         }
 
         cart.updateDataInHeader(Header)
@@ -130,7 +133,6 @@ class App {
 
     run() {
         addEventListener("DOMContentLoaded", () => {
-
             this.container.append(Header)
             this._checkLocation()
 

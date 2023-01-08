@@ -4,6 +4,7 @@ import {SortKeys} from "../view/sortBy";
 import {ModesViewKeys} from "../view/modeViewProductsList";
 import {FilterParams, keysParamsFilter} from "../../types/FilterParams";
 import {FormData} from "../../types/formData";
+import {replaceHash} from "../../utils/replaceHash";
 
 class Controller {
     model: Model
@@ -42,10 +43,10 @@ class Controller {
                 this.model.setSearchValue(value)
             }
             if (key === keysParamsFilter.brands) {
-                this.model.setBrands(value.split(","))
+                this.model.setBrands(value.split(",").map(el => el.replace(/%20/g, " ")))
             }
             if (key === keysParamsFilter.categories) {
-                this.model.setCategories(value.split(","))
+                this.model.setCategories(value.split(",").map(el => el.replace(/%20/g, " ")))
             }
             if (key === keysParamsFilter.stocks) {
                 let [from, to] = value.split(",")
@@ -87,8 +88,10 @@ class Controller {
 
     updateURL() {
         let url = this.generateURL(this.model.paramsFilter, this.model.modeView, this.model.modeSort)
-        window.history.pushState({}, "", "/#products" + url);
+        let a = replaceHash(window.location.href, "#products" + url)
+        window.location.href = a
     }
+
 
     setView(mode: ModesViewKeys) {
         this.model.setModeView(mode)
@@ -118,7 +121,6 @@ class Controller {
     }
 
     generateURL(obj: FilterParams, mode: ModesViewKeys, sort: SortKeys): string {
-
         let arr = Object.entries(obj).map((param) => {
             if (typeof param[1] === "string") {
                 if (param[1] === "") {

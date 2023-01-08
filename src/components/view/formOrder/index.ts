@@ -5,14 +5,15 @@ export class FormOrder {
     root: HTMLFormElement;
     isOrder: boolean;
     successMessage: HTMLElement;
-
-    constructor() {
+    cbSubmit: () => void
+    constructor(cbSubmit: () => void) {
         this.root = document.createElement("form")
         this.root.action = "#"
         this.root.classList.add("form")
         this.isOrder = false;
         this.successMessage = document.createElement("div")
         this.handlerForm()
+        this.cbSubmit = cbSubmit
     }
 
     handlerForm = () => {
@@ -20,8 +21,7 @@ export class FormOrder {
             e.preventDefault()
             this.successMessage.innerHTML = "<h2>Заказ принят, перенаправление на главную страницу</h2>"
             setTimeout(() => {
-                window.location.href = "/#products"
-                console.log("очистить корзину TODO")
+                this.cbSubmit()
             }, 4000)
         })
     }

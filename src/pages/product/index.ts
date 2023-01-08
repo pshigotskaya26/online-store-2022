@@ -2,12 +2,10 @@ import {ProductInterface} from "../../types/Product";
 import PageTemplate from "./index.html";
 import "./index.scss";
 import { promokod } from "../../components/app/app";
-
 import { cart } from "../../components/app/app";
 import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
-//import { updateDataInHeader } from "../../types/updateDataInHeader";
-//import header from "../../components/view/header";
 import header from "../../components/view/header";
+import {replaceHash} from "../../utils/replaceHash";
 
 class ProductPage {
     private container: HTMLElement;
@@ -113,7 +111,8 @@ class ProductPage {
 			buttonBuyNode.addEventListener('click', (event: Event) => {
 				if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
 					if (cart.checkIfItemInCart(this.product.id)) {
-						window.location.href="/#cart";
+
+						window.location.href = replaceHash(window.location.href, "#cart")
 					}
 					else {
 						cart.addItemToCart(this.product.id);
@@ -125,10 +124,8 @@ class ProductPage {
 
 						setCartInfoInLocal(cart);
 						cart.updateDataInHeader(header);
-
-						window.location.href="/#cart";
+						window.location.href = replaceHash(window.location.href, "#cart")
 					}
-					//window.location.href="/#cart";
 				}
 			});
 		}

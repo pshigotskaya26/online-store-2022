@@ -4,9 +4,9 @@ import {ProductItem} from "../productItem";
 import {ModesViewKeys} from "../modeViewProductsList";
 import {cart} from "../../app/app";
 import {setCartInfoInLocal} from "../../../types/setCartInfoInLocal";
-// import {updateDataInHeader} from "../../../types/updateDataInHeader";
 import header from "../header";
-import { promokod } from "../../app/app";
+import {promokod} from "../../app/app";
+import {replaceHash} from "../../../utils/replaceHash";
 
 export class ProductsList {
     controller: Controller;
@@ -77,30 +77,26 @@ export class ProductsList {
                             cart.addItemToCart(+parentId);
                             cart.calculateGeneralCount();
                             cart.calculateGeneralPrice();
-							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-							cart.calculateGeneralDiscountSumm();
+                            cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+                            cart.calculateGeneralDiscountSumm();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
-							cart.updateDataInHeader(header);
-                            // updateDataInHeader(header);
+                            cart.updateDataInHeader(header);
                         } else {
                             event.target.innerText = 'В корзину';
                             cart.removeItemFromCart(+parentId);
                             cart.calculateGeneralCount();
                             cart.calculateGeneralPrice();
-							cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
-							cart.calculateGeneralDiscountSumm();
+                            cart.calculateGeneralDiscount(promokod.arrayAppliedPromokod);
+                            cart.calculateGeneralDiscountSumm();
                             console.log('cart after add item: ', cart);
                             setCartInfoInLocal(cart);
-							cart.updateDataInHeader(header);
-                            // updateDataInHeader(header);
+                            cart.updateDataInHeader(header);
                         }
                     } else {
-                        window.location.href = `/#product/${parentId}`
+                        window.location.href = replaceHash(window.location.href, "#product/" + parentId)
                     }
                 }
-
-
             }
         })
     }

@@ -184,7 +184,7 @@ export class ProductsModel {
     }
 
     setCategories(value: string[]) {
-        this.paramsFilter.categories = value
+        this.paramsFilter.categories = value.map(el => el)
     }
 
     handleCategories(value: string) {

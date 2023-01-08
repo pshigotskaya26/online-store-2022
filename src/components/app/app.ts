@@ -103,9 +103,9 @@ class App {
         }
     }
 
-    private enableRouteChange() {
-        addEventListener("hashchange", this.handleURLParams)
-        addEventListener("popstate", this.handleURLParams)
+    private enableRouteChange = () => {
+        window.addEventListener("hashchange", this.handleURLParams)
+        window.addEventListener("popstate", this.handleURLParams)
     }
 
     handleURLParams = () => {
@@ -113,6 +113,8 @@ class App {
         if (URLParams.queryParams) {
             this.controller.setQueryParamsFromURLToModel(URLParams.queryParams)
         }
+
+        cart.updateDataInHeader(Header)
         this.renderNewPage(URLParams)
     }
 
@@ -140,6 +142,7 @@ class App {
             this._checkLocation()
 
             this.container.append(Footer)
+
             this.enableRouteChange()
         }, true)
 

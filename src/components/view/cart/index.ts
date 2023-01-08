@@ -1,105 +1,110 @@
-import { CartItemInterface } from "../../../types/cart";
+import {CartItemInterface} from "../../../types/cart";
 import CartItem from "../cartItem";
-import { productsData } from "../../../data/products";
-import header from "../header";
-import { promokod } from "../../app/app";
-import { PromokodItemInterface } from "../../../types/promokod";
-import PromokodItem from "../promokodItem/promokodItem";
+import {productsData} from "../../../data/products";
+import {PromokodItemInterface} from "../../../types/promokod";
 
 class Cart {
-	generalCountInCart: number;
-	generalSummInCart: number;
-	generalDiscount: number;
-	discountSumm: number;
-	arrayCartItems: CartItemInterface[];
+    generalCountInCart: number;
+    generalSummInCart: number;
+    generalDiscount: number;
+    discountSumm: number;
+    arrayCartItems: CartItemInterface[];
 
-	constructor() {
-		this.generalCountInCart = 0;
-		this.generalSummInCart = 0;
-		this.generalDiscount = 0;
-		this.discountSumm = 0;
-		this.arrayCartItems = [];
-	}
+    constructor() {
+        this.generalCountInCart = 0;
+        this.generalSummInCart = 0;
+        this.generalDiscount = 0;
+        this.discountSumm = 0;
+        this.arrayCartItems = [];
+    }
 
-	addItemToCart(id: number) {
-		let price = productsData.filter(product => product.id === id)[0].price;
-		let cartItem = new CartItem(id, 1, price);
-		this.arrayCartItems.push(cartItem);
-	}
+    addItemToCart(id: number) {
+        let price = productsData.filter(product => product.id === id)[0].price;
+        let cartItem = new CartItem(id, 1, price);
+        this.arrayCartItems.push(cartItem);
+    }
 
-	removeItemFromCart(id: number) {
-		this.arrayCartItems = this.arrayCartItems.filter(product => product.id !== id);
-	}
+    removeItemFromCart(id: number) {
+        this.arrayCartItems = this.arrayCartItems.filter(product => product.id !== id);
+    }
 
-	changeCountOfCartItem(id: number, newCount: number): void {
-		let existInCart = this.checkIfItemInCart(id);
+    changeCountOfCartItem(id: number, newCount: number): void {
+        let existInCart = this.checkIfItemInCart(id);
 
-		if (existInCart) {
-			this.arrayCartItems.forEach(product => {
-				if (product.id === id) {
-					product.count = newCount;
-				}
-				return product;
-			});
-		}
-	}
+        if (existInCart) {
+            this.arrayCartItems.forEach(product => {
+                if (product.id === id) {
+                    product.count = newCount;
+                }
+                return product;
+            });
+        }
+    }
 
-	checkIfItemInCart(id: number): boolean {
-		if (this.arrayCartItems.filter(cartItem => cartItem.id === id)[0] !== undefined) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+    checkIfItemInCart(id: number): boolean {
+        return this.arrayCartItems.filter(cartItem => cartItem.id === id)[0] !== undefined;
+    }
 
-	calculateGeneralCount() {
-		if (this.arrayCartItems.length === 0) {
-			this.generalCountInCart = 0;
-		}
-		else {
-			this.generalCountInCart = this.arrayCartItems.reduce((sum, currentCartItem) => {
-				return sum + currentCartItem.count;
-			}, 0);
-		}
-	}
+    calculateGeneralCount() {
+        if (this.arrayCartItems.length === 0) {
+            this.generalCountInCart = 0;
+        } else {
+            this.generalCountInCart = this.arrayCartItems.reduce((sum, currentCartItem) => {
+                return sum + currentCartItem.count;
+            }, 0);
+        }
+    }
 
-	calculateGeneralPrice() {
-		if (this.arrayCartItems.length === 0) {
-			this.generalSummInCart = 0;
-		}
-		else {
-			this.generalSummInCart = this.arrayCartItems.reduce((sum, currentCartItem) => {
-				return sum + (currentCartItem.count * currentCartItem.price);
-			}, 0);
-		}
-	}
-	
-	calculateGeneralDiscount(arrayOfPromokods: PromokodItemInterface[]) {
-		let sumOfDiscounts = arrayOfPromokods.reduce((sum, currentPromokod) => {
-			return sum + currentPromokod.discount;
-		}, 0);
+    calculateGeneralPrice() {
+        if (this.arrayCartItems.length === 0) {
+            this.generalSummInCart = 0;
+        } else {
+            this.generalSummInCart = this.arrayCartItems.reduce((sum, currentCartItem) => {
+                return sum + (currentCartItem.count * currentCartItem.price);
+            }, 0);
+        }
+    }
 
-		this.generalDiscount = sumOfDiscounts;
-	}
+    calculateGeneralDiscount(arrayOfPromokods: PromokodItemInterface[]) {
+        let sumOfDiscounts = arrayOfPromokods.reduce((sum, currentPromokod) => {
+            return sum + currentPromokod.discount;
+        }, 0);
 
-	calculateGeneralDiscountSumm() {
-		this.discountSumm = this.generalSummInCart - ((this.generalSummInCart * this.generalDiscount) / 100);
-	}
+        this.generalDiscount = sumOfDiscounts;
+    }
+
+    calculateGeneralDiscountSumm() {
+        this.discountSumm = this.generalSummInCart - ((this.generalSummInCart * this.generalDiscount) / 100);
+    }
 
 
+    updateDataInHeader(header: HTMLElement) {
+        let countInHeader: HTMLElement | null = header.querySelector('.basket-info__count');
+        let sumInHeader: HTMLElement | null = header.querySelector('.basket-info__sum');
+        if (countInHeader) {
+            countInHeader.innerHTML = `${this.generalCountInCart} <span class="basket-unit">шт.</span>`;
+        }
+        if (sumInHeader) {
+            sumInHeader.innerHTML = `${this.generalSummInCart} $<span class="basket-unit"></span>`;
+        }
+    }
 
-	updateDataInHeader(header: HTMLElement) {
-		let countInHeader: HTMLElement | null = header.querySelector('.basket-info__count');
-		let sumInHeader: HTMLElement | null = header.querySelector('.basket-info__sum');
-	
-		if (countInHeader) {
-			countInHeader.innerHTML = `${this.generalCountInCart} <span class="basket-unit">шт.</span>`;
-		}
-		if (sumInHeader) {
-			sumInHeader.innerHTML = `${this.generalSummInCart} $<span class="basket-unit"></span>`;
-		}
-	}
+    clearCart() {
+        this.clearLocalStorage()
+        this.arrayCartItems = []
+        this.calculateGeneralCount()
+        this.calculateGeneralDiscountSumm()
+        this.calculateGeneralPrice()
+        this.clearLocalStorage()
+    }
+
+    clearLocalStorage = () => {
+        localStorage.removeItem("generalCount")
+        localStorage.removeItem("generalSum")
+        localStorage.removeItem("generalDiscount")
+        localStorage.removeItem("discountSumm")
+        localStorage.removeItem("arrayCartItems")
+    }
 }
 
 export default Cart;

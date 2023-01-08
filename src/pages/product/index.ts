@@ -113,7 +113,7 @@ class ProductPage {
 				if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
 					if (cart.checkIfItemInCart(this.product.id)) {
 						setIsVisibleModal(false);
-						window.location.href="/#cart";
+						window.location.href = replaceHash(window.location.href, "#cart")
 					}
 					else {
 						cart.addItemToCart(this.product.id);
@@ -127,7 +127,7 @@ class ProductPage {
 						cart.updateDataInHeader(header);
 
 						setIsVisibleModal(false);
-						window.location.href="/#cart";
+						window.location.href = replaceHash(window.location.href, "#cart")
 						
 					}
 					//window.location.href="/#cart";

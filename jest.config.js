@@ -1,3 +1,7 @@
 module.exports = {
-  "testEnvironment": "jsdom"
+  "testEnvironment": "jsdom",
+  "moduleNameMapper": {
+    '\\.(css|scss|jpg|jpeg|png|gif|webp|svg)$': 'identity-obj-proxy',
+
+  }
 }

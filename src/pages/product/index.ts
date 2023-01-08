@@ -8,6 +8,7 @@ import { setCartInfoInLocal } from "../../types/setCartInfoInLocal";
 //import { updateDataInHeader } from "../../types/updateDataInHeader";
 //import header from "../../components/view/header";
 import header from "../../components/view/header";
+import { setIsVisibleModal } from "../../types/setIsVisibleModal";
 
 class ProductPage {
     private container: HTMLElement;
@@ -113,6 +114,7 @@ class ProductPage {
 			buttonBuyNode.addEventListener('click', (event: Event) => {
 				if (event.target instanceof HTMLElement && event.target.classList.contains('button-buy')) {
 					if (cart.checkIfItemInCart(this.product.id)) {
+						setIsVisibleModal(false);
 						window.location.href="/#cart";
 					}
 					else {
@@ -126,7 +128,9 @@ class ProductPage {
 						setCartInfoInLocal(cart);
 						cart.updateDataInHeader(header);
 
+						setIsVisibleModal(false);
 						window.location.href="/#cart";
+						
 					}
 					//window.location.href="/#cart";
 				}

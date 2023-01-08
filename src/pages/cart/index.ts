@@ -21,6 +21,7 @@ import PromokodOffer from '../../components/view/promokodOffer';
 import CartProductList from '../../components/view/cartProductList';
 import {Modal} from "../../components/view/modal";
 import FormOrder from "../../components/view/formOrder";
+import { setIsVisibleModal } from '../../types/setIsVisibleModal';
 
 class CartPage {
     private container: HTMLElement;
@@ -81,6 +82,10 @@ class CartPage {
 
 		let promokodSearchBlock: HTMLElement | null = mainContainer.querySelector('.promokod__search');
 		promokodSearchBlock?.append(this.promokodSearchHTML);
+
+		
+
+		
 		
         template.append(mainContainer);
         return template;

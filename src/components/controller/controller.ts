@@ -5,6 +5,8 @@ import {ModesViewKeys} from "../view/modeViewProductsList";
 import {FilterParams, keysParamsFilter} from "../../types/FilterParams";
 import {FormData} from "../../types/formData";
 import {replaceHash} from "../../utils/replaceHash";
+import {splitArrayAndChangeSpaces} from "../../utils/splitArrayAndChangeSpaces";
+import getOriginURL from "../../utils/getOriginURL";
 
 class Controller {
     model: Model
@@ -43,10 +45,10 @@ class Controller {
                 this.model.setSearchValue(value)
             }
             if (key === keysParamsFilter.brands) {
-                this.model.setBrands(value.split(",").map(el => el.replace(/%20/g, " ")))
+                this.model.setBrands(splitArrayAndChangeSpaces(value))
             }
             if (key === keysParamsFilter.categories) {
-                this.model.setCategories(value.split(",").map(el => el.replace(/%20/g, " ")))
+                this.model.setCategories(splitArrayAndChangeSpaces(value))
             }
             if (key === keysParamsFilter.stocks) {
                 let [from, to] = value.split(",")
@@ -86,20 +88,21 @@ class Controller {
         return this.model.getFilteredProducts()
     }
 
-    updateURL() {
+    updateURLProductsPage() {
         let url = this.generateURL(this.model.paramsFilter, this.model.modeView, this.model.modeSort)
-        window.location.href =  replaceHash(window.location.href, "#products" + url)
+        let href = window.location.href;
+        window.history.pushState({}, "", getOriginURL(href) + "/#products" + url);
     }
 
 
     setView(mode: ModesViewKeys) {
         this.model.setModeView(mode)
-        this.updateURL()
+        this.updateURLProductsPage()
     }
 
     setSort(mode: SortKeys) {
         this.model.setModeSort(mode)
-        this.updateURL()
+        this.updateURLProductsPage()
     }
 
     getCurrentView(): ModesViewKeys {
@@ -116,7 +119,7 @@ class Controller {
 
     resetFilterParams() {
         this.model.resetParamsFilter()
-        this.updateURL()
+        this.updateURLProductsPage()
     }
 
     generateURL(obj: FilterParams, mode: ModesViewKeys, sort: SortKeys): string {

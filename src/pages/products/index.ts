@@ -14,7 +14,7 @@ class ProductsPage {
 
     constructor(id: string, controller: Controller) {
         this.controller = controller
-        this.container = document.createElement("main");
+        this.container = document.createElement("div");
         this.container.classList.add("main")
         this.container.id = id;
 

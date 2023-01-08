@@ -97,7 +97,7 @@ export class FilterProducts {
                 } else {
                     this.controller.handleFilterParams(name, value)
                 }
-                this.controller.updateURL()
+                this.controller.updateURLProductsPage()
                 let category = event.target.name as keyof FilterData
                 this.update(category)
                 this.updateProductsList()

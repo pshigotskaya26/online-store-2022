@@ -1,0 +1,16 @@
+.error_wrapper {
+  min-height: calc(100vh - 200px);
+}
+
+
+.errortext {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  width: auto;
+  font-size: 100px;
+  color: gray;
+  height: 100%;
+  padding-top: 80px;
+}
+

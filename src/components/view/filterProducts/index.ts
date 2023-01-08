@@ -1,10 +1,10 @@
 import {createInputFieldHTMLElement} from "../inputField";
-import CheckBoxField from "../checkBoxField";
-import MultiplyRangeField from "../multiplyRangeField";
 import Controller from "../../controller/controller";
 import {keysParamsFilter} from "../../../types/FilterParams";
 import {CountedProduct, RangeCounterProducts} from "../../../types/Product";
 import {Button} from "../button";
+import CheckBoxField from "../checkBoxField";
+import MultiplyRangeField from "../multiplyRangeField";
 
 interface FilterData {
     search: string,
@@ -14,62 +14,80 @@ interface FilterData {
     stocks: RangeCounterProducts
 }
 
-let RESET = "Сбросить данные"
-let COPY_URL = "Копировать URL"
+const RESET = "Сбросить данные"
+const COPY_URL = "Копировать URL"
 
 export class FilterProducts {
     controller: Controller;
     root: HTMLDivElement;
     form: HTMLFormElement;
+    categoriesField: CheckBoxField;
+    brandsField: CheckBoxField;
+    pricesField: MultiplyRangeField;
+    stocksField: MultiplyRangeField
 
     constructor(controller: Controller, root: HTMLDivElement, private updateProductsList: () => void) {
         this.root = root;
         this.form = document.createElement("form")
         this.handlerForm()
         this.controller = controller
-
+        this.categoriesField = new CheckBoxField("Категория", keysParamsFilter.categories, keysParamsFilter.categories)
+        this.brandsField = new CheckBoxField("Бренд", keysParamsFilter.brands, keysParamsFilter.brands)
+        this.pricesField = new MultiplyRangeField("Стоимость", keysParamsFilter.prices, keysParamsFilter.prices)
+        this.stocksField = new MultiplyRangeField("Количество на складе", keysParamsFilter.stocks, keysParamsFilter.stocks)
     }
 
-    createFieldsForm({search, brands, categories, prices, stocks}: FilterData): HTMLElement {
+    createFieldsForm = ({search, brands, categories, prices, stocks}: FilterData): HTMLElement => {
         let formFields = document.createElement("div")
-        const { outerHTML: outerHTML_InputSearch } = createInputFieldHTMLElement("Поиск",
-            "text",
-            keysParamsFilter.search,
-            keysParamsFilter.search,
-            search,)
 
-        formFields.innerHTML = `
-            ${outerHTML_InputSearch}
-            ${new CheckBoxField("Категория", keysParamsFilter.categories, keysParamsFilter.categories, categories).render().outerHTML}
-            ${new CheckBoxField("Бренд", keysParamsFilter.brands, keysParamsFilter.brands, brands).render().outerHTML}
-            ${new MultiplyRangeField("Стоимость", keysParamsFilter.prices, keysParamsFilter.prices, prices).render().outerHTML} 
-            ${new MultiplyRangeField("Количество на складе", keysParamsFilter.stocks, keysParamsFilter.stocks, stocks).render().outerHTML}
+        const searchHTMlElement = createInputFieldHTMLElement("Поиск", "text", keysParamsFilter.search, keysParamsFilter.search, search)
+        const categoriesHTMlElement = this.categoriesField.render(categories)
+        const brandsHTMlElement = this.brandsField.render(brands)
+        const costsHTMlElement = this.pricesField.render(prices)
+        const stocksHTMlElement = this.stocksField.render(stocks)
 
-            <div class="filter-buttons">
+        formFields.append(searchHTMlElement)
+        formFields.append(categoriesHTMlElement)
+        formFields.append(brandsHTMlElement)
+        formFields.append(costsHTMlElement)
+        formFields.append(stocksHTMlElement)
+
+        let filterButtons = document.createElement("div")
+        filterButtons.classList.add("filter-buttons")
+        filterButtons.innerHTML = `
                 ${new Button(RESET).render().outerHTML}
                 ${new Button(COPY_URL).render().outerHTML}
-            </div>
         `
+        formFields.append(filterButtons)
+
         return formFields
     }
 
-    render(data: FilterData) {
+    render(data: FilterData): void {
         let fieldsForm = this.createFieldsForm(data)
         this.form.append(fieldsForm)
         this.root.append(this.form)
     }
 
-    update() {
+    update(category?: keyof FilterData): void {
         let data = this.controller.getDataForForm()
-        console.log(data)
-        this.form.innerHTML = ""
-        this.form.innerHTML = this.createFieldsForm(data).outerHTML
+        this.categoriesField.update(data.categories)
+
+        this.brandsField.update(data.brands)
+        if (category !== "prices") {
+            this.pricesField.update(data.prices)
+        }
+        if (category !== "stocks") {
+            this.stocksField.update(data.stocks)
+        }
+
     }
 
-    handlerForm() {
-        this.form.addEventListener("change", (event) => {
+    handlerForm(): void {
+        this.form.addEventListener("input", (event) => {
             event.preventDefault()
             if (event.target instanceof HTMLInputElement && event.currentTarget instanceof HTMLFormElement) {
+
                 let name = event.target.getAttribute("name") as keysParamsFilter
                 let value = event.target.value
                 let dataName: string | null = event.target.getAttribute("data-name")
@@ -80,13 +98,15 @@ export class FilterProducts {
                     this.controller.handleFilterParams(name, value)
                 }
                 this.controller.updateURL()
-                this.update()
+                let category = event.target.name as keyof FilterData
+                this.update(category)
                 this.updateProductsList()
             }
         })
 
         this.form.addEventListener("click", (event) => {
             let target = event.target
+
             if (target instanceof HTMLButtonElement && event.currentTarget instanceof HTMLFormElement) {
                 if (target.type === "button" && target.value === RESET) {
                     this.controller.resetFilterParams()

@@ -49,10 +49,12 @@ class Controller {
             }
             if (key === keysParamsFilter.stocks) {
                 let [from, to] = value.split(",")
+
                 this.model.setStocks([+from, +to])
             }
             if (key === keysParamsFilter.prices) {
                 let [from, to] = value.split(",")
+
                 this.model.setPrices([+from, +to])
             }
             if (key === "mode") {

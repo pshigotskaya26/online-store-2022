@@ -1,8 +1,5 @@
-import { Button } from './../../components/view/button/index';
-import { CheckBoxField } from './../../components/view/checkBoxField/index';
-import { PromokodItemInterface } from './../../types/promokod';
-import { ProductInterface } from './../../types/Product';
-import { promokod } from './../../components/app/app';
+import { PromokodItemInterface } from '../../types/promokod';
+import { promokod } from '../../components/app/app';
 import CartLayout from "./index.html"
 import "./style.scss"
 import {CartItemInterface} from "../../types/cart";

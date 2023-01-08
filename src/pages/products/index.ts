@@ -39,8 +39,6 @@ class ProductsPage {
         mainContainer.append(this.filterBlock.render())
         mainContainer.append(this.productsList.render())
 
-        // this.setActiveToButton();
-
         template.append(mainContainer)
         return template;
     }
@@ -58,7 +56,6 @@ class ProductsPage {
 
 
     updateProductsList = () => {
-        console.log("updateList")
         this.productsList.updateCounterElements()
         this.productsList.productsList.update()
     }

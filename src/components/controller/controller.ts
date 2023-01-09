@@ -35,6 +35,7 @@ class Controller {
     }
 
     setQueryParamsFromURLToModel(queryParams: string) {
+
         let arr = queryParams.split("&")
 
         arr.forEach(el => {

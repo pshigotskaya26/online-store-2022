@@ -1,0 +1,26 @@
+.pagination__wrapper {
+  display: flex;
+  align-items: center
+}
+
+
+.pagination {
+  display: flex;
+}
+
+.pagination__item {
+  border: 1px solid gray;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.pagination__rows {
+  font-size: 24px;
+  border: 1px solid;
+  padding: 7px;
+  margin-right: 10px;
+}
+
+.pagination__item-active {
+  background: #af9de8;
+}

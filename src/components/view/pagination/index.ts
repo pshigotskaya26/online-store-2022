@@ -7,13 +7,14 @@ class Pagination {
     elements: number
     pagesHTML: HTMLElement;
     handlerPage: () => void
-    constructor(elements: number, handlerPage: () => void, rows: number, currentPage: number, ) {
+
+    constructor(elements: number, handlerPage: () => void, rows: number, currentPage: number,) {
         this.rowsPerPageHTML = document.createElement("input")
         this.rows = rows
         this.pagesHTML = document.createElement("div")
         this.currentPage = currentPage
         this.elements = elements
-        this.enableHandlers()
+
         this.handlerPage = handlerPage
     }
 
@@ -25,7 +26,7 @@ class Pagination {
 
         this.rowsPerPageHTML.classList.add("pagination__rows")
         this.rowsPerPageHTML.type = "number"
-        this.rowsPerPageHTML.min = "0"
+        this.rowsPerPageHTML.min = String(1)
         this.rowsPerPageHTML.max = String(10)
         this.rowsPerPageHTML.defaultValue = String(this.rows)
 
@@ -35,7 +36,7 @@ class Pagination {
         paginationWrapper.append(settings)
         this.createPages(this.elements)
         paginationWrapper.append(this.pagesHTML)
-
+        this.enableHandlers()
         return paginationWrapper
     }
 
@@ -63,14 +64,32 @@ class Pagination {
 
     }
 
+    decrementCurrentPage() {
+        this.currentPage = this.currentPage - 1
+    }
+
     enableHandlers() {
-        this.rowsPerPageHTML.addEventListener("input", (e) => {
-            if (e.target instanceof HTMLInputElement) {
-                this.rows = +e.target.value
-                this.updatePages()
-                this.handlerPage()
-            }
-        })
+
+        this.rowsPerPageHTML.addEventListener("input", this.handleElementsPerPage)
+
+        this.pagesHTML.addEventListener("click", this.handleClickPage)
+
+    }
+
+    handleElementsPerPage = (e: Event) => {
+        if (e.target instanceof HTMLInputElement) {
+            this.rows = +e.target.value
+            this.updatePages()
+            this.handlerPage()
+        }
+    }
+
+    handleClickPage = (e: Event) => {
+        if (e.target instanceof HTMLElement && e.target.classList.contains("pagination__item")) {
+            this.currentPage = e.target.textContent ? +e.target.textContent : 1
+            this.updatePages()
+            this.handlerPage()
+        }
     }
 }
 

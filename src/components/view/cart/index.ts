@@ -128,6 +128,8 @@ class Cart {
         })
     }
 
+
+
     setCurrentPage(page: number) {
         this.currentPage = page
     }

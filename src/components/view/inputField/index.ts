@@ -13,6 +13,7 @@ export function createInputFieldHTMLElement(
     titleEl.innerText = title
     wrapper.append(titleEl)
     let input = document.createElement("input")
+
     input.classList.add("search-input")
     input.type = typeInput
     input.name = nameInput

@@ -20,7 +20,7 @@ export class InputForm {
         let textError = this.root.querySelector(".form__error-text")
         input?.addEventListener("blur", (e) => {
             if (e.target instanceof HTMLInputElement) {
-                let res = this.pattern.test(e.target.value)
+                let res = !!e.target.value.match(this.pattern)
                 if (!res) {
                     textError?.classList.remove("hidden")
                 }
@@ -31,10 +31,6 @@ export class InputForm {
                 textError?.classList.add("hidden")
             }
         })
-    }
-
-    createFieldRedirect() {
-        return document.createElement("div")
     }
 
     render() {
@@ -51,7 +47,9 @@ export class InputForm {
         input.required = true
         input.ariaLabel = this.errorText
         input.placeholder = this.placeholder
-        input.pattern = this.pattern.toString().slice(1, this.pattern.toString().lastIndexOf("/"))
+        if (this.type !== "text") {
+            input.pattern = this.pattern.toString().slice(1, this.pattern.toString().lastIndexOf("/"))
+        }
         let textError = document.createElement("p")
         textError.classList.add("form__error-text")
         textError.classList.add("hidden")

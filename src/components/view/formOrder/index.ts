@@ -6,6 +6,7 @@ export class FormOrder {
     isOrder: boolean;
     successMessage: HTMLElement;
     cbSubmit: () => void
+
     constructor(cbSubmit: () => void) {
         this.root = document.createElement("form")
         this.root.action = "#"
@@ -19,11 +20,25 @@ export class FormOrder {
     handlerForm = () => {
         this.root.addEventListener('submit', (e) => {
             e.preventDefault()
-            this.successMessage.innerHTML = "<h2>Заказ принят, перенаправление на главную страницу</h2>"
-            setTimeout(() => {
-                this.cbSubmit()
-            }, 4000)
+
+            let count = this.root.querySelectorAll("input").length - 1
+            let errors = this.root.querySelectorAll(".hidden").length;
+            if (count === errors) {
+                this.successMessage.innerHTML = "<h2>Заказ принят, перенаправление на главную страницу</h2>"
+                setTimeout(() => {
+
+                    this.cbSubmit()
+
+                }, 4000)
+
+            } else {
+                this.successMessage.innerHTML = "<h2>Заполните все поля</h2>"
+            }
         })
+
+    }
+    writeMessageOrder = () => {
+        this.successMessage.innerHTML = "<h2>Заказ принят, перенаправление на главную страницу</h2>"
     }
 
     render(): HTMLElement {
@@ -34,8 +49,8 @@ export class FormOrder {
                 name: "name",
                 type: "text",
                 placeholder: "Иванов Иван",
-                errorText: "менее двух слов, длина каждого не менее 3 символов",
-                regex: new RegExp(/[а-яa-z]{3,}\s[а-яa-z]{3,}/, "i")
+                errorText: "2 слова от 3 символов",
+                regex: new RegExp(/[A-Яа-яA-Za-z]{3,}\s[A-Яа-яA-Za-z]{3,}/)
             },
             {
                 label: "Номер телефона",
